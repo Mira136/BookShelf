@@ -1,49 +1,199 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    bool isLoggedIn = true;   // 🔴 change true/false to test
+
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+    Func<string, string, string> isActive = (controller, action) =>
+    {
+        return currentController == controller && currentAction == action ? "active" : "";
+    };
+}
+
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BookShelf</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BookShelf.styles.css" asp-append-version="true" />
+    <title>BookShelf</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", required: false)
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookShelf</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+
+    <!-- ================= HEADER ================= -->
+    <div class="header">
+
+        <div class="header-left">
+            <img src="~/images/logo.png" class="logo-img" />
+            <span>BookShelf</span>
+        </div>
+
+        <div class="header-right">
+
+            <div class="search-box">
+                <input type="text" placeholder="Search books..." />
+                <i class="fa fa-search"></i>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+            @if (isLoggedIn)
+            {
+                <!-- AFTER LOGIN -->
+                <i class="fa fa-bell header-icon"></i>
+                <i class="fa fa-user header-icon"></i>
+            }
+            else
+            {
+                <!-- BEFORE LOGIN -->
+                <a href="/Account/Login" class="header-link">Login</a>
+                <a href="/Account/Register" class="header-link">Sign up</a>
+            }
+
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - BookShelf - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- ================= MAIN ================= -->
+    <div class="main-container">
+
+        <!-- ========== SIDEBAR ========== -->
+        <div class="sidebar">
+            <ul>
+
+                <!-- DASHBOARD -->
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- CATEGORY -->
+                <li>
+                    <a href="#">
+                        <i class="fa fa-th-large"></i>
+                        <span>Category</span>
+                    </a>
+                </li>
+
+                @if (isLoggedIn)
+                {
+                    <!-- ===== LOGGED IN MENU ===== -->
+
+                    <li class="@isActive("Order", "Cart")">
+                        <a href="/Order/Cart">
+                            <i class="fa fa-cart-shopping"></i>
+                            <span>Cart</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-heart"></i>
+                            <span>Wishlist</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-box"></i>
+                            <span>My Orders</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-upload"></i>
+                            <span>Upload PDF</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-book-open"></i>
+                            <span>Upload Book</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-book"></i>
+                            <span>E-Books</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-right-from-bracket"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <!-- ===== GUEST MENU ===== -->
+
+                    <li>
+                        <a href="/Account/Login">
+                            <i class="fa fa-cart-shopping"></i>
+                            <span>Cart</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/Account/Login">
+                            <i class="fa fa-heart"></i>
+                            <span>Wishlist</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/Account/Login">
+                            <i class="fa fa-upload"></i>
+                            <span>Upload PDF</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/Account/Login">
+                            <i class="fa fa-book-open"></i>
+                            <span>Upload Book</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/Account/Login">
+                            <i class="fa fa-book"></i>
+                            <span>E-Books</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                }
+
+            </ul>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+        <!-- ========== PAGE CONTENT ========== -->
+        <div class="content">
+            @RenderBody()
+        </div>
+
+    </div>
+
 </body>
 </html>

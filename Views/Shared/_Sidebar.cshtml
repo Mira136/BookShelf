@@ -1,0 +1,34 @@
+﻿<aside class="sidebar">
+    <nav class="sidebar-nav">
+        <a href="@Url.Action("Index", "Home")" class="nav-item @(ViewData["Active"]?.ToString() == "Dashboard" ? "active" : "")">
+            <i class="fa fa-home"></i><span>Dashboard</span>
+        </a>
+        <a href="@Url.Action("Category", "Home")" class="nav-item @(ViewData["Active"]?.ToString() == "Category" ? "active" : "")">
+            <i class="fa fa-th-large"></i><span>Category</span>
+        </a>
+        <a href="@Url.Action("Cart", "Order")" class="nav-item @(ViewData["Active"]?.ToString() == "Cart" ? "active" : "")">
+            <i class="fa fa-cart-shopping"></i><span>Cart</span>
+        </a>
+        <a href="@Url.Action("Index", "Wishlist")" class="nav-item @(ViewData["Active"]?.ToString() == "Wishlist" ? "active" : "")">
+            <i class="fa fa-heart"></i><span>Wishlist</span>
+        </a>
+        <a href="@Url.Action("Index", "Order")" class="nav-item @(ViewData["Active"]?.ToString() == "Orders" ? "active" : "")">
+            <i class="fa fa-box"></i><span>My Orders</span>
+        </a>
+        <a href="@Url.Action("UploadPDF", "Upload")" class="nav-item @(ViewData["Active"]?.ToString() == "UploadPDF" ? "active" : "")">
+            <i class="fa fa-upload"></i><span>Upload PDF</span>
+        </a>
+        <a href="@Url.Action("UploadBook", "Upload")" class="nav-item @(ViewData["Active"]?.ToString() == "UploadBook" ? "active" : "")">
+            <i class="fa fa-book-open"></i><span>Upload Book</span>
+        </a>
+        <a href="@Url.Action("Index", "EBooks")" class="nav-item @(ViewData["Active"]?.ToString() == "EBooks" ? "active" : "")">
+            <i class="fa fa-book"></i><span>E-Books</span>
+        </a>
+        <a href="@Url.Action("About", "Home")" class="nav-item @(ViewData["Active"]?.ToString() == "About" ? "active" : "")">
+            <i class="fa fa-info-circle"></i><span>About us</span>
+        </a>
+        <a href="@Url.Action("Logout", "Account")" class="nav-item">
+            <i class="fa fa-right-from-bracket"></i><span>Logout</span>
+        </a>
+    </nav>
+</aside>

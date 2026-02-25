@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
+}
+
+<!-- ===== BOOK CARDS ===== -->
+<div class="book-grid">
+
+    <!-- Book 1 -->
+    <div class="book-card">
+        <img src="~/images/book1.png" alt="Maths Textbook" />
+        <p class="book-title-text">Maths Textbook -XII</p>
+        <p class="book-sub">Education</p>
+        <div class="price">
+            <span class="old">₹240</span>
+            <span class="new">₹140</span>
+        </div>
+        <div class="card-buttons">
+            <button>View</button>
+            <i class="fa fa-heart wishlist-icon"></i>
+        </div>
+    </div>
+
+    <!-- Book 2 -->
+    <div class="book-card">
+        <img src="~/images/book8.png" alt="Oxford Dictionary" />
+        <p class="book-title-text">Oxford English Dictionary</p>
+        <p class="book-sub">Reference</p>
+        <div class="price">
+            <span class="old">₹250</span>
+            <span class="new">₹200</span>
+        </div>
+        <div class="card-buttons">
+            <button>View</button>
+            <i class="fa fa-heart wishlist-icon"></i>
+        </div>
+    </div>
+
+    <!-- Book 3 -->
+    <div class="book-card">
+        <img src="~/images/book3.png" alt="Artificial Intelligence" />
+        <p class="book-title-text">Artificial Intelligence</p>
+        <p class="book-sub">Computer Science / AI</p>
+        <div class="price">
+            <span class="old">₹740</span>
+            <span class="new">₹550</span>
+        </div>
+        <div class="card-buttons">
+            <button>View</button>
+            <i class="far fa-heart wishlist-icon"></i>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== PRICE DETAIL ===== -->
+<div class="price-detail-card">
+    <h3 class="price-detail-title">Price Detail</h3>
+
+    <table class="price-table">
+        <tr>
+            <td>Maths Textbook -XII</td>
+            <td>₹140</td>
+        </tr>
+        <tr>
+            <td>Oxford english Dictionay</td>
+            <td>₹200</td>
+        </tr>
+        <tr>
+            <td>Artificial Intelligence</td>
+            <td>₹550</td>
+        </tr>
+    </table>
+
+    <div class="order-total-row">
+        <span class="order-label">Order total</span>
+        <span class="order-amount">₹890</span>
+    </div>
+
+    <div class="continue-row">
+        <a class="btn-continue" href="/Order/Checkout">Continue</a>
+    </div>
+</div>

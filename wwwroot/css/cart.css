@@ -1,0 +1,144 @@
+﻿/* =========================
+   CART PAGE ONLY
+   (book card styles already
+   handled in site.css)
+========================= */
+/* Reduce extra space between sidebar and content */
+.content {
+    padding-left: 10px; /* controls gap from sidebar */
+}
+/* Override grid to show 3 cards max for cart */
+.book-grid {
+    grid-template-columns: repeat(3, 220px) !important;
+    justify-content: flex-start;
+    padding: 10px 20px 20px 10px !important;
+}
+
+/* Book title & subtitle inside card */
+.book-title-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #7a3535;
+    margin: 8px 0 2px 0;
+    text-align: left;
+}
+
+.book-sub {
+    font-size: 12px;
+    color: #888;
+    margin: 0 0 4px 0;
+    text-align: left;
+}
+
+/* Left-align price in cart */
+.book-card .price {
+    text-align: left;
+}
+
+/* Left-align buttons in cart */
+.book-card .card-buttons {
+    justify-content: flex-start;
+}
+
+/* =========================
+   PRICE DETAIL SECTION
+========================= */
+.price-detail-card {
+    margin: 10px 20px 30px 20px;
+    border-top: 2px solid #c4a1a1;
+    padding-top: 16px;
+}
+
+.price-detail-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 12px;
+    position: relative;
+    padding-bottom: 10px;
+}
+.price-detail-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 120px; /* length of the line */
+    height: 1px;
+    background: #7a3535; /* same theme color */
+    border-radius: 2px;
+    }
+.price-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+    .price-table tr td {
+        padding: 11px 16px;
+        color: #7a3535;
+        background: #f9f3f3;
+        border: none;
+    }
+
+    .price-table tr + tr td {
+        border-top: 1px solid #efe8e8;
+    }
+
+    .price-table td:last-child {
+        text-align: right;
+        font-weight: 600;
+        color: #333;
+    }
+
+/* =========================
+   ORDER TOTAL
+========================= */
+.order-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 4px 8px 4px;
+    border-top: 1.5px solid #ddd;
+    margin-top: 2px;
+}
+
+.order-label {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111;
+}
+
+.order-amount {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111;
+}
+
+/* =========================
+   CONTINUE BUTTON
+========================= */
+.continue-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+    padding-bottom: 10px;
+}
+
+.btn-continue {
+    background: #6b2d2d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 48px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.18s, transform 0.15s;
+    box-shadow: 0 3px 10px rgba(107,45,45,0.3);
+}
+
+    .btn-continue:hover {
+        background: #4e1f1f;
+        transform: translateY(-1px);
+    }
