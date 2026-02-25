@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    bool isLoggedIn = true;   // 🔴 CHANGE THIS: true = logged in, false = guest
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>BookShelf</title>
@@ -22,13 +26,25 @@
         </div>
 
         <div class="header-right">
+
             <div class="search-box">
                 <input type="text" placeholder="Search books..." />
                 <i class="fa fa-search"></i>
             </div>
 
-            <i class="fa fa-bell header-icon"></i>
-            <i class="fa fa-user header-icon"></i>
+            @if (isLoggedIn)
+            {
+                <!-- AFTER LOGIN -->
+                <i class="fa fa-bell header-icon"></i>
+                <i class="fa fa-user header-icon"></i>
+            }
+            else
+            {
+                <!-- BEFORE LOGIN -->
+                <a href="/Account/Login" style="color:#7b2f2f;font-weight:600;text-decoration:none;">Login</a>
+                <a href="/Account/Register" style="color:#7b2f2f;font-weight:600;text-decoration:none;">Sign up</a>
+            }
+
         </div>
 
     </div>
@@ -40,14 +56,28 @@
             <ul>
                 <li class="active"><i class="fa fa-home"></i><span>Dashboard</span></li>
                 <li><i class="fa fa-th-large"></i><span>Category</span></li>
-                <li><i class="fa fa-cart-shopping"></i><span>Cart</span></li>
-                <li><i class="fa fa-heart"></i><span>Wishlist</span></li>
-                <li><i class="fa fa-box"></i><span>My Orders</span></li>
-                <li><i class="fa fa-upload"></i><span>Upload PDF</span></li>
-                <li><i class="fa fa-book-open"></i><span>Upload Book</span></li>
-                <li><i class="fa fa-book"></i><span>E-Books</span></li>
-                <li><i class="fa fa-info-circle"></i><span>About</span></li>
-                <li><i class="fa fa-right-from-bracket"></i><span>Logout</span></li>
+
+                @if (isLoggedIn)
+                {
+                    <li><i class="fa fa-cart-shopping"></i><span>Cart</span></li>
+                    <li><i class="fa fa-heart"></i><span>Wishlist</span></li>
+                    <li><i class="fa fa-box"></i><span>My Orders</span></li>
+                    <li><i class="fa fa-upload"></i><span>Upload PDF</span></li>
+                    <li><i class="fa fa-book-open"></i><span>Upload Book</span></li>
+                    <li><i class="fa fa-book"></i><span>E-Books</span></li>
+                    <li><i class="fa fa-info-circle"></i><span>About</span></li>
+                    <li><i class="fa fa-right-from-bracket"></i><span>Logout</span></li>
+                }
+                else
+                {
+                    <!-- REDIRECT TO LOGIN -->
+                    <li><a href="/Account/Login"><i class="fa fa-cart-shopping"></i><span>Cart</span></a></li>
+                    <li><a href="/Account/Login"><i class="fa fa-heart"></i><span>Wishlist</span></a></li>
+                    <li><a href="/Account/Login"><i class="fa fa-upload"></i><span>Upload PDF</span></a></li>
+                    <li><a href="/Account/Login"><i class="fa fa-book-open"></i><span>Upload Book</span></a></li>
+                    <li><a href="/Account/Login"><i class="fa fa-book"></i><span>E-Books</span></a></li>
+                    <li><i class="fa fa-info-circle"></i><span>About</span></li>
+                }
             </ul>
         </div>
 
