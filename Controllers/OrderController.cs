@@ -20,5 +20,9 @@ namespace BookShelf.Controllers
         {
             return View();
         }
+        public IActionResult Orders()
+        {
+            return View();
+        }
     }
 }

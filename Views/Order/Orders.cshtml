@@ -1,8 +1,53 @@
-﻿
-@{
-    ViewData["Title"] = "Orders";
+﻿@{
+    ViewData["Title"] = "My Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Orders</h1>
+@section Styles {
+    <link rel="stylesheet" href="~/css/orders.css" asp-append-version="true" />
+}
 
+<div class="orders-container">
+    <div class="orders-back">
+        <a asp-controller="Home" asp-action="Index" class="back-icon-btn">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <!-- Order Card -->
+    <div class="order-card">
+        <img src="~/images/book1.png" class="order-img" />
+
+        <div class="order-details">
+            <h3>Mathematics Textbook - XII</h3>
+            <p class="muted">Order ID : <b>#BK10234</b></p>
+            <p class="muted">Order Date : 12 Feb 2026</p>
+            <p class="total">Total : <span>₹140</span></p>
+        </div>
+    </div>
+
+    <!-- Order Card -->
+    <div class="order-card">
+        <img src="~/images/book8.png" class="order-img" />
+
+        <div class="order-details">
+            <h3>Oxford English Mini Dictionary</h3>
+            <p class="muted">Order ID : <b>#BK10189</b></p>
+            <p class="muted">Order Date : 05 Jan 2026</p>
+            <p class="total">Total : <span>₹200</span></p>
+        </div>
+    </div>
+
+    <!-- Order Card -->
+    <div class="order-card">
+        <img src="~/images/book2.png" class="order-img" />
+
+        <div class="order-details">
+            <h3>Artificial Intelligence</h3>
+            <p class="muted">Order ID : <b>#BK10074</b></p>
+            <p class="muted">Order Date : 20 Dec 2025</p>
+            <p class="total">Total : <span>₹550</span></p>
+        </div>
+    </div>
+
+</div>
