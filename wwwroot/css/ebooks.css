@@ -1,0 +1,244 @@
+﻿/* ============================================
+   ebooks.css — wwwroot/css/ebooks.css
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Patrick+Hand&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #fff;
+}
+
+/* ── HEADER ──────────────────────────────── */
+
+/* ── LAYOUT ──────────────────────────────── */
+.main-container {
+    display: flex;
+    min-height: calc(100vh - 70px);
+}
+
+
+/* ── CONTENT AREA ────────────────────────── */
+.content {
+    flex: 1;
+    padding: 30px 40px;
+    background: #fff;
+}
+
+/* ── PAGE TITLE ──────────────────────────── */
+.page-title {
+    text-align: center;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 700;
+    color: #264075;
+    margin-bottom: 25px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ── SEARCH BAR ──────────────────────────── */
+.ebook-search-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 28px;
+}
+
+.ebook-search-box {
+    position: relative;
+    width: min(420px, 100%);
+}
+
+    .ebook-search-box input {
+        width: 100%;
+        padding: 12px 42px 12px 18px;
+        border-radius: 15px;
+        border: none;
+        background: rgba(130, 56, 56, 0.20);
+        color: #803434;
+        font-size: 16px;
+        font-family: 'Inter', sans-serif;
+        outline: none;
+    }
+
+        .ebook-search-box input::placeholder {
+            color: #803434;
+            opacity: 0.8;
+        }
+
+    .ebook-search-box .search-icon {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #803434;
+        font-size: 17px;
+        pointer-events: none;
+    }
+
+/* ── EBOOK LIST ──────────────────────────── */
+.ebook-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ── EBOOK CARD ──────────────────────────── */
+.ebook-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: rgba(130, 56, 56, 0.11);
+    border: 2px solid #803434;
+    border-radius: 5px;
+    padding: 18px 22px;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+    .ebook-card:hover {
+        box-shadow: 0 6px 20px rgba(128, 52, 52, 0.18);
+        transform: translateY(-2px);
+    }
+
+/* PDF icon area */
+.ebook-pdf-icon {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #803434;
+    font-size: 42px;
+}
+
+/* Text info */
+.ebook-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.ebook-title {
+    color: #823838;
+    font-size: clamp(15px, 2vw, 22px);
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
+}
+
+.ebook-meta {
+    color: #803434;
+    font-size: clamp(13px, 1.4vw, 16px);
+    font-weight: 400;
+}
+
+    .ebook-meta strong {
+        font-weight: 700;
+    }
+
+/* Action buttons on right */
+.ebook-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+/* Download button */
+.btn-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    background: #803434;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+    .btn-download:hover {
+        background: #5e2424;
+        color: white;
+    }
+
+/* Open/Read button */
+.btn-read {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    background: transparent;
+    border: 3px solid #803434;
+    border-radius: 5px;
+    color: #803434;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+    .btn-read:hover {
+        background: #803434;
+        color: white;
+    }
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media (max-width: 900px) {
+    .sidebar {
+        display: none;
+    }
+
+    .content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .ebook-card {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .ebook-title {
+        white-space: normal;
+    }
+
+    .header-left {
+        width: 180px;
+        font-size: 16px;
+    }
+
+    .ebook-search-wrapper {
+        justify-content: center;
+    }
+}
+/* BACK BUTTON */
+.back-btn {
+    position: absolute;
+    left: 40px;
+    top: 30px;
+    border: 2px solid #803434;
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: #803434;
+    font-size: 20px;
+    transition: 0.2s;
+}
+
+    /* hover fill like your design */
+    .back-btn:hover {
+        background: #803434;
+        color: #fff;
+    }

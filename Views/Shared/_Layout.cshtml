@@ -41,13 +41,11 @@
 
             @if (isLoggedIn)
             {
-                <!-- AFTER LOGIN -->
                 <i class="fa fa-bell header-icon"></i>
                 <i class="fa fa-user header-icon"></i>
             }
             else
             {
-                <!-- BEFORE LOGIN -->
                 <a href="/Account/Login" class="header-link">Login</a>
                 <a href="/Account/Register" class="header-link">Sign up</a>
             }
@@ -77,6 +75,7 @@
                         <span>Category</span>
                     </a>
                 </li>
+
 
                 @if (isLoggedIn)
                 {
@@ -117,8 +116,10 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a href="#">
+                    <!-- 🔥 FIXED HERE -->
+                    <li class="@isActive("Home", "Ebooks")">
+                        <a href="/Home/Ebooks">
+                            <!-- FIX: was href="Ebooks" -->
                             <i class="fa fa-book"></i>
                             <span>E-Books</span>
                         </a>
@@ -140,7 +141,7 @@
                 }
                 else
                 {
-                    <!-- ===== GUEST MENU ===== -->
+                    <!-- ===== GUEST MENU -->
 
                     <li>
                         <a href="/Account/Login">
@@ -171,7 +172,7 @@
                     </li>
 
                     <li>
-                        <a href="/Account/Login">
+                        <a asp-controller="Home" asp-action="Ebooks">
                             <i class="fa fa-book"></i>
                             <span>E-Books</span>
                         </a>

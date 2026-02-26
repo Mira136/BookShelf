@@ -1,0 +1,161 @@
+﻿@* ============================================================
+   Views/EBooks/Ebooks.cshtml
+   Static page — ASP.NET Core MVC
+   ============================================================ *@
+
+@{
+   
+    Layout = null; @* Remove if you have a shared _Layout.cshtml *@
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    @* Font Awesome for icons *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    @* Your CSS *@
+    <link rel="stylesheet" href="@Url.Content("~/css/ebooks.css")" />
+</head>
+<body>
+
+
+    <!-- ══════════════════ MAIN ══════════════════ -->
+    <div class="main-container">
+
+
+        <!-- ── CONTENT ────────────────────────────── -->
+        <main class="content">
+
+            <a href="javascript:history.back()" class="back-btn">
+                <i class="fa fa-arrow-left"></i>
+            </a>
+
+            <!-- Page Title -->
+            <h1 class="page-title">E-books</h1>
+
+            <!-- Search Bar -->
+            <div class="ebook-search-wrapper">
+                <div class="ebook-search-box">
+                    <input type="text" placeholder="Search E-book here" id="ebookSearch" />
+                    <i class="fa fa-search search-icon"></i>
+                </div>
+            </div>
+
+            <!-- Ebook List -->
+            <div class="ebook-list" id="ebookList">
+
+                <!-- ── Card 1 ── -->
+                <div class="ebook-card">
+                    <div class="ebook-pdf-icon">
+                        <i class="fa-regular fa-file-pdf"></i>
+                    </div>
+                    <div class="ebook-info">
+                        <div class="ebook-title">Let Them &nbsp;|&nbsp; Mel Robbins &nbsp;|&nbsp; Self-Help &nbsp;|&nbsp; English</div>
+                        <div class="ebook-meta">
+                            Uploaded by : <strong>John</strong>
+                            &nbsp;&nbsp;&nbsp;
+                            Email : <strong>xyz@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="ebook-actions">
+                        <a href="#" class="btn-download" title="Download" download>
+                            <i class="fa fa-download"></i>
+                        </a>
+                        <a href="#" class="btn-read" title="Read Online">
+                            <i class="fa fa-book-open"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ── Card 2 ── -->
+                <div class="ebook-card">
+                    <div class="ebook-pdf-icon">
+                        <i class="fa-regular fa-file-pdf"></i>
+                    </div>
+                    <div class="ebook-info">
+                        <div class="ebook-title">The Midnight Library &nbsp;|&nbsp; Matt Haig &nbsp;|&nbsp; Fiction &nbsp;|&nbsp; English</div>
+                        <div class="ebook-meta">
+                            Uploaded by : <strong>Diva</strong>
+                            &nbsp;&nbsp;&nbsp;
+                            Email : <strong>xyz@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="ebook-actions">
+                        <a href="#" class="btn-download" title="Download" download>
+                            <i class="fa fa-download"></i>
+                        </a>
+                        <a href="#" class="btn-read" title="Read Online">
+                            <i class="fa fa-book-open"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ── Card 3 ── -->
+                <div class="ebook-card">
+                    <div class="ebook-pdf-icon">
+                        <i class="fa-regular fa-file-pdf"></i>
+                    </div>
+                    <div class="ebook-info">
+                        <div class="ebook-title">To Kill a Mockingbird &nbsp;|&nbsp; Harper Lee &nbsp;|&nbsp; Social Injustice &nbsp;|&nbsp; English</div>
+                        <div class="ebook-meta">
+                            Uploaded by : <strong>Jeni</strong>
+                            &nbsp;&nbsp;&nbsp;
+                            Email : <strong>xyz@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="ebook-actions">
+                        <a href="#" class="btn-download" title="Download" download>
+                            <i class="fa fa-download"></i>
+                        </a>
+                        <a href="#" class="btn-read" title="Read Online">
+                            <i class="fa fa-book-open"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ── Card 4 ── -->
+                <div class="ebook-card">
+                    <div class="ebook-pdf-icon">
+                        <i class="fa-regular fa-file-pdf"></i>
+                    </div>
+                    <div class="ebook-info">
+                        <div class="ebook-title">Tuesdays with Morrie &nbsp;|&nbsp; Mitch Albom &nbsp;|&nbsp; Memoir &nbsp;|&nbsp; English</div>
+                        <div class="ebook-meta">
+                            Uploaded by : <strong>Reni</strong>
+                            &nbsp;&nbsp;&nbsp;
+                            Email : <strong>xyz@gmail.com</strong>
+                        </div>
+                    </div>
+                    <div class="ebook-actions">
+                        <a href="#" class="btn-download" title="Download" download>
+                            <i class="fa fa-download"></i>
+                        </a>
+                        <a href="#" class="btn-read" title="Read Online">
+                            <i class="fa fa-book-open"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            @* end #ebookList *@
+
+        </main>
+    </div>
+
+    <!-- ══════════════════ SEARCH SCRIPT ══════════════════ -->
+    <script>
+        document.getElementById('ebookSearch').addEventListener('keyup', function () {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('.ebook-card').forEach(function (card) {
+                const text = card.querySelector('.ebook-title').textContent.toLowerCase();
+                card.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>
