@@ -1,0 +1,108 @@
+﻿/* ===== ADMIN CONTENT ONLY ===== */
+
+.admin-content {
+    padding: 25px;
+}
+
+/* ===== STATS ===== */
+.admin-stats {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.admin-stat {
+    flex: 1;
+    background: #e6cccc;
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+    color: #7b2f2f;
+}
+
+/* ICON + TEXT */
+.stat-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+    .stat-header i {
+        font-size: 20px;
+        opacity: 0.85;
+    }
+
+.admin-stat h3 {
+    margin-top: 25px;
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+}
+
+/* ===== CARDS ===== */
+.admin-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.admin-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform .25s ease, box-shadow .25s ease;
+    cursor: pointer;
+}
+
+    .admin-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+    }
+
+    .admin-card img {
+        width: 90px;
+        margin-bottom: 12px;
+    }
+
+    .admin-card p {
+        font-weight: 600;
+        color: #7b2f2f;
+        font-size: 24px;
+    }
+/* ===== ADMIN PROFILE ICON ===== */
+.admin-profile {
+    width: 38px;
+    height: 38px;
+    background: #8f4c4c; /* dark rose like image */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+    .admin-profile i {
+        color: #fff;
+        font-size: 18px;
+    }
+
+/* ===== HARD FIX: REMOVE UNDERLINE FROM ADMIN DASHBOARD CARDS ===== */
+.admin-cards a,
+.admin-cards a:link,
+.admin-cards a:visited,
+.admin-cards a:hover,
+.admin-cards a:active,
+.admin-cards a:focus {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+    /* ALSO FORCE TEXT INSIDE */
+    .admin-cards a * {
+        text-decoration: none !important;
+    }
