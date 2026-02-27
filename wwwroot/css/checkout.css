@@ -1,0 +1,157 @@
+﻿.checkout-container {
+    padding: 50px;
+    max-width: 900px;
+}
+.checkout-nav {
+    margin-bottom: 15px;
+}
+
+.back-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 30px;
+    border: 1.5px solid #823838;
+    border-radius: 6px;
+    color: #823838;
+    text-decoration: none;
+    font-size: 18px;
+    background: white;
+    transition: background 0.2s, transform 0.15s;
+}
+
+    .back-icon-btn:hover {
+        background: rgba(130,56,56,0.12);
+        transform: translateX(-2px);
+    }
+/* Titles */
+.checkout-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #803434;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #803434;
+    margin: 35px 0 15px;
+}
+
+/* Card */
+.card {
+    background: white;
+    border: 1px solid #803434;
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Delivery */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.change-link {
+    color: #803434;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.address-name {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.address-text {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Order items */
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+    .order-item img {
+        width: 80px;
+        height: 110px;
+        object-fit: cover;
+    }
+
+.item-info {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.item-qty {
+    color: #777;
+}
+
+.item-price {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Total */
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 26px;
+    font-weight: 700;
+    padding-top: 15px;
+}
+
+/* Payment */
+.payment-note {
+    margin-top: 10px;
+    color: #823838;
+}
+
+/*Cod-note*/
+.cod-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.cod-note i {
+    color: #f59e0b; /* warm yellow/orange */
+    font-size: 14px;
+}
+
+.cod-note span {
+    color: #000; /* black text */
+}
+
+/* Button */
+.checkout-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.btn-next {
+    background: #823838;
+    color: white;
+    border: none;
+    padding: 12px 50px;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}

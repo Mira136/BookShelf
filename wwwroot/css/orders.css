@@ -1,0 +1,71 @@
+﻿.orders-container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-left: 70px; /* ⬅ pushes cards away from sidebar */
+    max-width: 1000px;
+}
+.back-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 30px;
+    border: 1.5px solid #823838;
+    border-radius: 6px;
+    color: #823838;
+    text-decoration: none;
+    font-size: 18px;
+    background: white;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.back-icon-btn:hover {
+    background: rgba(130,56,56,0.12);
+    transform: translateX(-2px);
+}
+
+/* Order Card */
+.order-card {
+    max-width: 950px; /* ⬅ reduce this to make card smaller */
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 25px;
+    background: rgba(127, 51, 51, 0.1);
+    border: 1px solid #803434;
+    border-radius: 6px;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+}
+
+/* Book Image */
+.order-img {
+    width: 95px;
+    height: 130px;
+    object-fit: cover;
+}
+
+/* Text Section */
+.order-details h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.order-details .muted {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.order-details .total {
+    font-size: 20px;
+    margin-top: 8px;
+}
+
+.order-details .total span {
+    font-weight: 700;
+}

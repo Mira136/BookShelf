@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/checkout.css" asp-append-version="true" />
+}
+
+<div class="checkout-container">
+    <div class="checkout-nav">
+        <a asp-controller="Order" asp-action="Cart" class="back-icon-btn">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <!-- ===== CHECKOUT HEADER ===== -->
+    <h2 class="checkout-title">Checkout Confirmation</h2>
+
+    <!-- ===== DELIVERY ADDRESS ===== -->
+    <div class="card delivery-card">
+        <div class="card-header">
+            <h3>Delivery Address</h3>
+            <a href="#" class="change-link">Change address</a>
+        </div>
+        <hr />
+        <p class="address-name">Jack Williams</p>
+        <p class="address-text">
+            221B Street, Delhi<br />
+            123456789
+        </p>
+    </div>
+
+    <!-- ===== ORDER SUMMARY ===== -->
+    <h2 class="section-title">Order Summary</h2>
+
+    <div class="card order-card">
+
+        <div class="order-item">
+            <img src="~/images/book1.png" />
+            <div class="item-info">
+                <p class="item-title">Mathematics textbook - XII</p>
+                <span class="item-qty">1 book</span>
+            </div>
+            <span class="item-price">₹140</span>
+        </div>
+
+        <div class="order-item">
+            <img src="~/images/book8.png" />
+            <div class="item-info">
+                <p class="item-title">Oxford English Mini Dictionary</p>
+                <span class="item-qty">2 book</span>
+            </div>
+            <span class="item-price">₹200</span>
+        </div>
+
+        <div class="order-item">
+            <img src="~/images/book2.png" />
+            <div class="item-info">
+                <p class="item-title">Artificial Intelligence</p>
+                <span class="item-qty">1 book</span>
+            </div>
+            <span class="item-price">₹550</span>
+        </div>
+
+        <div class="order-total">
+            <span>Total</span>
+            <strong>₹890</strong>
+        </div>
+
+    </div>
+
+    <!-- ===== PAYMENT METHOD ===== -->
+    <h2 class="section-title">Payment Method</h2>
+
+    <div class="card payment-card">
+        <p><strong>Payment Method:</strong> Cash on Delivery</p>
+        <p class="payment-note">
+            Keep <strong>₹890</strong> at the time of delivery
+        </p>
+    </div>
+
+    <div class="cod-note">
+        <i class="fa fa-lock"></i>
+        <span>COD order is confirmed on next step</span>
+    </div>
+
+    <!-- ===== NEXT BUTTON ===== -->
+    <div class="checkout-action">
+        <a asp-controller="Order" asp-action="OrderSuccess" class="btn-next">Next</a>
+    </div>
+
+</div>

@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Users";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/users.css" />
+}
+
+<div class="users-page">
+
+    <!-- BACK BUTTON + TITLE-->
+    <div class="page-header">
+        <a href="/Admin/Dashboard" class="back-btn">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+        <h2 class="page-title">Users</h2>
+    </div>
+
+    <!-- USERS CARD -->
+    <div class="users-card">
+
+        <!-- SEARCH BAR -->
+        <div class="search-bar-wrapper">
+            <div class="search-bar">
+                <input type="text" placeholder="Search here" id="userSearch" />
+                <i class="fa fa-magnifying-glass"></i>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="users-table">
+            <!-- HEADER -->
+            <div class="table-row table-header">
+                <div>Sr no.</div>
+                <div>Picture</div>
+                <div>Name</div>
+                <div>Username</div>
+                <div>Number</div>
+                <div>Status</div>
+                <div>DateTime</div>
+            </div>
+
+            <!-- ROW 1 -->
+            <div class="table-row">
+                <div>1</div>
+                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
+                <div>James Carter</div>
+                <div>james_c</div>
+                <div>9876543210</div>
+                <div><span class="status active">Active</span></div>
+                <div>2026-01-03 09:15:42</div>
+            </div>
+
+            <!-- ROW 2 -->
+            <div class="table-row">
+                <div>2</div>
+                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
+                <div>Priya Sharma</div>
+                <div>priya_sh</div>
+                <div>9123456780</div>
+                <div><span class="status active">Active</span></div>
+                <div>2026-01-10 11:22:05</div>
+            </div>
+
+            <!-- ROW 3 -->
+            <div class="table-row">
+                <div>3</div>
+                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
+                <div>Ethan Brooks</div>
+                <div>ethan_b</div>
+                <div>9012345678</div>
+                <div><span class="status inactive">Inactive</span></div>
+                <div>2026-01-14 08:47:33</div>
+            </div>
+
+            <!-- ROW 4 -->
+            <div class="table-row">
+                <div>4</div>
+                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
+                <div>Sofia Mendes</div>
+                <div>sofia_m</div>
+                <div>9823401567</div>
+                <div><span class="status active">Active</span></div>
+                <div>2026-01-19 14:05:18</div>
+            </div>
+
+            <!-- ROW 5 -->
+            <div class="table-row">
+                <div>5</div>
+                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
+                <div>Liam O'Brien</div>
+                <div>liam_ob</div>
+                <div>9745632180</div>
+                <div><span class="status active">Active</span></div>
+                <div>2026-01-25 16:38:50</div>
+            </div>
+
+            <!-- ROW 6 -->
+            <div class="table-row">
+                <div>6</div>
+                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
+                <div>Aisha Malik</div>
+                <div>aisha_mk</div>
+                <div>9634512870</div>
+                <div><span class="status inactive">Inactive</span></div>
+                <div>2026-02-01 10:12:27</div>
+            </div>
+
+            <!-- ROW 7 -->
+            <div class="table-row">
+                <div>7</div>
+                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
+                <div>Noah Patel</div>
+                <div>noah_pt</div>
+                <div>9512348906</div>
+                <div><span class="status active">Active</span></div>
+                <div>2026-02-07 13:55:09</div>
+            </div>
+
+            <!-- ROW 8 -->
+            <div class="table-row">
+                <div>8</div>
+                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
+                <div>Isabella Wong</div>
+                <div>bella_w</div>
+                <div>9401237856</div>
+                <div><span class="status active">Active</span></div>
+                <div>2026-02-14 17:30:44</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('userSearch').addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        document.querySelectorAll('.table-row:not(.table-header)').forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
+        });
+    });
+</script>

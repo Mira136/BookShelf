@@ -1,0 +1,112 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+}
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+
+    <!-- LEFT DARK (SAME AS USER) -->
+    <div class="header-left">
+        <img src="~/images/logo.png" class="logo-img" />
+        <span>BookShelf</span>
+    </div>
+
+    <!-- RIGHT LIGHT -->
+    <div class="header-right">
+        <div class="admin-profile">
+            <i class="fa fa-user"></i>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar admin-sidebar">
+        <ul>
+            <li>
+                <a href="#"><i class="fa fa-book"></i><span>Books</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-tablet-screen-button"></i><span>E-Books</span></a>
+            </li>
+            <li>
+                <a href="/Admin/Users">
+                    <i class="fa fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Scoreboard">
+                    <i class="fa fa-chart-column"></i>
+                    <span>Score Board</span>
+                </a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-info-circle"></i><span>About Us</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-right-from-bracket"></i><span>Logout</span></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ===== CONTENT ===== -->
+    <div class="content admin-content">
+
+        <!-- STATS -->
+        <div class="admin-stats">
+
+            <div class="admin-stat">
+                <div class="stat-header">
+                    <i class="fa fa-book"></i>
+                    <span>Total Books</span>
+                </div>
+                <h3>150</h3>
+            </div>
+
+            <div class="admin-stat">
+                <div class="stat-header">
+                    <i class="fa fa-users"></i>
+                    <span>Total Users</span>
+                </div>
+                <h3>200</h3>
+            </div>
+
+            <div class="admin-stat">
+                <div class="stat-header">
+                    <i class="fa fa-tablet-screen-button"></i>
+                    <span>Total E-Books</span>
+                </div>
+                <h3>300</h3>
+            </div>
+
+        </div>
+
+        <!-- CARDS -->
+        <div class="admin-cards">
+            <div class="admin-card"><img src="~/images/admin_book.png"><p>Books</p></div>
+            <div class="admin-card"><img src="~/images/admin_ebook.png"><p>E-Books</p></div>
+            <a href="/Admin/Users" class="admin-card-link">
+                <div class="admin-card">
+                    <img src="~/images/admin_users.png">
+                    <p>Users</p>
+                </div>
+            </a>
+            <a href="/Admin/Scoreboard" class="admin-card-link">
+                <div class="admin-card">
+                    <img src="~/images/admin_score_board.png">
+                    <p>Score Board</p>
+                </div>
+            </a>
+            <div class="admin-card"><img src="~/images/admin_about_us.png"><p>About Us</p></div>
+            <div class="admin-card"><img src="~/images/admin_profile.png"><p>Profile</p></div>
+        </div>
+
+    </div>
+</div>

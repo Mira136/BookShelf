@@ -1,0 +1,87 @@
+﻿.order-success-wrapper {
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Success Image */
+.success-img img {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+/* Title */
+.success-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Order Card */
+.order-card {
+    width: 520px;
+    margin: 0 auto 25px;
+    padding: 20px 30px;
+    border: 2px solid #803434;
+    background: rgba(129, 56, 56, 0.03);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    text-align: left;
+}
+
+    .order-card p {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .order-card span {
+        color: #803434;
+        font-weight: 600;
+    }
+
+/* Continue Button */
+.continue-btn {
+    margin: 25px 0;
+}
+
+.btn-primary {
+    background: #823838;
+    color: #fff;
+    padding: 12px 36px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Message */
+.order-message {
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Bottom Buttons */
+.bottom-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-outline {
+    border: 2px solid #823838;
+    color: #823838;
+    padding: 10px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.btn-solid {
+    background: #823838;
+    color: white;
+    padding: 10px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+}
