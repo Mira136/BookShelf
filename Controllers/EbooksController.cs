@@ -16,12 +16,13 @@ public class EbooksController : Controller
         if (string.IsNullOrEmpty(fileName))
             return NotFound();
 
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
 
         if (!System.IO.File.Exists(path))
             return NotFound();
 
-        var bytes = System.IO.File.ReadAllBytes(path);
-        return File(bytes, "application/pdf", fileName);
+        var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+
+        return File(stream, "application/pdf", fileName);
     }
 }

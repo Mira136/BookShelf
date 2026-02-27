@@ -157,7 +157,8 @@ body {
     .book-card img {
         width: 100%;
         height: 260px;
-        object-fit: cover;
+        object-fit: contain;
+        background: #fff;
     }
 
 .price {
@@ -181,13 +182,16 @@ body {
     gap: 12px;
 }
 
-button {
+button,
+.view-btn {
     background: #823838;
     color: white;
     border: none;
     padding: 8px 18px;
     border-radius: 6px;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
 }
 
 /* WISHLIST ICON */

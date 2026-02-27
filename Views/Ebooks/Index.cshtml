@@ -4,8 +4,8 @@
    ============================================================ *@
 
 @{
-   
-    Layout = null; @* Remove if you have a shared _Layout.cshtml *@
+    ViewData["Title"] = "E-Books";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -30,7 +30,9 @@
         <!-- ── CONTENT ────────────────────────────── -->
         <main class="content">
 
-            <a href="javascript:history.back()" class="back-btn">
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="back-btn">
                 <i class="fa fa-arrow-left"></i>
             </a>
 
@@ -62,7 +64,11 @@
                         </div>
                     </div>
                     <div class="ebook-actions">
-                        <a href="#" class="btn-download" title="Download" download>
+                        <a asp-controller="Ebooks"
+                           asp-action="Download"
+                           asp-route-fileName="let-them.pdf"
+                           class="btn-download"
+                           title="Download">
                             <i class="fa fa-download"></i>
                         </a>
                         <a asp-controller="EBooks"
