@@ -147,6 +147,7 @@
 
 .btn-next {
     background: #823838;
+    text-decoration: none;
     color: white;
     border: none;
     padding: 12px 50px;

@@ -15,20 +15,18 @@ body {
     background: #fff;
 }
 
-/* ── HEADER ──────────────────────────────── */
-
 /* ── LAYOUT ──────────────────────────────── */
 .main-container {
     display: flex;
     min-height: calc(100vh - 70px);
 }
 
-
 /* ── CONTENT AREA ────────────────────────── */
 .content {
     flex: 1;
     padding: 30px 40px;
     background: #fff;
+    position: relative; /* Important for absolute back button */
 }
 
 /* ── PAGE TITLE ──────────────────────────── */
@@ -224,21 +222,35 @@ body {
         justify-content: center;
     }
 }
-/* BACK BUTTON */
+
+/* ── BACK BUTTON ─────────────────────────── */
 .back-btn {
     position: absolute;
     left: 40px;
     top: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
     border: 2px solid #803434;
     border-radius: 10px;
-    padding: 10px 14px;
+    background: #ffffff;
     color: #803434;
-    font-size: 20px;
-    transition: 0.2s;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
 }
 
-    /* hover fill like your design */
     .back-btn:hover {
         background: #803434;
-        color: #fff;
+        color: #ffffff;
+        box-shadow: 0 6px 18px rgba(128, 52, 52, 0.28);
+        transform: translateY(-2px);
+    }
+
+    .back-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
     }

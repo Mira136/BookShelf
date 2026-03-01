@@ -6,26 +6,38 @@
     margin-left: 70px; /* ⬅ pushes cards away from sidebar */
     max-width: 1000px;
 }
+/* ── BACK BUTTON (Orders Page Enhanced) ── */
+
 .back-icon-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 38px;
-    height: 30px;
-    border: 1.5px solid #823838;
-    border-radius: 6px;
+    height: 38px; /* adjusted for perfect square */
+
+    border: 2px solid #823838;
+    border-radius: 8px;
+    background-color: #ffffff;
     color: #823838;
-    text-decoration: none;
     font-size: 18px;
-    background: white;
-    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-.back-icon-btn:hover {
-    background: rgba(130,56,56,0.12);
-    transform: translateX(-2px);
-}
+    /* Hover Effect */
+    .back-icon-btn:hover {
+        background-color: #823838;
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(130, 56, 56, 0.28);
+        transform: translateY(-2px);
+    }
 
+    /* Active Click Effect */
+    .back-icon-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(130, 56, 56, 0.2);
+    }
 /* Order Card */
 .order-card {
     max-width: 950px; /* ⬅ reduce this to make card smaller */

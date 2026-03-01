@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/users.css" />
@@ -7,7 +8,7 @@
 
 <div class="users-page">
 
-    <!-- BACK BUTTON + TITLE-->
+    <!-- BACK BUTTON + TITLE -->
     <div class="page-header">
         <a href="/Admin/Dashboard" class="back-btn">
             <i class="fa fa-arrow-left"></i>
@@ -28,9 +29,10 @@
 
         <!-- TABLE -->
         <div class="users-table">
+
             <!-- HEADER -->
             <div class="table-row table-header">
-                <div>Sr no.</div>
+                <div>Sr No.</div>
                 <div>Picture</div>
                 <div>Name</div>
                 <div>Username</div>
@@ -47,7 +49,10 @@
                 <div>james_c</div>
                 <div>9876543210</div>
                 <div><span class="status active">Active</span></div>
-                <div>2026-01-03 09:15:42</div>
+                <div class="datetime-cell">
+                    <span class="datetime-date">2026-01-03</span>
+                    <span class="datetime-time">09:15:42</span>
+                </div>
             </div>
 
             <!-- ROW 2 -->
@@ -58,7 +63,10 @@
                 <div>priya_sh</div>
                 <div>9123456780</div>
                 <div><span class="status active">Active</span></div>
-                <div>2026-01-10 11:22:05</div>
+                <div class="datetime-cell">
+                    <span class="datetime-date">2026-01-10</span>
+                    <span class="datetime-time">11:22:05</span>
+                </div>
             </div>
 
             <!-- ROW 3 -->
@@ -69,7 +77,10 @@
                 <div>ethan_b</div>
                 <div>9012345678</div>
                 <div><span class="status inactive">Inactive</span></div>
-                <div>2026-01-14 08:47:33</div>
+                <div class="datetime-cell">
+                    <span class="datetime-date">2026-01-14</span>
+                    <span class="datetime-time">08:47:33</span>
+                </div>
             </div>
 
             <!-- ROW 4 -->
@@ -80,7 +91,10 @@
                 <div>sofia_m</div>
                 <div>9823401567</div>
                 <div><span class="status active">Active</span></div>
-                <div>2026-01-19 14:05:18</div>
+                <div class="datetime-cell">
+                    <span class="datetime-date">2026-01-19</span>
+                    <span class="datetime-time">14:05:18</span>
+                </div>
             </div>
 
             <!-- ROW 5 -->
@@ -91,7 +105,10 @@
                 <div>liam_ob</div>
                 <div>9745632180</div>
                 <div><span class="status active">Active</span></div>
-                <div>2026-01-25 16:38:50</div>
+                <div class="datetime-cell">
+                    <span class="datetime-date">2026-01-25</span>
+                    <span class="datetime-time">16:38:50</span>
+                </div>
             </div>
 
             <!-- ROW 6 -->
@@ -102,7 +119,10 @@
                 <div>aisha_mk</div>
                 <div>9634512870</div>
                 <div><span class="status inactive">Inactive</span></div>
-                <div>2026-02-01 10:12:27</div>
+                <div class="datetime-cell">
+                    <span class="datetime-date">2026-02-01</span>
+                    <span class="datetime-time">10:12:27</span>
+                </div>
             </div>
 
             <!-- ROW 7 -->
@@ -113,7 +133,10 @@
                 <div>noah_pt</div>
                 <div>9512348906</div>
                 <div><span class="status active">Active</span></div>
-                <div>2026-02-07 13:55:09</div>
+                <div class="datetime-cell">
+                    <span class="datetime-date">2026-02-07</span>
+                    <span class="datetime-time">13:55:09</span>
+                </div>
             </div>
 
             <!-- ROW 8 -->
@@ -124,18 +147,27 @@
                 <div>bella_w</div>
                 <div>9401237856</div>
                 <div><span class="status active">Active</span></div>
-                <div>2026-02-14 17:30:44</div>
+                <div class="datetime-cell">
+                    <span class="datetime-date">2026-02-14</span>
+                    <span class="datetime-time">17:30:44</span>
+                </div>
             </div>
 
         </div>
+        <!-- end users-table -->
+
     </div>
+    <!-- end users-card -->
+
 </div>
 
-<script>
-    document.getElementById('userSearch').addEventListener('input', function () {
-        const query = this.value.toLowerCase();
-        document.querySelectorAll('.table-row:not(.table-header)').forEach(row => {
-            row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
+@section Scripts {
+    <script>
+        document.getElementById('userSearch').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('.table-row:not(.table-header)').forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
+            });
         });
-    });
-</script>
+    </script>
+}

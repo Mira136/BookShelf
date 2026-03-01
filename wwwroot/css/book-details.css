@@ -18,13 +18,21 @@
     border-radius: 6px; /* CHANGED */
     color: #823838;
     text-decoration: none;
-    transition: 0.2s;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
 }
 
     .back-btn:hover {
-        background: #823838;
-        color: white;
+        background: #803434;
+        color: #ffffff;
+        box-shadow: 0 6px 18px rgba(128, 52, 52, 0.28);
+        transform: translateY(-2px);
     }
+
+    .back-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
+    }
+
 
 /* layout */
 .book-details {

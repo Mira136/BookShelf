@@ -1,5 +1,7 @@
-﻿/* ===== PAGE WRAPPER ===== */
-.users-page {
+﻿body {
+}
+/* ===== PAGE WRAPPER ===== */
+.adminbooks-page {
     min-height: 100vh;
     background: #f5f5f5;
     padding: 34px 0px;
@@ -7,7 +9,6 @@
     position: relative;
     overflow-x: hidden;
 }
-
 /* ===== BACK BUTTON ===== */
 .back-btn {
     position: absolute;
@@ -39,7 +40,6 @@
         transform: translateY(0);
         box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
     }
-
 /* ===== PAGE HEADER ===== */
 .page-header {
     display: flex;
@@ -48,7 +48,6 @@
     padding: 0 32px;
 }
 
-/* ===== PAGE TITLE ===== */
 .page-title {
     text-align: center;
     font-size: clamp(36px, 5vw, 60px);
@@ -58,16 +57,14 @@
     letter-spacing: 0.5px;
     font-family: 'Inter', sans-serif;
 }
-
-/* ===== USERS CARD ===== */
-.users-card {
+/* ===== BOOKS CARD ===== */
+.adminbooks-card {
     background: #c28880;
     border-radius: 16px;
     padding: 20px 24px 28px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.13);
     margin: 0 40px;
 }
-
 /* ===== SEARCH BAR ===== */
 .search-bar-wrapper {
     display: flex;
@@ -106,29 +103,36 @@
         font-size: 15px;
         cursor: pointer;
     }
-
-/* ===== TABLE ===== */
-.users-table {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+/* ===== TABLE WRAPPER ===== */
+.adminbooks-table-wrapper {
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
 }
-
-/* ===== ROW — 7 columns ===== */
+/* ===== TABLE ===== */
+.adminbooks-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+}
+/* ===== ROW — 12 columns ===== */
 .table-row {
     display: grid;
-    grid-template-columns: 0.4fr /* Sr No.   */
-    0.4fr /* Picture  */
-    1fr /* Name     */
-    1fr /* Username */
-    1fr /* Number   */
-    0.8fr /* Status   */
-    1.2fr; /* DateTime */
+    grid-template-columns: 0.3fr /* Sr No.         */
+    0.3fr /* Book           */
+    0.9fr /* Title          */
+    0.75fr /* Author         */
+    0.75fr /* Category       */
+    0.6fr /* Lang.          */
+    0.5fr /* M.R.P          */
+    0.5fr /* S.P            */
+    0.7fr /* Username       */
+    1fr /* Email & Mobile */
+    0.9fr /* Desc.          */
+    0.8fr; /* DateTime       */
     align-items: center;
-    padding: 12px 14px;
+    padding: 11px 10px;
     font-size: 13px;
     color: #2c2c2c;
     width: 100%;
@@ -138,24 +142,23 @@
     .table-row:last-child {
         border-bottom: none;
     }
-
 /* ===== HEADER ===== */
 .table-header {
     background: linear-gradient(135deg, #7b3535, #a85050);
     font-weight: 700;
     color: #ffffff;
-    font-size: 12px;
+    font-size: 11.5px;
     letter-spacing: 0.4px;
     text-transform: uppercase;
     border-radius: 10px 10px 0 0;
-    padding: 15px 14px;
+    padding: 15px 10px;
     margin-bottom: 0;
     box-shadow: 0 3px 10px rgba(123, 53, 53, 0.25);
     border-bottom: none;
 }
 
     .table-header > div {
-        padding: 0 6px;
+        padding: 0 5px;
         border-right: 1px solid rgba(255, 255, 255, 0.22);
         white-space: normal;
         word-break: break-word;
@@ -170,7 +173,6 @@
         .table-header > div:last-child {
             border-right: none;
         }
-
 /* ===== DATA ROWS ===== */
 .table-row:not(.table-header) {
     background: #ffffff;
@@ -183,45 +185,30 @@
     .table-row:not(.table-header):hover {
         background: #fdecea;
         border-left: 3px solid #7b3535;
-        padding-left: 11px;
+        padding-left: 7px;
         transition: all 0.2s ease;
     }
-
-/* ===== AVATAR ICON ===== */
-.avatar-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #c9908a;
-    color: #fff;
+/* ===== CONTACT CELL ===== */
+.contact-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    line-height: 1.3;
+    padding-right: 6px;
 }
 
-    .avatar-icon i {
-        font-size: 20px;
-    }
-
-/* ===== STATUS BADGES ===== */
-.status {
-    display: inline-block;
-    padding: 4px 14px;
-    border-radius: 20px;
+.contact-email {
     font-size: 12px;
-    font-weight: 600;
+    color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-    .status.active {
-        background: #dff0df;
-        color: #2d6a2d;
-    }
-
-    .status.inactive {
-        background: #fde0e0;
-        color: #8b2222;
-    }
-
+.contact-mobile {
+    font-size: 11px;
+    color: #888;
+}
 /* ===== DATETIME CELL ===== */
 .datetime-cell {
     display: flex;
@@ -240,14 +227,49 @@
     font-size: 11px;
     color: #888;
 }
+/* ===== DESCRIPTION CELL ===== */
+.desc-cell {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 6px;
+}
+/* ===== PRICE CELLS ===== */
+.price-mrp {
+    font-size: 12px;
+    color: #888;
+    text-decoration: line-through;
+}
 
+.price-sp {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2d6a2d;
+}
+/* ===== AVATAR ICON ===== */
+.avatar-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #c9908a;
+    color: #fff;
+}
+
+    .avatar-icon i {
+        font-size: 18px;
+    }
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .users-page {
+    .adminbooks-page {
         padding: 16px;
     }
 
-    .users-card {
+    .adminbooks-card {
         margin: 0 10px;
         padding: 14px 10px 20px;
     }
@@ -266,8 +288,8 @@
     }
 
     .table-row {
-        font-size: 11px;
-        padding: 9px 8px;
+        font-size: 10px;
+        padding: 8px 6px;
     }
 
     .table-header {
