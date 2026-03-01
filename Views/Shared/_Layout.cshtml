@@ -83,6 +83,8 @@
                         </a>
                     </li>
 
+                    <li class="@isActive("Ebooks", "Index")">
+                        <a asp-controller="Ebooks" asp-action="Index">
                     <!-- 🔥 FIXED HERE -->
                     <li class="@isActive("Ebooks", "Index")">
                         <a asp-controller="Ebooks" asp-action="Index">
@@ -115,6 +117,19 @@
         </div>
     }
 
+    <li class="@isActive("EBooks", "UploadPdf")">
+        <a asp-controller="EBooks" asp-action="UploadPdf">
+            <i class="fa fa-upload"></i>
+            <span>Upload PDF</span>
+        </a>
+    </li>
+
+    <li class="@isActive("Books", "UploadBook")">
+        <a asp-controller="Books" asp-action="UploadBook">
+            <i class="fa fa-book-open"></i>
+            <span>Upload Book</span>
+        </a>
+    </li>
                     <li class="@isActive("EBooks", "UploadPdf")">
                         <a asp-controller="EBooks" asp-action="UploadPdf">
                             <i class="fa fa-upload"></i>
@@ -129,109 +144,109 @@
                         </a>
                     </li>
 
-                    <li class="@isActive("Home", "Index")">
-                        <a asp-controller="Home" asp-action="Index">
-                            <i class="fa fa-home"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
+    <li class="@isActive("Home", "Index")">
+        <a asp-controller="Home" asp-action="Index">
+            <i class="fa fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
 
-                    <li class="@isActive("Home", "Category")">
-                        <a asp-controller="Home" asp-action="Category">
-                            <i class="fa fa-th-large"></i>
-                            <span>Category</span>
-                        </a>
-                    </li>
+    <li class="@isActive("Home", "Category")">
+        <a asp-controller="Home" asp-action="Category">
+            <i class="fa fa-th-large"></i>
+            <span>Category</span>
+        </a>
+    </li>
 
-                    @if (isLoggedIn)
-                    {
-                        <li class="@isActive("Order", "Cart")">
-                            <a asp-controller="Order" asp-action="Cart">
-                                <i class="fa fa-cart-shopping"></i>
-                                <span>Cart</span>
-                            </a>
-                        </li>
+    @if (isLoggedIn)
+    {
+        <li class="@isActive("Order", "Cart")">
+            <a asp-controller="Order" asp-action="Cart">
+                <i class="fa fa-cart-shopping"></i>
+                <span>Cart</span>
+            </a>
+        </li>
 
-                        <li class="@isActive("Order", "Orders")">
-                            <a asp-controller="Order" asp-action="Orders">
-                                <i class="fa fa-box"></i>
-                                <span>My Orders</span>
-                            </a>
-                        </li>
+        <li class="@isActive("Order", "Orders")">
+            <a asp-controller="Order" asp-action="Orders">
+                <i class="fa fa-box"></i>
+                <span>My Orders</span>
+            </a>
+        </li>
 
-                        <li class="@isActive("Ebooks", "Index")">
-                            <a asp-controller="Ebooks" asp-action="Index">
-                                <i class="fa fa-book"></i>
-                                <span>E-Books</span>
-                            </a>
-                        </li>
+        <li class="@isActive("Ebooks", "Index")">
+            <a asp-controller="Ebooks" asp-action="Index">
+                <i class="fa fa-book"></i>
+                <span>E-Books</span>
+            </a>
+        </li>
 
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-heart"></i>
-                                <span>Wishlist</span>
-                            </a>
-                        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-heart"></i>
+                <span>Wishlist</span>
+            </a>
+        </li>
 
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-upload"></i>
-                                <span>Upload PDF</span>
-                            </a>
-                        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-upload"></i>
+                <span>Upload PDF</span>
+            </a>
+        </li>
 
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-book-open"></i>
-                                <span>Upload Book</span>
-                            </a>
-                        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-book-open"></i>
+                <span>Upload Book</span>
+            </a>
+        </li>
 
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-info-circle"></i>
-                                <span>About</span>
-                            </a>
-                        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-info-circle"></i>
+                <span>About</span>
+            </a>
+        </li>
 
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-right-from-bracket"></i>
-                                <span>Logout</span>
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li>
-                            <a asp-controller="Account" asp-action="Login">
-                                <i class="fa fa-cart-shopping"></i>
-                                <span>Cart</span>
-                            </a>
-                        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a asp-controller="Account" asp-action="Login">
+                <i class="fa fa-cart-shopping"></i>
+                <span>Cart</span>
+            </a>
+        </li>
 
-                        <li>
-                            <a asp-controller="Account" asp-action="Login">
-                                <i class="fa fa-heart"></i>
-                                <span>Wishlist</span>
-                            </a>
-                        </li>
+        <li>
+            <a asp-controller="Account" asp-action="Login">
+                <i class="fa fa-heart"></i>
+                <span>Wishlist</span>
+            </a>
+        </li>
 
-                        <li>
-                            <a asp-controller="Account" asp-action="Login">
-                                <i class="fa fa-book"></i>
-                                <span>E-Books</span>
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        }
+        <li>
+            <a asp-controller="Account" asp-action="Login">
+                <i class="fa fa-book"></i>
+                <span>E-Books</span>
+            </a>
+        </li>
+    }
+    </ul>
+    </div>
+    }
 
-        <!-- ================= CONTENT ================= -->
-        <div class="content">
-            @RenderBody()
-        </div>
+    <!-- ================= CONTENT ================= -->
+    <div class="content">
+        @RenderBody()
+    </div>
 
     </div>
 
