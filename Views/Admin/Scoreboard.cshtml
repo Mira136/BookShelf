@@ -1,8 +1,137 @@
-﻿
-@{
-    ViewData["Title"] = "Scoreboard";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewData["Title"] = "Score-Board";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/scoreboard.css" />
 }
 
-<h1>Admin_scoreboard</h1>
+<div class="scoreboard-page">
 
+    <!-- BACK BUTTON + TITLE -->
+    <div class="sb-page-header">
+        <a href="/Admin/Dashboard" class="sb-back-btn">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+        <h2 class="sb-page-title">Score-Board</h2>
+    </div>
+
+    <!-- MAIN CARD -->
+    <div class="sb-card">
+
+        <!-- SEARCH BAR -->
+        <div class="sb-search-wrapper">
+            <div class="sb-search-bar">
+                <input type="text" placeholder="Search here" id="sbSearch" />
+                <i class="fa fa-magnifying-glass"></i>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="sb-table">
+
+            <!-- HEADER -->
+            <div class="sb-row sb-header-row">
+                <div>Sr no.</div>
+                <div>Username</div>
+                <div>Credits</div>
+                <div>Action</div>
+                <div>DateTime</div>
+            </div>
+
+            <div class="sb-row">
+                <div>1</div>
+                <div>james_c</div>
+                <div><span class="credit pos">+5</span></div>
+                <div>Completed 50 Uploads</div>
+                <div>2026-01-03 09:15:42</div>
+            </div>
+            <div class="sb-row">
+                <div>2</div>
+                <div>priya_sh</div>
+                <div><span class="credit pos">+3</span></div>
+                <div>Completed 30 Uploads</div>
+                <div>2026-01-07 11:42:10</div>
+            </div>
+            <div class="sb-row">
+                <div>3</div>
+                <div>ethan_b</div>
+                <div><span class="credit neg">-2</span></div>
+                <div>Used Coupon</div>
+                <div>2026-01-10 08:30:55</div>
+            </div>
+            <div class="sb-row">
+                <div>4</div>
+                <div>sofia_m</div>
+                <div><span class="credit pos">+10</span></div>
+                <div>Referred a Friend</div>
+                <div>2026-01-14 14:05:18</div>
+            </div>
+            <div class="sb-row">
+                <div>5</div>
+                <div>liam_ob</div>
+                <div><span class="credit neg">-4</span></div>
+                <div>Used Coupon</div>
+                <div>2026-01-18 16:22:33</div>
+            </div>
+            <div class="sb-row">
+                <div>6</div>
+                <div>aisha_mk</div>
+                <div><span class="credit pos">+1</span></div>
+                <div>Completed 10 Uploads</div>
+                <div>2026-01-21 10:55:47</div>
+            </div>
+            <div class="sb-row">
+                <div>7</div>
+                <div>noah_pt</div>
+                <div><span class="credit pos">+7</span></div>
+                <div>Completed 70 Uploads</div>
+                <div>2026-01-25 13:40:09</div>
+            </div>
+            <div class="sb-row">
+                <div>8</div>
+                <div>bella_w</div>
+                <div><span class="credit neg">-1</span></div>
+                <div>Used Coupon</div>
+                <div>2026-01-28 09:10:22</div>
+            </div>
+            <div class="sb-row">
+                <div>9</div>
+                <div>ryan_k</div>
+                <div><span class="credit pos">+2</span></div>
+                <div>Daily Login Streak</div>
+                <div>2026-02-01 17:05:38</div>
+            </div>
+            <div class="sb-row">
+                <div>10</div>
+                <div>mia_rose</div>
+                <div><span class="credit pos">+4</span></div>
+                <div>Completed 40 Uploads</div>
+                <div>2026-02-05 12:30:14</div>
+            </div>
+            <div class="sb-row">
+                <div>11</div>
+                <div>dan_fox</div>
+                <div><span class="credit neg">-3</span></div>
+                <div>Penalty Applied</div>
+                <div>2026-02-09 08:45:50</div>
+            </div>
+            <div class="sb-row">
+                <div>12</div>
+                <div>zara_q</div>
+                <div><span class="credit pos">+6</span></div>
+                <div>Completed 60 Uploads</div>
+                <div>2026-02-14 15:20:31</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('sbSearch').addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        document.querySelectorAll('.sb-row:not(.sb-header-row)').forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
+        });
+    });
+</script>
