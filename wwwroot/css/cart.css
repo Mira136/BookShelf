@@ -126,6 +126,7 @@
 
 .btn-continue {
     background: #6b2d2d;
+    text-decoration: none;
     color: #fff;
     border: none;
     border-radius: 8px;

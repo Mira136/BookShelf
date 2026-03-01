@@ -44,14 +44,19 @@ body {
     font-size: 17px;
     text-decoration: none;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
     flex-shrink: 0;
 }
 
     .btn-back:hover {
         background: #803434;
-        color: white;
-        box-shadow: 0 4px 12px rgba(128,52,52,0.30);
+        color: #ffffff;
+        box-shadow: 0 6px 18px rgba(128, 52, 52, 0.28);
+        transform: translateY(-2px);
+    }
+    .btn-back:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
     }
 
 /* ── PAGE HEADER — FIX: gap below title before main content ── */

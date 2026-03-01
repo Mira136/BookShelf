@@ -6,29 +6,40 @@
     background: #f5f5f5;
     padding: 34px 0px;
     box-sizing: border-box;
+    position: relative;
+    overflow-x: hidden;
 }
-
 /* ===== BACK BUTTON ===== */
 .back-btn {
+    position: absolute;
+    left: 40px;
+    top: 34px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #7b3535;
-    border-radius: 8px;
-    color: #7b3535;
-    font-size: 16px;
+    width: 42px;
+    height: 42px;
+    border: 2px solid #803434;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #803434;
+    font-size: 18px;
     text-decoration: none;
-    transition: background 0.2s, color 0.2s;
-    margin-left: 30px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
 }
 
     .back-btn:hover {
-        background: #7b3535;
-        color: #fff;
+        background: #803434;
+        color: #ffffff;
+        box-shadow: 0 6px 18px rgba(128, 52, 52, 0.28);
+        transform: translateY(-2px);
     }
 
+    .back-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
+    }
 /* ===== PAGE HEADER ===== */
 .page-header {
     display: flex;
@@ -38,13 +49,14 @@
 }
 
 .page-title {
-    font-size: 46px;
+    text-align: center;
+    font-size: clamp(36px, 5vw, 60px);
     font-weight: 700;
-    color: #1a1a2e;
+    color: #264075;
     margin: 0 auto;
     letter-spacing: 0.5px;
+    font-family: 'Inter', sans-serif;
 }
-
 /* ===== BOOKS CARD ===== */
 .adminbooks-card {
     background: #c28880;
@@ -52,9 +64,7 @@
     padding: 20px 24px 28px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.13);
     margin: 0 40px;
-    overflow-x: auto;
 }
-
 /* ===== SEARCH BAR ===== */
 .search-bar-wrapper {
     display: flex;
@@ -93,77 +103,166 @@
         font-size: 15px;
         cursor: pointer;
     }
-
 /* ===== TABLE WRAPPER ===== */
+.adminbooks-table-wrapper {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+/* ===== TABLE ===== */
 .adminbooks-table {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    min-width: 1200px;
+    gap: 0;
+    width: 100%;
 }
-
-/* ===== ROW — 14 columns ===== */
+/* ===== ROW — 12 columns ===== */
 .table-row {
     display: grid;
-    grid-template-columns: 50px /* Sr no.        */
-    55px /* Book i.       */
-    100px /* Book Title    */
-    80px /* Author        */
-    90px /* Category      */
-    85px /* Language      */
-    85px /* Edu. Level    */
-    90px /* Actual Price  */
-    90px /* Selling Price */
-    110px /* Description   */
-    85px /* Username      */
-    90px /* Email         */
-    100px /* Contact No.   */
-    1fr; /* DateTime      */
+    grid-template-columns: 0.3fr /* Sr No.         */
+    0.3fr /* Book           */
+    0.9fr /* Title          */
+    0.75fr /* Author         */
+    0.75fr /* Category       */
+    0.6fr /* Lang.          */
+    0.5fr /* M.R.P          */
+    0.5fr /* S.P            */
+    0.7fr /* Username       */
+    1fr /* Email & Mobile */
+    0.9fr /* Desc.          */
+    0.8fr; /* DateTime       */
     align-items: center;
-    padding: 10px 12px;
+    padding: 11px 10px;
     font-size: 13px;
     color: #2c2c2c;
-    border-radius: 8px;
+    width: 100%;
+    border-bottom: 1px solid rgba(194, 136, 128, 0.25);
 }
 
+    .table-row:last-child {
+        border-bottom: none;
+    }
 /* ===== HEADER ===== */
 .table-header {
-    background: transparent;
+    background: linear-gradient(135deg, #7b3535, #a85050);
     font-weight: 700;
-    color: #1a1a1a;
-    font-size: 13px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 0;
-    padding-bottom: 14px;
-    margin-bottom: 4px;
+    color: #ffffff;
+    font-size: 11.5px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    border-radius: 10px 10px 0 0;
+    padding: 15px 10px;
+    margin-bottom: 0;
+    box-shadow: 0 3px 10px rgba(123, 53, 53, 0.25);
+    border-bottom: none;
 }
 
+    .table-header > div {
+        padding: 0 5px;
+        border-right: 1px solid rgba(255, 255, 255, 0.22);
+        white-space: normal;
+        word-break: break-word;
+        color: #ffffff;
+        line-height: 1.3;
+    }
+
+        .table-header > div:first-child {
+            padding-left: 0;
+        }
+
+        .table-header > div:last-child {
+            border-right: none;
+        }
 /* ===== DATA ROWS ===== */
 .table-row:not(.table-header) {
     background: #ffffff;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
 }
 
-    .table-row:not(.table-header):hover {
-        background: #fff5f5;
+    .table-row:not(.table-header):nth-child(even) {
+        background: #fdf6f5;
     }
 
+    .table-row:not(.table-header):hover {
+        background: #fdecea;
+        border-left: 3px solid #7b3535;
+        padding-left: 7px;
+        transition: all 0.2s ease;
+    }
+/* ===== CONTACT CELL ===== */
+.contact-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    line-height: 1.3;
+    padding-right: 6px;
+}
+
+.contact-email {
+    font-size: 12px;
+    color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contact-mobile {
+    font-size: 11px;
+    color: #888;
+}
+/* ===== DATETIME CELL ===== */
+.datetime-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.3;
+}
+
+.datetime-date {
+    font-weight: 600;
+    color: #2c2c2c;
+    font-size: 12px;
+}
+
+.datetime-time {
+    font-size: 11px;
+    color: #888;
+}
+/* ===== DESCRIPTION CELL ===== */
+.desc-cell {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 6px;
+}
+/* ===== PRICE CELLS ===== */
+.price-mrp {
+    font-size: 12px;
+    color: #888;
+    text-decoration: line-through;
+}
+
+.price-sp {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2d6a2d;
+}
 /* ===== AVATAR ICON ===== */
 .avatar-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: #c9908a;
     color: #fff;
 }
 
     .avatar-icon i {
-        font-size: 20px;
+        font-size: 18px;
     }
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .adminbooks-page {
@@ -172,6 +271,7 @@
 
     .adminbooks-card {
         margin: 0 10px;
+        padding: 14px 10px 20px;
     }
 
     .page-title {
@@ -180,5 +280,19 @@
 
     .search-bar {
         width: 180px;
+    }
+
+    .back-btn {
+        left: 16px;
+        top: 16px;
+    }
+
+    .table-row {
+        font-size: 10px;
+        padding: 8px 6px;
+    }
+
+    .table-header {
+        font-size: 10px;
     }
 }

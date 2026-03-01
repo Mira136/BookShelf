@@ -35,7 +35,9 @@
             </div>
 
             <div class="action-bar">
-                <a href="/EBooks/Download?fileName=let-them.pdf"
+                <a asp-controller="Ebooks"
+                   asp-action="Download"
+                   asp-route-fileName="let-them.pdf"
                    class="btn-download-main">
                     <i class="fa fa-download"></i> Download
                 </a>

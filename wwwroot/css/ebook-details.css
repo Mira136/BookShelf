@@ -8,11 +8,13 @@
 html, body {
     overflow-x: hidden;
 }
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
 body {
     font-family: 'Inter', Arial, sans-serif;
     background: #fff;
@@ -22,72 +24,75 @@ body {
     line-height: 1;
 }
 
-.pdf-text-layer span {
-    color: transparent;
-    position: absolute;
-    white-space: pre;
-    cursor: text;
-    transform-origin: 0% 0%;
-}
+    .pdf-text-layer span {
+        color: transparent;
+        position: absolute;
+        white-space: pre;
+        cursor: text;
+        transform-origin: 0% 0%;
+    }
 
 /* Normal search highlight */
 mark.pdf-search-highlight {
-    background: rgba(255, 200, 100, 0.15); /* more transparent */
+    background: rgba(255, 200, 100, 0.15);
     color: transparent;
     border-radius: 2px;
 }
 
-    /* Active / focused match */
     mark.pdf-search-highlight.active-match {
-        background: rgba(128, 52, 52, 0.25); /* softer active */
+        background: rgba(128, 52, 52, 0.25);
         color: transparent;
         border-radius: 2px;
-        outline: none; /* remove strong border */
+        outline: none;
     }
-
 
 /* ── LAYOUT ── */
 .main-container {
     display: flex;
-    justify-content: center; /* centers everything */
-    padding: 0 60px; /* ← THIS CREATES RED SIDE SPACE */
+    justify-content: center;
+    padding: 0 60px;
     min-height: 100vh;
 }
 
 /* ── CONTENT ── */
 .content {
     flex: 1;
-    max-width: 1400px; /* keeps content in center */
+    max-width: 1400px;
     width: 100%;
-    padding: 30px 0; /* remove side padding here */
+    padding: 30px 0;
 }
 
-/* ── BACK ARROW BUTTON ── */
+/* ── BACK ARROW BUTTON (ONLY THIS CHANGED) ── */
 .btn-back {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    width: 42px; /* exact size like previous */
+    height: 42px;
+    border-radius: 10px;
     border: 2px solid #803434;
     background: white;
     color: #803434;
-    font-size: 20px;
+    font-size: 18px;
     text-decoration: none;
     position: absolute;
-    left: 0px; /* adjust gap here */
-    top: 0px; /* optional vertical gap */
+    left: 0px;
+    top: 0px;
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
 }
 
     .btn-back:hover {
         background: #803434;
         color: white;
-        box-shadow: 0 4px 14px rgba(128, 52, 52, 0.35);
+        box-shadow: 0 6px 18px rgba(128, 52, 52, 0.28);
+        transform: translateY(-2px);
     }
 
+    .btn-back:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
+    }
 
 /* ── ACTION BAR (Download + icons + search) ── */
 .action-bar {
@@ -125,6 +130,8 @@ mark.pdf-search-highlight {
         background: #5e2424;
         color: white;
     }
+
+/* EVERYTHING BELOW IS EXACTLY SAME AS YOUR ORIGINAL */
 
 /* Icon action buttons (bookmark, like, dislike) */
 .action-icon-btn {

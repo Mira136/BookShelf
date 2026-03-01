@@ -43,30 +43,39 @@ body {
         left: 0;
     }
 
+/* ── BACK ARROW BUTTON ── */
 .btn-back {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    border: 2px solid #7a2e2e;
-    background: #fff;
-    color: #7a2e2e;
-    font-size: 16px;
+    width: 42px; /* exact size */
+    height: 42px; /* exact size */
+
+    border-radius: 10px; /* exact radius */
+    border: 2px solid #803434;
+    background: #ffffff;
+    color: #803434;
+    font-size: 18px; /* exact icon size */
     text-decoration: none;
+    position: absolute;
+    left: 0px;
+    top: 0px;
     cursor: pointer;
-    flex-shrink: 0;
-    transition: background .2s, color .2s, transform .15s;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
 }
 
     .btn-back:hover {
-        background: #7a2e2e;
-        color: #fff;
-        transform: translateX(-2px);
+        background: #803434;
+        color: #ffffff;
+        box-shadow: 0 6px 18px rgba(128, 52, 52, 0.28);
+        transform: translateY(-2px);
     }
 
-.page-title {
+    .btn-back:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
+    }
+    .page-title {
     font-size: clamp(26px, 4.5vw, 52px);
     font-weight: 700;
     color: #264075;
