@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uploader Info</title>
+    <link rel="stylesheet" href="~/css/uploader-info.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+    <div class="uploaderinfo-page">
+
+        <!-- BACK BUTTON + TITLE — UNCHANGED -->
+        <div class="page-header">
+            <a href="/Home/BookDetails" class="back-btn">
+                <i class="fa fa-arrow-left"></i>
+            </a>
+            <h2 class="uploaderinfo-title">Uploader Info</h2>
+        </div>
+
+        <!-- QUOTE -->
+        <div class="quote-strip">
+            <div class="quote-text">
+                "The legend who listed this book has been found." 🎉
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="uploader-table-wrapper">
+            <table class="uploader-table">
+
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="td-label">
+                            <div class="td-label-inner">
+                                <i class="fa fa-user"></i>
+                                Username
+                            </div>
+                        </td>
+                        <td class="td-value">
+                            <div class="td-value-inner">xyz</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="td-label">
+                            <div class="td-label-inner">
+                                <i class="fa fa-envelope"></i>
+                                Email
+                            </div>
+                        </td>
+                        <td class="td-value">
+                            <div class="td-value-inner">xyz@gmail.com</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="td-label">
+                            <div class="td-label-inner">
+                                <i class="fa fa-phone"></i>
+                                Contact No.
+                            </div>
+                        </td>
+                        <td class="td-value">
+                            <div class="td-value-inner">+91 12345 09876</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="td-label">
+                            <div class="td-label-inner">
+                                <i class="fa fa-clock"></i>
+                                Upload Time
+                            </div>
+                        </td>
+                        <td class="td-value">
+                            <div class="td-value-inner">05-01-2026 21:12:00</div>
+                        </td>
+                    </tr>
+
+                    <tr class="table-footer-row">
+                        <td colspan="2">
+                            📚 Books find their people. You found yours.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -6,117 +6,146 @@
 
 <div class="book-details-container">
 
-    <!-- IMPROVED BACK BUTTON -->
+    <!-- BACK BUTTON -->
     <div class="back-row">
         <a href="/Home/Index" class="back-btn">
             <i class="fa fa-arrow-left"></i>
         </a>
     </div>
 
+    <!-- MAIN CARD -->
     <div class="book-details">
 
-        <!-- IMAGE -->
+        <!-- LEFT — IMAGE + ACTIONS -->
         <div class="book-image">
+
             <img class="main-img" src="/images/book1.png" />
 
-            <!-- BUTTONS -->
             <div class="btn-row">
-                <button class="btn-main">
+                <button class="btn-main" onclick="window.location.href='/Home/Cart'">
                     <i class="fa fa-shopping-cart"></i>
                     Add to cart
                 </button>
-
-                <button class="btn-main">
+                <button class="btn-main" onclick="window.location.href='/Home/Checkout'">
                     <i class="fa-solid fa-sack-dollar"></i>
                     Buy now
                 </button>
             </div>
+
+            <button class="uploader-btn" onclick="window.location.href='/Home/UploaderInfo'">
+                <i class="fa fa-circle-user"></i>
+                Uploader Info
+            </button>
+
         </div>
 
-        <!-- INFO -->
+        <!-- RIGHT — DETAILS -->
         <div class="book-info">
 
+
+            <!-- TITLE -->
             <div class="book-title">
                 Mathematics: Textbook for Class XII, Part I
             </div>
 
-            <div class="actual-label">Actual Price:</div>
-
-            <div>
-                <span class="price-main">₹140</span>
-                <span class="price-old">₹240</span>
+            <!-- PRICE -->
+            <div class="price-section">
+                <div>
+                    <span class="actual-label">Actual Price</span>
+                    <div style="display:flex; align-items:baseline; gap:12px;">
+                        <span class="price-main">₹140</span>
+                        <span class="price-old">₹240</span>
+                    </div>
+                </div>
+                <span class="price-save">🎉 Save ₹100</span>
             </div>
 
-            <div class="info-row">
-                <span class="label">Availability :</span>
-                <span class="stock">In stock</span>
-            </div>
+            <!-- INFO ROWS -->
+            <div class="info-rows-wrapper">
 
-            <div class="info-row">
-                <span class="label">Condition :</span> Second-Hand
-            </div>
+                <div class="info-row">
+                    <span class="label">Availability :</span>
+                    <span class="stock">In stock</span>
+                </div>
 
-            <div class="info-row">
-                <span class="label">Author :</span> NCERT
-            </div>
+                <div class="info-row">
+                    <span class="label">Condition :</span>
+                    <span>Second-Hand</span>
+                </div>
 
-            <div class="info-row">
-                <span class="label">Category :</span> Academic / Education
-            </div>
+                <div class="info-row">
+                    <span class="label">Author :</span>
+                    <span>NCERT</span>
+                </div>
 
-            <div class="info-row">
-                <span class="label">Language :</span> English
-            </div>
+                <div class="info-row">
+                    <span class="label">Category :</span>
+                    <span>Academic / Education</span>
+                </div>
 
-            <div class="info-row">
-                <span class="label">Education Level :</span> Senior Secondary
-            </div>
+                <div class="info-row">
+                    <span class="label">Language :</span>
+                    <span>English</span>
+                </div>
 
-            <div class="info-row">
-                <span class="label">Description :</span>
-                A textbook for the Class 12 NCERT first part.
-            </div>
+                <div class="info-row">
+                    <span class="label">Education Level :</span>
+                    <span>Senior Secondary</span>
+                </div>
 
-            <div class="rating">
-                <span class="label">Rating:</span>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half"></i>
+                <div class="info-row">
+                    <span class="label">Description :</span>
+                    <span>A textbook for the Class 12 NCERT first part.</span>
+                </div>
+
+                <div class="rating">
+                    <span class="label">Rating :</span>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+
             </div>
 
         </div>
     </div>
 
-    <!-- MOVED UPLOADER ABOVE REVIEW -->
-    <div class="uploader-row">
-        <button class="uploader-btn">
-            <i class="fa fa-user"></i>
-            Uploader Info
-        </button>
-    </div>
+    <!-- DIVIDER -->
+    <div class="section-divider"></div>
 
     <!-- REVIEWS -->
     <div class="review-section">
 
-        <div class="review-title">Review:</div>
-
-        <div class="review-item">
-            <img src="/images/profile_image.png" class="profile-img">
-            Tanvi : The book i bought from him is as it is shown in image
+        <div class="review-header">
+            <div class="review-title">Customer Reviews</div>
+            <span class="review-count">3 reviews</span>
         </div>
 
         <div class="review-item">
             <img src="/images/profile_image.png" class="profile-img">
-            Ayushi : Not waste of money
+            <div class="review-text">
+                <span class="reviewer-name">Tanvi</span>
+                <span class="reviewer-comment">The book I bought from him is exactly as shown in the image.</span>
+            </div>
         </div>
 
         <div class="review-item">
             <img src="/images/profile_image.png" class="profile-img">
-            Mira : Condition of book is great
+            <div class="review-text">
+                <span class="reviewer-name">Ayushi</span>
+                <span class="reviewer-comment">Not a waste of money at all, great value!</span>
+            </div>
+        </div>
+
+        <div class="review-item">
+            <img src="/images/profile_image.png" class="profile-img">
+            <div class="review-text">
+                <span class="reviewer-name">Mira</span>
+                <span class="reviewer-comment">Condition of the book is great, very happy with the purchase.</span>
+            </div>
         </div>
 
     </div>
-
 </div>
