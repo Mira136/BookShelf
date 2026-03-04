@@ -1,83 +1,360 @@
-﻿.orders-container {
-    padding: 40px;
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* ===== CONTAINER ===== */
+.orders-container {
+    padding: 36px 48px 60px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
-    margin-left: 70px; /* ⬅ pushes cards away from sidebar */
-    max-width: 1000px;
+    gap: 0;
+    max-width: 780px;
+    box-sizing: border-box;
 }
-/* ── BACK BUTTON (Orders Page Enhanced) ── */
 
+/* ===== HEADER ROW ===== */
+.orders-back {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.orders-page-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #3a1a1a;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.3px;
+}
+
+.orders-page-sub {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 28px;
+    font-family: 'Poppins', sans-serif;
+    padding-left: 2px;
+}
+
+/* ===== BACK BUTTON ===== */
 .back-icon-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px; /* adjusted for perfect square */
-
+    width: 40px;
+    height: 40px;
     border: 2px solid #823838;
-    border-radius: 8px;
-    background-color: #ffffff;
+    border-radius: 10px;
+    background: #fff;
     color: #823838;
-    font-size: 18px;
+    font-size: 16px;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    flex-shrink: 0;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-    /* Hover Effect */
     .back-icon-btn:hover {
-        background-color: #823838;
-        color: #ffffff;
-        box-shadow: 0 4px 12px rgba(130, 56, 56, 0.28);
-        transform: translateY(-2px);
+        background: #823838;
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(130, 56, 56, 0.30);
+        transform: translateX(-2px);
     }
 
-    /* Active Click Effect */
     .back-icon-btn:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 6px rgba(130, 56, 56, 0.2);
+        transform: translateX(0);
     }
-/* Order Card */
+
+/* ===== ORDERS LIST ===== */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ===== ORDER CARD ===== */
 .order-card {
-    max-width: 950px; /* ⬅ reduce this to make card smaller */
-    width: 100%;
-    height: 150px;
+    display: flex;
+    align-items: stretch;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 2px 0px rgba(130, 56, 56, 0.06), 0 4px 20px rgba(130, 56, 56, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f0eaea;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+    position: relative;
+    animation: cardReveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+    .order-card:nth-child(1) {
+        animation-delay: 0.05s;
+    }
+
+    .order-card:nth-child(2) {
+        animation-delay: 0.12s;
+    }
+
+    .order-card:nth-child(3) {
+        animation-delay: 0.19s;
+    }
+
+@keyframes cardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.order-card:hover {
+    transform: translateY(-4px) scale(1.003);
+    box-shadow: 0 12px 32px rgba(130, 56, 56, 0.14), 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.order-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, #7a3030, #c47a7a, #e8b4a0);
+    border-radius: 18px 0 0 18px;
+}
+
+/* ===== BOOK IMAGE ===== */
+.order-img-wrap {
+    flex-shrink: 0;
+    width: 104px;
+    background: linear-gradient(160deg, #fdf6f5 0%, #f9eded 100%);
     display: flex;
     align-items: center;
-    gap: 30px;
-    padding: 25px;
-    background: rgba(127, 51, 51, 0.1);
-    border: 1px solid #803434;
-    border-radius: 6px;
-    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+    justify-content: center;
+    padding: 14px 10px;
+    border-right: 1px solid #f0e8e8;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Book Image */
+    .order-img-wrap::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 60% 40%, rgba(255,255,255,0.6) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
 .order-img {
-    width: 95px;
-    height: 130px;
+    width: 72px;
+    height: 100px;
     object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.10), 2px 0 0 rgba(0,0,0,0.04);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 1;
 }
 
-/* Text Section */
-.order-details h3 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 6px;
+.order-card:hover .order-img {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+/* ===== ORDER DETAILS ===== */
+.order-details {
+    flex: 1;
+    padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+}
+
+    .order-details h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1c1c1e;
+        margin: 0 0 8px 0;
+        line-height: 1.3;
+        font-family: 'Poppins', sans-serif;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: -0.2px;
+    }
+
+/* ===== META ===== */
+.order-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .order-details .muted {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 4px;
+    font-size: 12.5px;
+    color: #999;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .order-details .muted i {
+        color: #c28880;
+        font-size: 11px;
+    }
+
+    .order-details .muted b {
+        color: #555;
+        font-weight: 600;
+    }
+
+/* ===== DIVIDER ===== */
+.order-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, #f0e4e4, #f8f0f0, transparent);
+    margin: 10px 0;
+}
+
+/* ===== FOOTER ===== */
+.order-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .order-details .total {
-    font-size: 20px;
-    margin-top: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #888;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
-.order-details .total span {
-    font-weight: 700;
+    .order-details .total span {
+        color: #7a2e2e;
+        font-weight: 800;
+        font-size: 17px;
+        margin-left: 4px;
+        letter-spacing: -0.5px;
+    }
+
+/* ===== STATUS BADGE ===== */
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 13px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.2px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .order-status:hover {
+        transform: scale(1.04);
+    }
+
+    .order-status.delivered {
+        background: rgba(39, 174, 96, 0.09);
+        color: #1a7a40;
+        border: 1px solid rgba(39, 174, 96, 0.22);
+        box-shadow: 0 2px 8px rgba(39, 174, 96, 0.10);
+    }
+
+    .order-status.processing {
+        background: rgba(243, 156, 18, 0.10);
+        color: #a06a08;
+        border: 1px solid rgba(243, 156, 18, 0.28);
+        box-shadow: 0 2px 8px rgba(243, 156, 18, 0.10);
+    }
+
+    .order-status.cancelled {
+        background: rgba(192, 57, 43, 0.09);
+        color: #b03020;
+        border: 1px solid rgba(192, 57, 43, 0.20);
+        box-shadow: 0 2px 8px rgba(192, 57, 43, 0.08);
+    }
+
+    .order-status i {
+        font-size: 10px;
+    }
+
+    /* Pulsing dot for processing */
+    .order-status.processing i {
+        animation: pulse 1.6s ease-in-out infinite;
+    }
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .orders-container {
+        padding: 22px 16px 40px;
+    }
+
+    .order-meta {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .order-img-wrap {
+        width: 84px;
+    }
+
+    .order-img {
+        width: 60px;
+        height: 84px;
+    }
+
+    .order-details h3 {
+        font-size: 14px;
+        white-space: normal;
+    }
+
+    .order-details .muted {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .orders-container {
+        padding: 16px 12px 32px;
+    }
+
+    .order-img-wrap {
+        width: 74px;
+        padding: 10px 8px;
+    }
+
+    .order-img {
+        width: 54px;
+        height: 76px;
+    }
+
+    .order-details {
+        padding: 14px 16px;
+    }
+
+        .order-details h3 {
+            font-size: 13px;
+        }
+
+        .order-details .total span {
+            font-size: 15px;
+        }
 }
