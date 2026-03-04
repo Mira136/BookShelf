@@ -1,0 +1,112 @@
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+    Func<string, string, string> isActive = (controller, action) =>
+    {
+        return currentController == controller && currentAction == action ? "active" : "";
+    };
+
+    // Check if we are on the Dashboard page
+    bool isDashboardPage = currentController == "Admin" && currentAction == "Dashboard";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin</title>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+
+    @* ===== ADMIN HEADER (only for Dashboard) ===== *@
+    @if (isDashboardPage)
+    {
+        <div class="header">
+            <div class="header-left">
+                <img src="~/images/logo.png" class="logo-img" />
+                <span>BookShelf</span>
+            </div>
+
+            <div class="header-right">
+                <a asp-controller="Account" asp-action="AdminProfile">
+                    <i class="fa fa-user header-icon"></i>
+                </a>
+            </div>
+        </div>
+    }
+
+    <!-- ===== MAIN CONTAINER ===== -->
+    <div class="main-container">
+
+        @* ===== ADMIN SIDEBAR (only for Dashboard) ===== *@
+        @if (isDashboardPage)
+        {
+            <div class="sidebar">
+                <ul>
+
+                    <li class="@isActive("Admin", "Books")">
+                        <a asp-controller="Admin" asp-action="Books">
+                            <i class="fa fa-book"></i>
+                            <span>Books</span>
+                        </a>
+                    </li>
+
+                    <li class="@isActive("Admin", "Ebooks")">
+                        <a asp-controller="Admin" asp-action="Ebooks">
+                            <i class="fa fa-file-pdf"></i>
+                            <span>Ebooks</span>
+                        </a>
+                    </li>
+
+                    <li class="@isActive("Admin", "Users")">
+                        <a asp-controller="Admin" asp-action="Users">
+                            <i class="fa fa-users"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+
+                    <li class="@isActive("Admin", "Scoreboard")">
+                        <a asp-controller="Admin" asp-action="Scoreboard">
+                            <i class="fa fa-trophy"></i>
+                            <span>Scoreboard</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Account" asp-action="AdminAboutUs">
+                            <i class="fa fa-circle-info"></i>
+                            <span>About Us</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Account" asp-action="Logout">
+                            <i class="fa fa-right-from-bracket"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        }
+
+        <!-- ===== PAGE CONTENT ===== -->
+        <div class="content">
+            @RenderBody()
+        </div>
+
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

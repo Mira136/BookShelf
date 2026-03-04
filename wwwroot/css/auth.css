@@ -1,0 +1,239 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+/* MAIN CONTAINER */
+.login-container {
+    width: 100%;
+    max-width: 1440px;
+    min-height: 100vh;
+    position: relative;
+    margin: 0 auto; 
+    background: white;
+    font-family: 'Inter', sans-serif;
+}
+
+/* BRAND */
+.brand {
+    position: absolute;
+    top: 4%;
+    left: 2%;
+    color: #823838;
+    font-size: 2rem;
+    font-family: 'Figma Hand', cursive;
+    font-weight: 700;
+}
+
+/* RIGHT IMAGE */
+
+.right-image {
+    width: 48%;
+    height: 93.5%;
+    aspect-ratio: 550 / 560;
+    right: 2.5%;
+    top: 3%;
+    position: absolute;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+/* WELCOME */
+.welcome-wrapper {
+    position: absolute;
+    top: 20%;
+    left: 3%;
+    width: 40%;
+}
+
+.welcome-title {
+    color: #264075;
+    font-size: 4vw;
+    font-weight: 700;
+}
+
+.welcome-sub {
+    color: rgba(38, 64, 117, 0.81);
+    font-size: 1.5vw;
+}
+
+/* LOGIN BOX */
+.login-box {
+    position: absolute;
+    top: 55%;
+    left: 3%;
+    width: 45%;
+    height: 40vh;
+    background: rgba(248, 229, 229, 0.07);
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+    border-radius: 15px;
+    border: 3px #803434 solid;
+}
+
+/* LABELS */
+.label-email {
+    position: absolute;
+    top: 60%;
+    left: 8%;
+    color: #823838;
+    font-size: 1.5vw;
+    font-weight: 700;
+}
+
+.label-password {
+    position: absolute;
+    top: 68%;
+    left: 8%;
+    color: #823838;
+    font-size: 1.5vw;
+    font-weight: 700;
+}
+
+/* INPUT */
+.input-email,
+.input-password {
+    position: absolute;
+    width: 28%;
+    height: 5vh;
+    left: 16%;
+    background: rgba(129,56,56,0.51);
+    border-radius: 10px;
+    border: none;
+    padding-left: 15px;
+    color: white;
+    font-size: 1vw;
+}
+
+.input-email {
+    top: 59%;
+}
+
+.input-password {
+    top: 67%;
+}
+
+/* REMEMBER */
+.remember-box {
+    position: absolute;
+    top: 73.5%;
+    left: 16%;
+}
+
+.remember-text {
+    position: absolute;
+    top: 74%;
+    left: 18%;
+    color: #264075;
+    font-size: 1vw;
+    font-weight: 600;
+}
+
+/* FORGOT */
+.forgot-link {
+    position: absolute;
+    top: 73.5%;
+    left: 33%;
+    color: #264075;
+    font-size: 1vw;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* LOGIN BUTTON */
+.login-button {
+    position: absolute;
+    top: 82%;
+    left: 11%;
+    width: 28%;
+    height: 6vh;
+    background: #823838;
+    border-radius: 15px;
+    border: none;
+    color: white;
+    font-size: 1.5vw;
+    font-weight: 700;
+}
+
+/* SIGNUP */
+.signup-text {
+    position: absolute;
+    top: 90%;
+    left: 17%;
+    font-size: 1vw;
+}
+
+.signup-link {
+    color: #823838;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* GUEST BUTTON */
+.guest-button {
+    width: 300px;
+    height: 40px;
+    left: 700px;
+    top: 520px;
+    position: absolute;
+    background: #823838;
+    border-radius: 15px;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* ---------------- MOBILE RESPONSIVE ---------------- */
+
+@media screen and (max-width: 992px) {
+
+    .right-image {
+        position: relative;
+        width: 90%;
+        height: 300px;
+        margin: 20px auto;
+        display: block;
+    }
+
+    .welcome-wrapper,
+    .login-box,
+    .label-email,
+    .label-password,
+    .input-email,
+    .input-password,
+    .remember-box,
+    .remember-text,
+    .forgot-link,
+    .login-button,
+    .signup-text,
+    .guest-button {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+        text-align: center;
+    }
+
+    .welcome-title {
+        font-size: 28px;
+    }
+
+    .welcome-sub {
+        font-size: 16px;
+    }
+
+    .login-button,
+    .guest-button {
+        width: 90%;
+        font-size: 18px;
+    }
+
+    .input-email,
+    .input-password {
+        width: 90%;
+        height: 45px;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,43 @@
+﻿@model BookShelf.Models.ViewModels.AdminProfileViewModel
+@{
+    ViewData["Title"] = "Admin Profile";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/AdminProfile.css" asp-append-version="true" />
+
+<div class="admin-page">
+
+    <!-- Back Arrow -->
+    <a asp-action="Login" class="back-arrow">
+        <img src="~/images/Back_Arrow_icon.png" />
+    </a>
+
+    <h2 class="page-title">Profile</h2>
+
+    <div class="admin-card">
+
+        <!-- Profile Circle -->
+        <div class="profile-image">
+            <img src="~/images/reg_profile.png" />
+        </div>
+
+        <div class="field">
+            <label>Name</label>
+            <div class="field-box">@Model.Name</div>
+        </div>
+
+        <div class="field">
+            <label>Username</label>
+            <div class="field-box">@Model.Username</div>
+        </div>
+
+        <div class="field">
+            <label>Number</label>
+            <div class="field-box">@Model.Number</div>
+        </div>
+
+        <a asp-action="Login" class="logout-btn">Logout</a>
+
+    </div>
+</div>

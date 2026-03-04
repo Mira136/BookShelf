@@ -1,0 +1,64 @@
+﻿@model BookShelf.Models.ViewModels.LoginViewModel
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/auth.css" />
+
+<div class="login-container">
+
+    <div class="brand">
+        BookShelf
+    </div>
+
+    <img class="right-image" src="~/images/login.png" />
+
+    <div class="welcome-wrapper">
+        <div class="welcome-title">
+            Welcome back,<br />here!!
+        </div>
+        <div class="welcome-sub">
+            <br />We are glad to see you again!<br />
+            please enter you details.
+        </div>
+    </div>
+
+    <div class="login-box"></div>
+
+    <form asp-action="Login" method="post">
+
+        <label class="label-email">Email</label>
+        <input asp-for="Email" class="input-email" placeholder="xyz123@gmail.com" />
+
+        <label class="label-password">Password</label>
+        <input asp-for="Password" type="password"
+               class="input-password" placeholder="Enter your password" />
+
+        <input asp-for="RememberMe" class="remember-box" />
+        <div class="remember-text">Remember me</div>
+
+        <a asp-controller="Account" asp-action="ForgotPassword"
+           class="forgot-link">
+            Forgot Password?
+        </a>
+
+        <button type="submit" class="login-button">
+            Login
+        </button>
+
+        <div class="signup-text">
+            Don’t have account ?
+            <a asp-controller="Account" asp-action="Register"
+               class="signup-link">
+                Sign Up
+            </a>
+        </div>
+
+       <button type="button"
+        class="guest-button">
+    Explore As Guest
+</button>
+
+    </form>
+
+</div>

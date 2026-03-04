@@ -1,0 +1,154 @@
+﻿body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f4f4f4;
+}
+
+/* =========================
+   Page Layout
+========================= */
+.profile-page {
+    min-height: 100vh;
+    padding: 30px 15px;
+    text-align: center;
+    position: relative;
+}
+
+/* =========================
+   Back Arrow
+========================= */
+.back-arrow {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+    .back-arrow img {
+        width: 28px;
+        height: auto;
+    }
+
+/* =========================
+   Heading
+========================= */
+.profile-heading {
+    font-size: 30px;
+    font-weight: 700;
+    color: #264075;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   Card
+========================= */
+.profile-card {
+    width: 100%;
+    max-width: 360px; /* compact size */
+    margin: auto;
+    background: rgba(129, 56, 56, 0.18);
+    border-radius: 15px;
+    padding: 30px 25px;
+    position: relative;
+}
+
+/* =========================
+   Edit Icon
+========================= */
+.edit-icon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+    .edit-icon img {
+        width: 20px;
+        height: auto;
+        cursor: pointer;
+    }
+
+/* FORCE PROFILE IMAGE SMALL */
+.profile-image img {
+    width: 110px !important;
+    height: 110px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+.profile-card img {
+    max-width: 110px !important;
+    max-height: 110px !important;
+}
+/* =========================
+   Fields
+========================= */
+.field {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+    .field label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #823838;
+    }
+
+.field-box {
+    background: rgba(129, 56, 56, 0.5);
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-top: 5px;
+    color: white;
+    font-size: 14px;
+}
+
+/* Email Underline */
+.email {
+    text-decoration: underline;
+}
+
+/* =========================
+   Logout Button
+========================= */
+.logout-btn {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 8px 22px;
+    background: #823838;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+    .logout-btn:hover {
+        background: #6d2f2f;
+    }
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 480px) {
+
+    .profile-heading {
+        font-size: 22px;
+    }
+
+    .profile-card {
+        padding: 20px;
+    }
+
+    .profile-image img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .field-box {
+        font-size: 13px;
+    }
+
+    .logout-btn {
+        font-size: 13px;
+        padding: 7px 18px;
+    }
+}

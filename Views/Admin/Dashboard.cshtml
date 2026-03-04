@@ -1,155 +1,96 @@
 @{
     ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 @section Styles {
-    <link rel="stylesheet" href="~/css/dashboard.css" />
+    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
 }
 
-<!-- ===== HEADER ===== -->
-<div class="header">
-    <div class="header-left">
-        <img src="~/images/logo.png" class="logo-img" />
-        <span>BookShelf</span>
-    </div>
-    <div class="header-right">
-        <div class="admin-profile">
-            <i class="fa fa-user"></i>
-        </div>
-    </div>
-</div>
+<div class="admin-content">
 
-<!-- ===== MAIN ===== -->
-<div class="main-container">
+    <!-- ===== STATS SECTION ===== -->
+    <div class="admin-stats">
 
-    <!-- ===== SIDEBAR ===== -->
-    <div class="sidebar admin-sidebar">
-        <ul>
-            <li>
-                <a href="/Admin/Books">
-                    <i class="fa fa-book"></i>
-                    <span>Books</span>
-                </a>
-            </li>
-            <li>
-                <a href="/Admin/Ebooks">
-                    <i class="fa fa-tablet-screen-button"></i>
-                    <span>E-Books</span>
-                </a>
-            </li>
-            <li>
-                <a href="/Admin/Users">
-                    <i class="fa fa-users"></i>
-                    <span>Users</span>
-                </a>
-            </li>
-            <li>
-                <a href="/Admin/Scoreboard">
-                    <i class="fa fa-chart-column"></i>
-                    <span>Score Board</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fa fa-info-circle"></i>
-                    <span>About Us</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fa fa-right-from-bracket"></i>
-                    <span>Logout</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <!-- ===== CONTENT ===== -->
-    <div class="content admin-content">
-
-        <!-- STATS -->
-        <div class="admin-stats">
-            <div class="admin-stat">
-                <div class="stat-icon-wrap stat-icon-books">
-                    <i class="fa fa-book"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">Total Books</span>
-                    <h3>150</h3>
-                </div>
+        <div class="admin-stat">
+            <div class="stat-icon-wrap stat-icon-books">
+                <i class="fa fa-book"></i>
             </div>
-            <div class="admin-stat">
-                <div class="stat-icon-wrap stat-icon-users">
-                    <i class="fa fa-users"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">Total Users</span>
-                    <h3>200</h3>
-                </div>
-            </div>
-            <div class="admin-stat">
-                <div class="stat-icon-wrap stat-icon-ebooks">
-                    <i class="fa fa-tablet-screen-button"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">Total E-Books</span>
-                    <h3>300</h3>
-                </div>
+            <div class="stat-info">
+                <span class="stat-label">Total Books</span>
+                <h3>150</h3>
             </div>
         </div>
 
-        <!-- SECTION LABEL -->
-        <div class="admin-section-label">Quick Access</div>
-
-        <!-- CARDS -->
-        <div class="admin-cards">
-
-            <a href="/Admin/Books" class="admin-card-link">
-                <div class="admin-card">
-                    <img src="~/images/admin_book.png">
-                    <p>Books</p>
-                </div>
-            </a>
-
-            <a href="/Admin/Ebooks" class="admin-card-link">
-                <div class="admin-card">
-                    <img src="~/images/admin_ebook.png">
-                    <p>E-Books</p>
-                </div>
-            </a>
-
-            <a href="/Admin/Users" class="admin-card-link">
-                <div class="admin-card">
-                    <img src="~/images/admin_users.png">
-                    <p>Users</p>
-                </div>
-            </a>
-
-            <a href="/Admin/Scoreboard" class="admin-card-link">
-                <div class="admin-card">
-                    <img src="~/images/admin_score_board.png">
-                    <p>Score Board</p>
-                </div>
-            </a>
-
-            <a href="#" class="admin-card-link">
-                <div class="admin-card">
-                    <img src="~/images/admin_about_us.png">
-                    <p>About Us</p>
-                </div>
-            </a>
-
-            <a href="#" class="admin-card-link">
-                <div class="admin-card">
-                    <img src="~/images/admin_profile.png">
-                    <p>Profile</p>
-                </div>
-            </a>
-
+        <div class="admin-stat">
+            <div class="stat-icon-wrap stat-icon-users">
+                <i class="fa fa-users"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-label">Total Users</span>
+                <h3>200</h3>
+            </div>
         </div>
-        <!-- end admin-cards -->
+
+        <div class="admin-stat">
+            <div class="stat-icon-wrap stat-icon-ebooks">
+                <i class="fa fa-tablet-screen-button"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-label">Total E-Books</span>
+                <h3>300</h3>
+            </div>
+        </div>
 
     </div>
-    <!-- end content -->
+
+    <!-- ===== SECTION LABEL ===== -->
+    <div class="admin-section-label">
+        Quick Access
+    </div>
+
+    <!-- ===== QUICK ACCESS CARDS ===== -->
+    <div class="admin-cards">
+
+        <a asp-controller="Admin" asp-action="Books" class="admin-card-link">
+            <div class="admin-card">
+                <img src="~/images/admin_book.png" alt="Books" />
+                <p>Books</p>
+            </div>
+        </a>
+
+        <a asp-controller="Admin" asp-action="Ebooks" class="admin-card-link">
+            <div class="admin-card">
+                <img src="~/images/admin_ebook.png" alt="E-Books" />
+                <p>E-Books</p>
+            </div>
+        </a>
+
+        <a asp-controller="Admin" asp-action="Users" class="admin-card-link">
+            <div class="admin-card">
+                <img src="~/images/admin_users.png" alt="Users" />
+                <p>Users</p>
+            </div>
+        </a>
+
+        <a asp-controller="Admin" asp-action="Scoreboard" class="admin-card-link">
+            <div class="admin-card">
+                <img src="~/images/admin_score_board.png" alt="Scoreboard" />
+                <p>Score Board</p>
+            </div>
+        </a>
+        <a asp-controller="Account" asp-action="AdminAboutUs" class="admin-card-link">
+            <div class="admin-card">
+                <img src="~/images/admin_about_us.png" alt="About Us" />
+                <p>About Us</p>
+            </div>
+        </a>
+        <a asp-controller="Account" asp-action="AdminProfile" class="admin-card-link">
+            <div class="admin-card">
+                <img src="~/images/admin_profile.png" alt="Profile" />
+                <p>Profile</p>
+            </div>
+        </a>
+    </div>
 
 </div>
-<!-- end main-container -->

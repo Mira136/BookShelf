@@ -1,0 +1,55 @@
+﻿@model BookShelf.Models.ViewModels.UserProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/userprofile.css" />
+
+<div class="profile-page">
+
+    <!-- Back Arrow -->
+    <a asp-controller="Home" asp-action="Index" class="back-arrow">
+        <img src="~/images/Back_Arrow_icon.png" />
+    </a>
+
+    <h2 class="profile-heading">Profile</h2>
+
+    <div class="profile-card">
+
+        <!-- Edit Icon -->
+        <div class="edit-icon">
+    <a asp-controller="Account" asp-action="EditUserProfile">
+        <img src="~/images/edit.png" alt="Edit" />
+    </a>
+</div>
+
+        <!-- Profile Circle -->
+        <div class="profile-image">
+            <img src="~/images/reg_profile.png" />
+        </div>
+
+        <div class="field">
+            <label>Name</label>
+            <div class="field-box">@Model.Name</div>
+        </div>
+
+        <div class="field">
+            <label>Username</label>
+            <div class="field-box email">@Model.Username</div>
+        </div>
+
+        <div class="field">
+            <label>Number</label>
+            <div class="field-box">@Model.Number</div>
+        </div>
+
+        <div class="field">
+            <label>Credit</label>
+            <div class="field-box">@Model.Credit</div>
+        </div>
+
+        <a asp-action="Login" class="logout-btn">Logout</a>
+
+    </div>
+</div>

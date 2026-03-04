@@ -1,0 +1,108 @@
+﻿body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f4f4f4;
+}
+
+/* Page Layout */
+.admin-page {
+    min-height: 100vh;
+    padding: 30px 15px; /* reduced like AdminProfile */
+    text-align: center;
+}
+
+/* Title */
+.page-title {
+    font-size: 30px; /* reduced from 36px */
+    font-weight: 700;
+    color: #264075;
+    margin-bottom: 25px; /* reduced */
+}
+
+/* Card */
+.admin-card {
+    width: 100%;
+    max-width: 360px; /* same as AdminProfile */
+    margin: auto;
+    background: rgba(129, 56, 56, 0.18);
+    border-radius: 15px;
+    padding: 30px 25px; /* reduced */
+}
+
+/* Profile Image */
+.profile-image {
+    text-align: center;
+    margin-bottom: 20px; /* reduced */
+}
+
+    .profile-image img {
+        width: 110px; /* same as AdminProfile */
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+/* Fields */
+.field {
+    text-align: left;
+    margin-bottom: 15px; /* reduced */
+}
+
+    .field label {
+        font-size: 14px; /* reduced */
+        font-weight: 600;
+        color: #823838;
+    }
+
+.field-box {
+    background: rgba(129, 56, 56, 0.5);
+    border-radius: 10px; /* slightly smaller */
+    padding: 8px 12px; /* reduced */
+    margin-top: 5px;
+    color: white;
+    font-size: 14px; /* reduced */
+}
+
+/* Button */
+.action-btn {
+    display: inline-block;
+    margin-top: 18px; /* reduced */
+    padding: 8px 22px; /* reduced */
+    background: #823838;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px; /* reduced */
+    transition: 0.2s ease;
+}
+
+    .action-btn:hover {
+        background: #6d2f2f;
+    }
+
+/* Responsive */
+@media (max-width: 480px) {
+
+    .page-title {
+        font-size: 22px;
+    }
+
+    .admin-card {
+        padding: 20px;
+    }
+
+    .profile-image img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .field-box {
+        font-size: 13px;
+    }
+
+    .action-btn {
+        font-size: 13px;
+        padding: 7px 18px;
+    }
+}

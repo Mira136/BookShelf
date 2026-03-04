@@ -24,5 +24,9 @@ namespace BookShelf.Controllers
         {
             return View();
         }
+        public IActionResult Wishlist()
+        {
+            return View();
+        }
     }
 }

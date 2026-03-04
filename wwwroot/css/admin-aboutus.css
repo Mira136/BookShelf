@@ -1,0 +1,162 @@
+﻿.admin-about-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 10px 20px;
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+}
+
+.about-header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+    .about-header h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #2F4A7F;
+    }
+
+.back-btn {
+    position: absolute;
+    left: -25px;
+    top: 0px;
+}
+
+    .back-btn img {
+        width: 28px;
+        height: 28px;
+    }
+
+/* Section */
+.about-section {
+    margin-bottom: 30px;
+}
+
+    .about-section label {
+        font-size: 20px;
+        font-weight: 600;
+        color: #803434;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+/* Editor */
+.editor-box {
+    border: 1px solid #803434;
+    border-radius: 6px;
+    background: rgba(235,212,212,0.25);
+    overflow: hidden;
+}
+
+.editable-area {
+    min-height: 36px;
+    max-height: 36px;
+    padding: 6px 12px;
+}
+
+    /* Placeholder */
+    .editable-area:empty:before {
+        content: attr(data-placeholder);
+        color: rgba(0,0,0,0.4);
+        pointer-events: none;
+    }
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-top: 1px solid #803434;
+    background: #ffffff;
+}
+
+    .editor-toolbar img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+        margin-right: 14px;
+        cursor: pointer;
+    }
+
+        .editor-toolbar img:last-child {
+            width: 16px;
+        }
+
+.char-count {
+    margin-left: auto;
+    font-size: 13px;
+    color: rgba(0,0,0,0.4);
+}
+
+/* Why large box */
+.why-large-box {
+    margin-top: 0px;
+}
+
+    .why-large-box textarea {
+        width: 100%;
+        height: 180px;
+        border: 1px solid #803434;
+        border-radius: 6px;
+        padding: 12px;
+        resize: none;
+        outline: none;
+        font-size: 14px;
+        background: #ffffff;
+    }
+
+/* Buttons */
+.btn-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 35px;
+}
+
+.btn-save {
+    background: #803434;
+    color: white;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 12px;
+}
+
+.btn-cancel {
+    border: 1px solid #803434;
+    color: #803434;
+    padding: 8px 18px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+    .btn-cancel:hover {
+        background: #f6f6f6;
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .admin-about-wrapper {
+        padding: 15px;
+    }
+
+    .about-header h1 {
+        font-size: 28px;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-save,
+    .btn-cancel {
+        width: 100%;
+        text-align: center;
+    }
+}

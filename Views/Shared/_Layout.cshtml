@@ -1,5 +1,6 @@
 @{
-    bool isLoggedIn = true;   // replace later with real auth
+    bool isLoggedIn = User.Identity != null && User.Identity.IsAuthenticated;
+    bool isAdmin = User.IsInRole("Admin");
 
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
@@ -10,63 +11,87 @@
     {
         return currentController == controller && currentAction == action ? "active" : "";
     };
+
+    // Helper function for guest links: redirects to login if not logged in
+    string GuestOrUserLink(string controller, string action)
+    {
+        return isLoggedIn ? Url.Action(action, controller) : Url.Action("Login", "Account");
+    }
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BookShelf</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookShelf</title>
 
-    <link rel="stylesheet" href="~/css/site.css" />
-    @RenderSection("Styles", required: false)
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/forgotpassword.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/notification.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/userprofile.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/EditUserProfile.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/aboutus.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/AdminProfile.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin-aboutus.css" asp-append-version="true" />
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    @RenderSection("Styles", required: false)
 </head>
 
 <body>
+    <!-- ================= HEADER ================= -->
+    <div class="header">
+        <div class="header-left">
+            <img src="~/images/logo.png" class="logo-img" />
+            <span>BookShelf</span>
+        </div>
 
-    @if (!isAdminPage)
-    {
-        <!-- ================= HEADER ================= -->
-        <div class="header">
-            <div class="header-left">
-                <img src="~/images/logo.png" class="logo-img" />
-                <span>BookShelf</span>
+        <div class="header-right">
+            <div class="search-box">
+                <input type="text" id="globalBookSearch" placeholder="Search books..." />
+                <i class="fa fa-search"></i>
             </div>
 
-            <div class="header-right">
-                <div class="search-box">
-                    <div class="search-box">
-                        <input type="text" id="globalBookSearch" placeholder="Search books..." />
-                        <i class="fa fa-search"></i>
-                    </div>
-                    <i class="fa fa-search"></i>
-                </div>
+            @if (isLoggedIn)
+            {
+                <a asp-controller="Account" asp-action="Notifications" class="header-icon">
+                    <i class="fa fa-bell"></i>
+                </a>
 
-                @if (isLoggedIn)
+                @if (isAdmin)
                 {
-                    <i class="fa fa-bell header-icon"></i>
-                    <i class="fa fa-user header-icon"></i>
+                    <a asp-controller="Account" asp-action="AdminProfile">
+                        <i class="fa fa-user header-icon"></i>
+                    </a>
                 }
                 else
                 {
-                    <a href="/Account/Login" class="header-link">Login</a>
-                    <a href="/Account/Register" class="header-link">Sign up</a>
+                    <a asp-controller="Account" asp-action="UserProfile">
+                        <i class="fa fa-user header-icon"></i>
+                    </a>
                 }
-            </div>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" class="header-link">Login</a>
+                <a asp-controller="Account" asp-action="Register" class="header-link">Sign up</a>
+            }
         </div>
-    }
+    </div>
 
-    <!-- ================= MAIN ================= -->
     <div class="main-container">
 
+        @* ================= USER SIDEBAR ================= *@
         @if (!isAdminPage)
         {
-            <!-- ================= SIDEBAR ================= -->
             <div class="sidebar">
                 <ul>
 
+                    <!-- Dashboard -->
                     <li class="@isActive("Home", "Index")">
                         <a asp-controller="Home" asp-action="Index">
                             <i class="fa fa-home"></i>
@@ -74,6 +99,7 @@
                         </a>
                     </li>
 
+                    <!-- Category -->
                     <li class="@isActive("Home", "Category")">
                         <a asp-controller="Home" asp-action="Category">
                             <i class="fa fa-th-large"></i>
@@ -81,92 +107,86 @@
                         </a>
                     </li>
 
+                    <!-- Cart -->
+                    <li class="@isActive("Order", "Cart")">
+                        <a href="@GuestOrUserLink("Order", "Cart")">
+                            <i class="fa fa-cart-shopping"></i>
+                            <span>Cart</span>
+                        </a>
+                    </li>
+
+                    <!-- Wishlist -->
+                    <li class="@isActive("Order", "Wishlist")">
+                        <a href="@GuestOrUserLink("Order", "Wishlist")">
+                            <i class="fa fa-heart"></i>
+                            <span>Wishlist</span>
+                        </a>
+                    </li>
+
+                    <!-- My Orders (only for logged-in users) -->
                     @if (isLoggedIn)
                     {
-                        <li class="@isActive("Order", "Cart")">
-                            <a asp-controller="Order" asp-action="Cart">
-                                <i class="fa fa-cart-shopping"></i>
-                                <span>Cart</span>
-                            </a>
-                        </li>
-
                         <li class="@isActive("Order", "Orders")">
                             <a asp-controller="Order" asp-action="Orders">
                                 <i class="fa fa-box"></i>
                                 <span>My Orders</span>
                             </a>
                         </li>
-
-                        <li class="@isActive("Ebooks", "Index")">
-                            <a asp-controller="Ebooks" asp-action="Index">
-                                <i class="fa fa-book"></i>
-                                <span>E-Books</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-heart"></i>
-                                <span>Wishlist</span>
-                            </a>
-                        </li>
-
-                        <li class="@isActive("Ebooks", "UploadPdf")">
-                            <a asp-controller="Ebooks" asp-action="UploadPdf">
-                                <i class="fa fa-upload"></i>
-                                <span>Upload PDF</span>
-                            </a>
-                        </li>
-
-                        <li class="@isActive("Books", "UploadBook")">
-                            <a asp-controller="Books" asp-action="UploadBook">
-                                <i class="fa fa-book-open"></i>
-                                <span>Upload Book</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-info-circle"></i>
-                                <span>About</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-right-from-bracket"></i>
-                                <span>Logout</span>
-                            </a>
-                        </li>
                     }
-                    else
+
+                    <!-- Upload PDF -->
+                    <li class="@isActive("Ebooks", "UploadPdf")">
+                        <a href="@GuestOrUserLink("Ebooks", "UploadPdf")">
+                            <i class="fa fa-upload"></i>
+                            <span>Upload PDF</span>
+                        </a>
+                    </li>
+
+                    <!-- Upload Book -->
+                    <li class="@isActive("Books", "UploadBook")">
+                        <a href="@GuestOrUserLink("Books", "UploadBook")">
+                            <i class="fa fa-book-open"></i>
+                            <span>Upload Book</span>
+                        </a>
+                    </li>
+
+                    <!-- E-Books -->
+                    <li class="@isActive("Ebooks", "Index")">
+                        <a href="@GuestOrUserLink("Ebooks", "Index")">
+                            <i class="fa fa-book"></i>
+                            <span>E-Books</span>
+                        </a>
+                    </li>
+
+                    <!-- About Us -->
+                    <li class="@isActive("Account", "About")">
+                        <a asp-controller="Account" asp-action="About">
+                            <i class="fa fa-circle-info"></i>
+                            <span>About Us</span>
+                        </a>
+                    </li>
+
+                    <!-- Logout only for logged-in users -->
+                    @if (isLoggedIn)
                     {
-                        <li>
-                            <a asp-controller="Account" asp-action="Login">
-                                <i class="fa fa-cart-shopping"></i>
-                                <span>Cart</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a asp-controller="Account" asp-action="Login">
-                                <i class="fa fa-heart"></i>
-                                <span>Wishlist</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a asp-controller="Account" asp-action="Login">
-                                <i class="fa fa-book"></i>
-                                <span>E-Books</span>
-                            </a>
-                        </li>
+                        <!-- Logout only for logged-in users -->
+                        @if (isLoggedIn)
+                        {
+                            <li>
+                                <a href="#" id="logout-link">
+                                    <i class="fa fa-right-from-bracket"></i>
+                                    <span>Logout</span>
+                                </a>
+                                <form id="logout-form" asp-controller="Account" asp-action="Logout" method="post" style="display:none;"></form>
+                            </li>
+                        }
                     }
                 </ul>
             </div>
         }
 
-        <!-- ================= CONTENT ================= -->
+        
+
         <div class="content">
             @RenderBody()
         </div>
@@ -174,10 +194,10 @@
     </div>
 
     @await RenderSectionAsync("Scripts", required: false)
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const searchInput = document.getElementById("globalBookSearch");
-
             if (!searchInput) return;
 
             searchInput.addEventListener("keyup", function () {
@@ -188,13 +208,25 @@
                     const title = card.querySelector("h3")?.innerText.toLowerCase() || "";
                     const category = card.querySelector("p")?.innerText.toLowerCase() || "";
 
-                    if (title.includes(query) || category.includes(query)) {
-                        card.style.display = "";
-                    } else {
-                        card.style.display = "none";
-                    }
+                    card.style.display =
+                        title.includes(query) || category.includes(query)
+                            ? ""
+                            : "none";
                 });
             });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var logoutLink = document.getElementById("logout-link");
+            var logoutForm = document.getElementById("logout-form");
+
+            if (logoutLink && logoutForm) {
+                logoutLink.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    logoutForm.submit();
+                });
+            }
         });
     </script>
 

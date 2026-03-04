@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Notifications";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/notification.css" />
+
+<div class="notification-page">
+
+    <!-- Header -->
+    <div class="notification-header">
+        <a asp-controller="Home" asp-action="Index" class="back-btn">
+            <img src="~/images/back_arrow_icon.png" alt="Back" />
+        </a>
+        <h1>Notifications</h1>
+    </div>
+
+    <!-- Main Box -->
+    <div class="notification-container">
+
+        <div class="notification-item">
+            <img src="~/images/notification_icon.png" alt="icon" />
+            <div class="notification-text">Your book order has been successfully placed</div>
+        </div>
+
+        <div class="notification-item">
+            <img src="~/images/notification_icon.png" alt="icon" />
+            <div class="notification-text">Order cancelled successfully</div>
+        </div>
+
+        <div class="notification-item">
+            <img src="~/images/notification_icon.png" alt="icon" />
+            <div class="notification-text">Price drop alert on books in your wishlist</div>
+        </div>
+
+        <div class="notification-item">
+            <img src="~/images/notification_icon.png" alt="icon" />
+            <div class="notification-text">Flat 20% OFF on selected books – Limited time!</div>
+        </div>
+
+        <div class="notification-item">
+            <img src="~/images/notification_icon.png" alt="icon" />
+            <div class="notification-text">New books matching your interest are available</div>
+        </div>
+
+        <div class="notification-item">
+            <img src="~/images/notification_icon.png" alt="icon" />
+            <div class="notification-text">Your book has been delivered</div>
+        </div>
+
+        <div class="notification-item">
+            <img src="~/images/notification_icon.png" alt="icon" />
+            <div class="notification-text">Your book listing has been posted successfully</div>
+        </div>
+
+        <div class="notification-item">
+            <img src="~/images/notification_icon.png" alt="icon" />
+            <div class="notification-text">Pickup scheduled for your book</div>
+        </div>
+
+    </div>
+
+</div>

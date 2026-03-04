@@ -1,0 +1,141 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+}
+
+/* PAGE WRAPPER */
+.notification-page {
+    min-height: 100vh;
+    padding: 20px 15px; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* HEADER */
+.notification-header {
+    width: 100%;
+    max-width: 650px; 
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px; 
+}
+
+    .notification-header h1 {
+        font-size: 38px; 
+        font-weight: 700;
+        color: #264075;
+        margin: 0;
+    }
+
+/* Back Button */
+.back-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+    .back-btn img {
+        width: 26px; 
+        height: 26px;
+    }
+
+/* MAIN CONTAINER */
+.notification-container {
+    width: 100%;
+    max-width: 650px; 
+    padding: 30px; 
+    border: 2px solid #823838;
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+}
+
+/* SINGLE NOTIFICATION */
+.notification-item {
+    display: flex;
+    align-items: center;
+    gap: 18px; 
+    margin-bottom: 18px; 
+}
+
+    .notification-item img {
+        width: 22px; 
+        height: 22px;
+        flex-shrink: 0;
+    }
+
+.notification-text {
+    flex: 1;
+    padding: 10px 16px; 
+    background: rgba(129, 56, 56, 0.11);
+    border: 2px solid rgba(129, 56, 56, 0.40);
+    border-radius: 6px;
+    font-size: 15px; 
+    color: #823838;
+}
+
+.notification-item:last-child {
+    margin-bottom: 0;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 768px) {
+
+    .notification-container {
+        padding: 20px;
+    }
+
+    .notification-header {
+        margin-bottom: 25px;
+    }
+
+        .notification-header h1 {
+            font-size: 30px;
+        }
+
+    .notification-text {
+        font-size: 14px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .notification-header {
+        text-align: left;
+    }
+
+        .notification-header h1 {
+            font-size: 24px;
+        }
+
+    .notification-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .notification-text {
+        width: 100%;
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+
+    .back-btn {
+        position: static;
+        transform: none;
+        margin-bottom: 15px;
+    }
+
+        .back-btn img {
+            width: 22px;
+        }
+}

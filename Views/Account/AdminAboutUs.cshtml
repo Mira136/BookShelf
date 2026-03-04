@@ -1,0 +1,143 @@
+﻿@model BookShelf.Models.ViewModels.AboutUsViewModel
+@{
+    ViewData["Title"] = "Admin About Us";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/admin-aboutus.css" />
+
+<div class="admin-about-wrapper">
+
+    <div class="about-header">
+        <a asp-controller="Admin" asp-action="Dashboard" class="back-btn">
+            <img src="~/images/Back_Arrow_icon.png" />
+        </a>
+        <h1>About Us</h1>
+    </div>
+
+    <form asp-action="AdminAboutUs" method="post">
+        @Html.AntiForgeryToken()
+
+        <!-- OUR STORY -->
+        <div class="about-section">
+            <label>Our Story</label>
+            <div class="editor-box">
+                <div class="editable-area"
+                     contenteditable="true"
+                     data-placeholder="Edit Our Story"></div>
+
+                <input type="hidden" asp-for="OurStory" />
+
+                <div class="editor-toolbar">
+                    <img src="~/images/Bold.png" onclick="formatText(this,'bold')" />
+                    <img src="~/images/Italic.png" onclick="formatText(this,'italic')" />
+                    <img src="~/images/Vector.png" onclick="formatText(this,'insertUnorderedList')" />
+                    <img src="~/images/Vector2.png" onclick="formatText(this,'insertOrderedList')" />
+                    <img src="~/images/ellipsis.png" />
+                    <span class="char-count">0/500</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUR MISSION -->
+        <div class="about-section">
+            <label>Our Mission</label>
+            <div class="editor-box">
+                <div class="editable-area"
+                     contenteditable="true"
+                     data-placeholder="Edit Our Mission"></div>
+
+                <input type="hidden" asp-for="OurMission" />
+
+                <div class="editor-toolbar">
+                    <img src="~/images/Bold.png" onclick="formatText(this,'bold')" />
+                    <img src="~/images/Italic.png" onclick="formatText(this,'italic')" />
+                    <img src="~/images/Vector.png" onclick="formatText(this,'insertUnorderedList')" />
+                    <img src="~/images/Vector2.png" onclick="formatText(this,'insertOrderedList')" />
+                    <img src="~/images/ellipsis.png" />
+                    <span class="char-count">0/500</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUR VISION -->
+        <div class="about-section">
+            <label>Our Vision</label>
+            <div class="editor-box">
+                <div class="editable-area"
+                     contenteditable="true"
+                     data-placeholder="Edit Our Vision"></div>
+
+                <input type="hidden" asp-for="OurVision" />
+
+                <div class="editor-toolbar">
+                    <img src="~/images/Bold.png" onclick="formatText(this,'bold')" />
+                    <img src="~/images/Italic.png" onclick="formatText(this,'italic')" />
+                    <img src="~/images/Vector.png" onclick="formatText(this,'insertUnorderedList')" />
+                    <img src="~/images/Vector2.png" onclick="formatText(this,'insertOrderedList')" />
+                    <img src="~/images/ellipsis.png" />
+                    <span class="char-count">0/500</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- WHY CHOOSE US -->
+        <div class="about-section">
+            <label>Why Choose Us?</label>
+            <div class="editor-box">
+                <div class="editable-area"
+                     contenteditable="true"
+                     data-placeholder="Edit Why Choose Us"></div>
+
+                <input type="hidden" asp-for="WhyChooseUs" />
+
+                <div class="editor-toolbar">
+                    <img src="~/images/Bold.png" onclick="formatText(this,'bold')" />
+                    <img src="~/images/Italic.png" onclick="formatText(this,'italic')" />
+                    <img src="~/images/Vector.png" onclick="formatText(this,'insertUnorderedList')" />
+                    <img src="~/images/Vector2.png" onclick="formatText(this,'insertOrderedList')" />
+                    <img src="~/images/ellipsis.png" />
+                    <span class="char-count">0/500</span>
+                </div>
+            </div>
+
+            <div class="why-large-box">
+                <textarea placeholder="Add detailed content here..."></textarea>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="submit" class="btn-save">Save Changes</button>
+            <a asp-action="AdminAboutUs" class="btn-cancel">Cancel</a>
+        </div>
+
+    </form>
+</div>
+
+<script>
+function formatText(element, command) {
+    const editor = element.closest(".editor-box").querySelector(".editable-area");
+    editor.focus();
+    document.execCommand(command, false, null);
+}
+
+document.querySelector("form").addEventListener("submit", function () {
+    document.querySelectorAll(".editor-box").forEach(box => {
+        const editable = box.querySelector(".editable-area");
+        const hidden = box.querySelector("input[type='hidden']");
+        hidden.value = editable.innerHTML;
+    });
+});
+
+document.querySelectorAll(".editable-area").forEach(editor => {
+    const counter = editor.closest(".editor-box").querySelector(".char-count");
+    editor.addEventListener("input", () => {
+        let text = editor.innerText.trim();
+        if (text.length > 500) {
+            editor.innerText = text.substring(0, 500);
+            text = editor.innerText;
+        }
+        counter.textContent = text.length + "/500";
+    });
+});
+</script>

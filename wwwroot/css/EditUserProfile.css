@@ -1,0 +1,200 @@
+﻿body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f4f4f4;
+}
+
+/* =========================
+   Page Layout
+========================= */
+.edit-profile-wrapper {
+    min-height: 100vh;
+    padding: 30px 15px;
+    text-align: center;
+    position: relative;
+}
+
+/* =========================
+   Heading
+========================= */
+.page-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #264075;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   Card (Same as UserProfile)
+========================= */
+.profile-card {
+    width: 100%;
+    max-width: 360px; /* SAME SIZE */
+    margin: auto;
+    background: rgba(129, 56, 56, 0.18); /* SAME COLOR */
+    border-radius: 15px;
+    padding: 30px 25px;
+    position: relative;
+}
+
+/* =========================
+   Profile Image
+========================= */
+.profile-image-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-image {
+    width: 110px;
+    height: 110px;
+    margin: auto;
+    border-radius: 50%;
+    background: rgba(129, 56, 56, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+    .profile-image img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+/* =========================
+   Change Photo Button
+========================= */
+.change-photo-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 18px;
+    border: 1px solid #823838;
+    border-radius: 10px;
+    color: #823838;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    background: rgba(234, 212, 212, 0.20);
+}
+
+/* =========================
+   Form Fields
+========================= */
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #823838;
+    }
+
+.input-wrapper {
+    position: relative;
+    margin-top: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px 35px 8px 12px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(129, 56, 56, 0.5);
+    color: white;
+    font-size: 14px;
+}
+
+    .form-input::placeholder {
+        color: rgba(255,255,255,0.6);
+    }
+
+/* Edit Icon */
+.edit-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* =========================
+   Buttons
+========================= */
+.button-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.save-btn {
+    background: #823838;
+    color: white;
+    padding: 8px 22px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    .save-btn:hover {
+        background: #6d2f2f;
+    }
+
+.cancel-btn {
+    padding: 8px 22px;
+    border-radius: 6px;
+    border: 1px solid #823838;
+    color: #823838;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+    .cancel-btn:hover {
+        background: rgba(129, 56, 56, 0.1);
+    }
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 480px) {
+
+    .page-title {
+        font-size: 22px;
+    }
+
+    .profile-card {
+        padding: 20px;
+    }
+
+    .profile-image {
+        width: 90px;
+        height: 90px;
+    }
+
+        .profile-image img {
+            width: 90px;
+            height: 90px;
+        }
+
+    .form-input {
+        font-size: 13px;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        font-size: 13px;
+        padding: 7px 18px;
+    }
+}

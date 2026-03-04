@@ -1,0 +1,177 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: white;
+}
+
+.register-page {
+    text-align: center;
+    padding: 10px 15px 30px 15px;
+}
+
+/* TITLE */
+.title {
+    font-size: 34px;
+    font-weight: 700;
+    color: #2f4675;
+    margin-bottom: 2px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: rgba(38,64,117,0.81);
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* CARD */
+.card-box {
+    max-width: 850px;
+    margin: auto;
+    background: rgba(189,147,117,0.10);
+    border-radius: 15px;
+    padding: 30px 35px;
+    display: flex;
+    justify-content: center; /* FIXED */
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* LEFT + RIGHT SIDE BALANCED */
+.left-section,
+.right-section {
+    width: calc(50% - 20px); /* PERFECT BALANCE */
+}
+
+/* ONLY IMAGE CENTERED */
+.profile-wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 35px auto;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+}
+
+.camera-img {
+    position: absolute;
+    bottom: -10px;
+    right: 35px;
+    width: 45px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+label {
+    font-weight: 700;
+    color: #823838;
+    margin-bottom: 4px;
+    display: block;
+    font-size: 14px;
+}
+
+input,
+textarea {
+    width: 100%;
+    height: 40px;
+    border-radius: 12px;
+    border: none;
+    padding-left: 15px;
+    margin-top: 5px;
+    background: rgba(129,56,56,0.51);
+    color: white;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 80px;
+    padding: 10px;
+    resize: none;
+}
+
+/* BUTTON */
+.btn-wrapper {
+    width: 100%;
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+}
+
+.register-btn {
+    width: 180px;
+    height: 42px;
+    border-radius: 12px;
+    border: none;
+    background: #823838;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+
+    .card-box {
+        flex-direction: column;
+        padding: 25px;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100%;
+    }
+
+    .profile-wrapper {
+        width: 240px;
+        height: 240px;
+        margin: 0 auto 25px auto;
+    }
+
+    .camera-img {
+        width: 35px;
+        right: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .title {
+        font-size: 26px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .profile-wrapper {
+        width: 180px;
+        height: 180px;
+    }
+
+    input,
+    textarea {
+        font-size: 13px;
+    }
+
+    .register-btn {
+        width: 150px;
+        height: 38px;
+        font-size: 14px;
+    }
+}
