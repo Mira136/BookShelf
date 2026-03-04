@@ -1,45 +1,48 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
-/* ===== CONTAINER ===== */
+/* ===== CONTAINER (purple area = padding) ===== */
 .book-details-container {
-    padding: 24px 80px 80px 80px;
+    padding: 20px 24px 80px 24px;
     background: #ffffff;
     min-height: 100vh;
     font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ===== TOP BAR (blue area — back arrow only) ===== */
+.top-bar {
+    display: flex;
+    align-items: center;
+    padding: 0;
 }
 
 /* ===== BACK BUTTON ===== */
-.back-row {
-    margin-bottom: 24px;
+button.back-btn {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: #f5eded !important;
+    border: 1.5px solid #d4b8b8 !important;
+    color: #823838 !important;
+    font-size: 14px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    padding: 0 !important;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 
-.back-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border: 1px solid #823838;
-    border-radius: 6px;
-    color: #823838;
-    text-decoration: none;
-    background: #fff;
-    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
-}
-
-    .back-btn:hover {
-        background: #803434;
-        color: #fff;
-        box-shadow: 0 6px 18px rgba(128,52,52,0.28);
-        transform: translateY(-2px);
+    button.back-btn:hover {
+        background: #823838 !important;
+        color: #fff !important;
+        border-color: #823838 !important;
+        transform: scale(1.1);
     }
 
-    .back-btn:active {
-        transform: translateY(0);
-        box-shadow: 0 3px 8px rgba(128,52,52,0.2);
-    }
-
-/* ===== MAIN CARD ===== */
+/* ===== MAIN CARD (pink area) ===== */
 .book-details {
     display: flex;
     gap: 48px;
@@ -146,7 +149,6 @@
     flex-direction: column;
     min-width: 0;
 }
-
 
 /* ===== TITLE ===== */
 .book-title {
@@ -286,7 +288,7 @@
 .section-divider {
     height: 1px;
     background: #ede8e8;
-    margin: 36px 0;
+    margin: 24px 0;
 }
 
 /* ===== REVIEW SECTION ===== */
@@ -399,6 +401,7 @@
     line-height: 1.5;
     font-family: 'Poppins', sans-serif;
 }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
     .book-details-container {

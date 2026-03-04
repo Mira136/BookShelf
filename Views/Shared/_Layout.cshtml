@@ -44,44 +44,47 @@
 
 <body>
     <!-- ================= HEADER ================= -->
-    <div class="header">
-        <div class="header-left">
-            <img src="~/images/logo.png" class="logo-img" />
-            <span>BookShelf</span>
-        </div>
-
-        <div class="header-right">
-            <div class="search-box">
-                <input type="text" id="globalBookSearch" placeholder="Search books..." />
-                <i class="fa fa-search"></i>
+    @if (!isAdminPage)
+    {
+        <div class="header">
+            <div class="header-left">
+                <img src="~/images/logo.png" class="logo-img" />
+                <span>BookShelf</span>
             </div>
 
-            @if (isLoggedIn)
-            {
-                <a asp-controller="Account" asp-action="Notifications" class="header-icon">
-                    <i class="fa fa-bell"></i>
-                </a>
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" id="globalBookSearch" placeholder="Search books..." />
+                    <i class="fa fa-search"></i>
+                </div>
 
-                @if (isAdmin)
+                @if (isLoggedIn)
                 {
-                    <a asp-controller="Account" asp-action="AdminProfile">
-                        <i class="fa fa-user header-icon"></i>
+                    <a asp-controller="Account" asp-action="Notifications" class="header-icon">
+                        <i class="fa fa-bell"></i>
                     </a>
+
+                    @if (isAdmin)
+                    {
+                        <a asp-controller="Account" asp-action="AdminProfile">
+                            <i class="fa fa-user header-icon"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="UserProfile">
+                            <i class="fa fa-user header-icon"></i>
+                        </a>
+                    }
                 }
                 else
                 {
-                    <a asp-controller="Account" asp-action="UserProfile">
-                        <i class="fa fa-user header-icon"></i>
-                    </a>
+                    <a asp-controller="Account" asp-action="Login" class="header-link">Login</a>
+                    <a asp-controller="Account" asp-action="Register" class="header-link">Sign up</a>
                 }
-            }
-            else
-            {
-                <a asp-controller="Account" asp-action="Login" class="header-link">Login</a>
-                <a asp-controller="Account" asp-action="Register" class="header-link">Sign up</a>
-            }
+            </div>
         </div>
-    </div>
+    }
 
     <div class="main-container">
 
@@ -169,7 +172,6 @@
                     <!-- Logout only for logged-in users -->
                     @if (isLoggedIn)
                     {
-                        <!-- Logout only for logged-in users -->
                         @if (isLoggedIn)
                         {
                             <li>
@@ -184,8 +186,6 @@
                 </ul>
             </div>
         }
-
-        
 
         <div class="content">
             @RenderBody()

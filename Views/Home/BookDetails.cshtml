@@ -1,26 +1,27 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Book Details";
 }
 
-<link rel="stylesheet" href="~/css/book-details.css" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/book-details.css" asp-append-version="true" />
+}
 
 <div class="book-details-container">
 
-    <!-- BACK BUTTON -->
-    <div class="back-row">
-        <a href="/Home/Index" class="back-btn">
+    <!-- BLUE AREA — back arrow only -->
+    <div class="top-bar">
+        <button class="btn-back" onclick="history.back()">
             <i class="fa fa-arrow-left"></i>
-        </a>
+        </button>
     </div>
 
-    <!-- MAIN CARD -->
+    <!-- PINK AREA — main card -->
     <div class="book-details">
 
         <!-- LEFT — IMAGE + ACTIONS -->
         <div class="book-image">
-
             <img class="main-img" src="/images/book1.png" />
-
             <div class="btn-row">
                 <button class="btn-main" onclick="window.location.href='/Order/Cart'">
                     <i class="fa fa-shopping-cart"></i>
@@ -31,24 +32,17 @@
                     Buy now
                 </button>
             </div>
-
             <button class="uploader-btn" onclick="window.location.href='/Home/UploaderInfo'">
                 <i class="fa fa-circle-user"></i>
                 Uploader Info
             </button>
-
         </div>
 
         <!-- RIGHT — DETAILS -->
         <div class="book-info">
-
-
-            <!-- TITLE -->
             <div class="book-title">
                 Mathematics: Textbook for Class XII, Part I
             </div>
-
-            <!-- PRICE -->
             <div class="price-section">
                 <div>
                     <span class="actual-label">Actual Price</span>
@@ -59,45 +53,35 @@
                 </div>
                 <span class="price-save">🎉 Save ₹100</span>
             </div>
-
-            <!-- INFO ROWS -->
             <div class="info-rows-wrapper">
-
                 <div class="info-row">
                     <span class="label">Availability :</span>
                     <span class="stock">In stock</span>
                 </div>
-
                 <div class="info-row">
                     <span class="label">Condition :</span>
                     <span>Second-Hand</span>
                 </div>
-
                 <div class="info-row">
                     <span class="label">Author :</span>
                     <span>NCERT</span>
                 </div>
-
                 <div class="info-row">
                     <span class="label">Category :</span>
                     <span>Academic / Education</span>
                 </div>
-
                 <div class="info-row">
                     <span class="label">Language :</span>
                     <span>English</span>
                 </div>
-
                 <div class="info-row">
                     <span class="label">Education Level :</span>
                     <span>Senior Secondary</span>
                 </div>
-
                 <div class="info-row">
                     <span class="label">Description :</span>
                     <span>A textbook for the Class 12 NCERT first part.</span>
                 </div>
-
                 <div class="rating">
                     <span class="label">Rating :</span>
                     <i class="fa fa-star"></i>
@@ -106,9 +90,7 @@
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                 </div>
-
             </div>
-
         </div>
     </div>
 
@@ -117,12 +99,10 @@
 
     <!-- REVIEWS -->
     <div class="review-section">
-
         <div class="review-header">
             <div class="review-title">Customer Reviews</div>
             <span class="review-count">3 reviews</span>
         </div>
-
         <div class="review-item">
             <img src="/images/profile_image.png" class="profile-img">
             <div class="review-text">
@@ -130,7 +110,6 @@
                 <span class="reviewer-comment">The book I bought from him is exactly as shown in the image.</span>
             </div>
         </div>
-
         <div class="review-item">
             <img src="/images/profile_image.png" class="profile-img">
             <div class="review-text">
@@ -138,7 +117,6 @@
                 <span class="reviewer-comment">Not a waste of money at all, great value!</span>
             </div>
         </div>
-
         <div class="review-item">
             <img src="/images/profile_image.png" class="profile-img">
             <div class="review-text">
@@ -146,6 +124,6 @@
                 <span class="reviewer-comment">Condition of the book is great, very happy with the purchase.</span>
             </div>
         </div>
-
     </div>
+
 </div>
