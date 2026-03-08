@@ -1,7 +1,68 @@
 ﻿
 @{
     ViewData["Title"] = "Wishlist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Wishlist</h1>
+@section Styles {
+    <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
+}
 
+<!-- ===== WISHLIST BOOK CARDS ===== -->
+<div class="book-grid">
+
+    <!-- Book 1 -->
+    <div class="book-card">
+        <img src="~/images/book1.png" alt="Maths Textbook" />
+        <p class="book-title-text">Maths Textbook -XII</p>
+        <p class="book-sub">Education</p>
+        <div class="price">
+            <span class="old">₹240</span>
+            <span class="new">₹140</span>
+        </div>
+
+        <div class="card-buttons">
+            <a asp-controller="Home"
+               asp-action="BookDetails"
+               class="view-btn">
+                View
+            </a>
+            <i class="fa-solid fa-heart wishlist-icon active"></i>
+        </div>
+    </div>
+
+    <!-- Book 2 -->
+    <div class="book-card">
+        <img src="~/images/book6.png" alt="Bhagavad Gita" />
+        <p class="book-title-text">Bhagavad Gita</p>
+        <p class="book-sub">Religious</p>
+
+        <div class="price">
+            <span class="old">₹681</span>
+            <span class="new">₹485</span>
+        </div>
+
+        <div class="card-buttons">
+            <button>View</button>
+            <i class="fa-solid fa-heart wishlist-icon active"></i>
+        </div>
+    </div>
+
+    <!-- Book 3 -->
+    <div class="book-card">
+        <img src="~/images/book8.png" alt="Oxford Dictionary" />
+        <p class="book-title-text">Oxford English Dictionary</p>
+        <p class="book-sub">Reference</p>
+
+        <div class="price">
+            <span class="old">₹250</span>
+            <span class="new">₹200</span>
+        </div>
+
+        <div class="card-buttons">
+            <button>View</button>
+            <i class="fa-solid fa-heart wishlist-icon active"></i>
+        </div>
+    </div>
+
+</div>

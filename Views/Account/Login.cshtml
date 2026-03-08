@@ -2,6 +2,7 @@
 @{
     Layout = null;
 }
+<title>BookShelf</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="~/css/auth.css" />
@@ -100,6 +101,17 @@
         </div>
         <!-- ═══ END RIGHT ═══ -->
 
+        <button type="submit" class="login-button">
+            Login
+        </button>
+
+        <div class="signup-text">
+            Don’t have account ?
+            <a asp-controller="Account" asp-action="Register"
+               class="signup-link">
+                Sign Up
+            </a>
+        </div>
     </div>
 </div>
 

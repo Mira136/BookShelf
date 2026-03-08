@@ -1,8 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Book Details";
+    // ViewData["Title"] = "Book Details";
 }
-
+<title>BookShelf</title>
 @section Styles {
     <link rel="stylesheet" href="~/css/book-details.css" asp-append-version="true" />
 }
@@ -11,7 +11,8 @@
 
     <!-- BLUE AREA — back arrow only -->
     <div class="top-bar">
-        <button class="btn-back" onclick="history.back()">
+        <button class="btn-back"
+                onclick="location.href='@Url.Action("Index", "Home")'">
             <i class="fa fa-arrow-left"></i>
         </button>
     </div>
@@ -23,19 +24,49 @@
         <div class="book-image">
             <img class="main-img" src="/images/book1.png" />
             <div class="btn-row">
-                <button class="btn-main" onclick="window.location.href='/Order/Cart'">
-                    <i class="fa fa-shopping-cart"></i>
-                    Add to cart
-                </button>
-                <button class="btn-main" onclick="window.location.href='/Order/Checkout'">
-                    <i class="fa-solid fa-sack-dollar"></i>
-                    Buy now
-                </button>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <button class="btn-main" onclick="window.location.href='/Order/Cart'">
+                        <i class="fa fa-shopping-cart"></i>
+                        Add to cart
+                    </button>
+                }
+                else
+                {
+                    <button class="btn-main" onclick="window.location.href='/Account/Login'">
+                        <i class="fa fa-shopping-cart"></i>
+                        Add to cart
+                    </button>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <button class="btn-main" onclick="window.location.href='/Order/Checkout'">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                        Buy now
+                    </button>
+                }
+                else
+                {
+                    <button class="btn-main" onclick="window.location.href='/Account/Login'">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                        Buy now
+                    </button>
+                }
             </div>
-            <button class="uploader-btn" onclick="window.location.href='/Home/UploaderInfo'">
-                <i class="fa fa-circle-user"></i>
-                Uploader Info
-            </button>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button class="uploader-btn" onclick="window.location.href='/Home/UploaderInfo'">
+                    <i class="fa fa-circle-user"></i>
+                    Uploader Info
+                </button>
+            }
+            else
+            {
+                <button class="uploader-btn" onclick="window.location.href='/Account/Login'">
+                    <i class="fa fa-circle-user"></i>
+                    Uploader Info
+                </button>
+            }
         </div>
 
         <!-- RIGHT — DETAILS -->

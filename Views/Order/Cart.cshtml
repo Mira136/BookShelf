@@ -1,8 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Cart";
+    // ViewData["Title"] = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<title>BookShelf</title>
 @section Styles {
     <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
 }
@@ -20,8 +20,12 @@
             <span class="new">₹140</span>
         </div>
         <div class="card-buttons">
-            <button>View</button>
-            <i class="fa fa-heart wishlist-icon"></i>
+            <a asp-controller="Home"
+               asp-action="BookDetails"
+               class="view-btn">
+                View
+            </a>
+            <i class="fa-solid fa-heart wishlist-icon active"></i>
         </div>
     </div>
 
@@ -36,7 +40,7 @@
         </div>
         <div class="card-buttons">
             <button>View</button>
-            <i class="fa fa-heart wishlist-icon"></i>
+            <i class="fa-solid fa-heart wishlist-icon active"></i>
         </div>
     </div>
 
@@ -51,7 +55,7 @@
         </div>
         <div class="card-buttons">
             <button>View</button>
-            <i class="far fa-heart wishlist-icon"></i>
+            <i class="fa-regular fa-heart wishlist-icon"></i>
         </div>
     </div>
 

@@ -1,9 +1,9 @@
 ﻿@model BookShelf.Models.ViewModels.UserProfileViewModel
 @{
-    ViewData["Title"] = "Profile";
+    // ViewData["Title"] = "Profile";
     Layout = null;
 }
-
+<title>BookShelf</title>
 <link rel="stylesheet" href="~/css/userprofile.css" />
 
 <div class="profile-page">
@@ -49,7 +49,7 @@
             <div class="field-box">@Model.Credit</div>
         </div>
 
-        <a asp-action="Login" class="logout-btn">Logout</a>
+        <a asp-controller="Account" asp-action="Logout" class="logout-btn">Logout</a>
 
     </div>
 </div>

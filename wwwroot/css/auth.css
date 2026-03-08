@@ -302,6 +302,7 @@ html, body {
     font-weight: 500;
 }
 
+/* FORGOT */
 .forgot-link {
     font-size: 0.875rem;
     font-weight: 600;
@@ -581,6 +582,9 @@ html, body {
     .welcome-title {
         font-size: clamp(1.6rem, 6vw, 2.2rem);
     }
+
+    .welcome-sub {
+        font-size: 16px;
 }
 
 @media screen and (max-width: 400px) {
