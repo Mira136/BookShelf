@@ -1,146 +1,395 @@
-﻿body {
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ===== RESET ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #f4f4f4;
+    padding: 0;
 }
 
-/* =========================
-   Page Layout
-========================= */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f5f5f5;
+    overflow-y: hidden;
+}
+
+/* ===== PAGE WRAPPER ===== */
 .profile-page {
-    min-height: 100vh;
-    padding: 30px 15px;
+    height: 100vh;
+    padding: 34px 0;
     text-align: center;
     position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-/* =========================
-   Back Arrow
-========================= */
+/* ===== BACK BUTTON — exact adminbooks ===== */
 .back-arrow {
     position: absolute;
-    left: 20px;
-    top: 20px;
+    left: 40px;
+    top: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 2px solid #803434;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #803434;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
+    z-index: 10;
 }
 
-    .back-arrow img {
-        width: 28px;
-        height: auto;
+    .back-arrow:hover {
+        background: #803434;
+        color: #ffffff;
+        box-shadow: 0 6px 18px rgba(128, 52, 52, 0.28);
+        transform: translateY(-2px);
     }
 
-/* =========================
-   Heading
-========================= */
+    .back-arrow:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
+    }
+
+/* ===== PAGE HEADER — exact adminbooks ===== */
+.page-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 36px;
+    padding: 0 32px;
+    flex-shrink: 0;
+}
+
 .profile-heading {
-    font-size: 30px;
+    text-align: center;
+    font-size: clamp(36px, 5vw, 60px);
     font-weight: 700;
     color: #264075;
-    margin-bottom: 25px;
+    margin: 0 auto;
+    letter-spacing: 0.5px;
+    font-family: 'Inter', sans-serif;
 }
 
-/* =========================
-   Card
-========================= */
+/* ===== CARD ===== */
 .profile-card {
-    width: 100%;
-    max-width: 360px; /* compact size */
-    margin: auto;
-    background: rgba(129, 56, 56, 0.18);
-    border-radius: 15px;
-    padding: 30px 25px;
+    width: calc(100% - 80px);
+    max-width: 700px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 28px rgba(130, 56, 56, 0.11);
+    border: 1px solid #e8d8d8;
+    display: flex;
+    overflow: hidden;
+    text-align: left;
+    flex-shrink: 0;
+}
+
+/* ===== LEFT PANEL ===== */
+.card-left {
+    width: 195px;
+    flex-shrink: 0;
+    background: linear-gradient(160deg, #7b3535 0%, #a85050 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px;
+}
+
+/* ===== AVATAR WITH CAMERA ===== */
+.avatar-wrapper {
     position: relative;
+    width: 125px;
+    height: 125px;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
-/* =========================
-   Edit Icon
-========================= */
-.edit-icon {
+.avatar-img {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+    display: block;
+    transition: filter 0.25s ease, border-color 0.25s ease;
+}
+
+.avatar-wrapper:hover .avatar-img {
+    filter: brightness(0.65);
+    border-color: rgba(255, 255, 255, 0.85);
+}
+
+.camera-btn {
     position: absolute;
-    right: 15px;
-    top: 15px;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    color: #ffffff;
+    pointer-events: none;
 }
 
-    .edit-icon img {
-        width: 20px;
-        height: auto;
-        cursor: pointer;
+    .camera-btn i {
+        font-size: 20px;
+        filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
     }
 
-/* FORCE PROFILE IMAGE SMALL */
-.profile-image img {
-    width: 110px !important;
-    height: 110px !important;
-    border-radius: 50% !important;
-    object-fit: cover !important;
+    .camera-btn span {
+        font-size: 9px;
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.4px;
+        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    }
+
+.avatar-wrapper:hover .camera-btn {
+    opacity: 1;
 }
-.profile-card img {
-    max-width: 110px !important;
-    max-height: 110px !important;
+
+
+/* ===== RIGHT PANEL ===== */
+.card-right {
+    flex: 1;
+    padding: 20px 24px 22px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
-/* =========================
-   Fields
-========================= */
+
+/* ===== TOP ROW — Edit button ===== */
+.panel-top-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 14px;
+}
+
+.edit-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 13px;
+    background: #fdf6f5;
+    border: 1.5px solid #e8d0ce;
+    border-radius: 8px;
+    color: #803434;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+    .edit-link i {
+        font-size: 11px;
+    }
+
+    .edit-link:hover {
+        background: #803434;
+        color: #ffffff;
+        border-color: #803434;
+        box-shadow: 0 4px 14px rgba(128, 52, 52, 0.25);
+        transform: translateY(-1px);
+    }
+
+    .edit-link:active {
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
+/* ===== FIELDS GROUP ===== */
+.fields-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    flex: 1;
+}
+
 .field {
-    text-align: left;
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
     .field label {
-        font-size: 14px;
+        font-size: 11px;
         font-weight: 600;
-        color: #823838;
+        color: #803434;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
     }
 
+/* ===== FIELD BOX ===== */
 .field-box {
-    background: rgba(129, 56, 56, 0.5);
-    border-radius: 10px;
-    padding: 8px 12px;
-    margin-top: 5px;
-    color: white;
+    background: #fdf6f5;
+    border: 1px solid #e8d0ce;
+    border-radius: 9px;
+    padding: 8px 13px;
+    color: #2c2c2c;
     font-size: 14px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    word-break: break-word;
+    text-decoration: none; /* no underline anywhere */
 }
 
-/* Email Underline */
-.email {
-    text-decoration: underline;
+    .field-box:hover {
+        background: #fdecea;
+        border-color: #c28880;
+    }
+
+    /* ===== CREDIT — read-only, locked ===== */
+    .field-box.credit-box {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: #2d6a2d;
+        background: #eaf5ea;
+        border: 1px solid #b8ddb8;
+        width: fit-content;
+        min-width: 90px;
+        cursor: default;
+        user-select: none;
+    }
+
+        .field-box.credit-box:hover {
+            background: #eaf5ea;
+            border-color: #b8ddb8;
+        }
+
+.credit-prefix {
+    font-size: 12px;
+    opacity: 0.65;
+    font-weight: 600;
 }
 
-/* =========================
-   Logout Button
-========================= */
+.credit-lock {
+    margin-left: auto;
+    font-size: 11px;
+    color: #888;
+    opacity: 0.55;
+}
+
+/* ===== CARD DIVIDER ===== */
+.card-divider {
+    height: 1px;
+    background: #f0e0de;
+    margin: 1px 0;
+}
+
+/* ===== LOGOUT BUTTON ===== */
 .logout-btn {
-    display: inline-block;
-    margin-top: 18px;
-    padding: 8px 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    align-self: flex-start;
+    margin-top: 14px;
+    padding: 8px 20px;
     background: #823838;
-    color: white;
-    border-radius: 6px;
+    color: #fff;
+    border-radius: 9px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 14px;
-    transition: 0.2s ease;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.2px;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    border: none;
+    cursor: pointer;
 }
 
     .logout-btn:hover {
         background: #6d2f2f;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(128, 52, 52, 0.28);
     }
 
-/* =========================
-   Responsive
-========================= */
-@media (max-width: 480px) {
+    .logout-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
+    }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto;
+    }
+
+    .profile-page {
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+        padding: 16px 0 40px;
+    }
+
+    .back-arrow {
+        left: 16px;
+        top: 16px;
+    }
+
+    .page-header {
+        padding: 0 16px;
+        margin-bottom: 24px;
+    }
 
     .profile-heading {
-        font-size: 22px;
+        font-size: 28px;
     }
 
     .profile-card {
-        padding: 20px;
+        width: calc(100% - 32px);
+        flex-direction: column;
+        max-width: 420px;
     }
 
-    .profile-image img {
-        width: 90px;
-        height: 90px;
+    .card-left {
+        width: 100%;
+        padding: 22px 20px;
+        flex-direction: row;
+        gap: 16px;
+        justify-content: flex-start;
+    }
+
+    .avatar-wrapper {
+        width: 72px;
+        height: 72px;
+    }
+
+    .avatar-img {
+        width: 72px;
+        height: 72px;
+    }
+
+
+    .card-right {
+        padding: 16px 18px 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-heading {
+        font-size: 22px;
     }
 
     .field-box {
@@ -149,6 +398,6 @@
 
     .logout-btn {
         font-size: 13px;
-        padding: 7px 18px;
+        padding: 8px 16px;
     }
 }

@@ -1,55 +1,103 @@
 ﻿@model BookShelf.Models.ViewModels.UserProfileViewModel
 @{
-    // ViewData["Title"] = "Profile";
     Layout = null;
 }
-<title>BookShelf</title>
+<title>BookShelf – Profile</title>
 <link rel="stylesheet" href="~/css/userprofile.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <div class="profile-page">
 
-    <!-- Back Arrow -->
-    <a asp-controller="Home" asp-action="Index" class="back-arrow">
-        <img src="~/images/Back_Arrow_icon.png" />
+    <!-- Back Arrow — exact adminbooks -->
+    <a asp-controller="Home" asp-action="Index" class="back-arrow" title="Go back">
+        <i class="fa fa-arrow-left"></i>
     </a>
 
-    <h2 class="profile-heading">Profile</h2>
+    <!-- Header — exact adminbooks -->
+    <div class="page-header">
+        <h2 class="profile-heading">Profile</h2>
+    </div>
 
+    <!-- Card -->
     <div class="profile-card">
 
-        <!-- Edit Icon -->
-        <div class="edit-icon">
-    <a asp-controller="Account" asp-action="EditUserProfile">
-        <img src="~/images/edit.png" alt="Edit" />
-    </a>
-</div>
-
-        <!-- Profile Circle -->
-        <div class="profile-image">
-            <img src="~/images/reg_profile.png" />
+        <!-- LEFT — avatar only -->
+        <div class="card-left">
+            <div class="avatar-wrapper" onclick="document.getElementById('profileInput').click()" title="Change photo">
+                <img src="~/images/reg_profile.png" id="profilePreview" class="avatar-img" alt="Profile Photo" />
+                <input type="file" id="profileInput" accept="image/*" style="display:none;" />
+                <button type="button" class="camera-btn" tabindex="-1" aria-hidden="true">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>Change Photo</span>
+                </button>
+            </div>
         </div>
 
-        <div class="field">
-            <label>Name</label>
-            <div class="field-box">@Model.Name</div>
-        </div>
+        <!-- RIGHT — fields + actions -->
+        <div class="card-right">
 
-        <div class="field">
-            <label>Username</label>
-            <div class="field-box email">@Model.Username</div>
-        </div>
+            <!-- Edit Profile button -->
+            <div class="panel-top-row">
+                <a asp-controller="Account" asp-action="EditUserProfile" class="edit-link">
+                    <i class="fa-solid fa-pen"></i>
+                    <span>Edit Profile</span>
+                </a>
+            </div>
 
-        <div class="field">
-            <label>Number</label>
-            <div class="field-box">@Model.Number</div>
-        </div>
+            <div class="fields-group">
 
-        <div class="field">
-            <label>Credit</label>
-            <div class="field-box">@Model.Credit</div>
-        </div>
+                <!-- Name — same style as Username/Number, editable via Edit Profile -->
+                <div class="field">
+                    <label>Name</label>
+                    <div class="field-box">@Model.Name</div>
+                </div>
 
-        <a asp-controller="Account" asp-action="Logout" class="logout-btn">Logout</a>
+                <!-- Username -->
+                <div class="field">
+                    <label>Username</label>
+                    <div class="field-box">@Model.Username</div>
+                </div>
+
+                <!-- Number -->
+                <div class="field">
+                    <label>Number</label>
+                    <div class="field-box">@Model.Number</div>
+                </div>
+
+                <div class="card-divider"></div>
+
+                <!-- Credit — read-only -->
+                <div class="field">
+                    <label>Credit</label>
+                    <div class="field-box credit-box">
+                        <span class="credit-prefix">₹</span>
+                        @Model.Credit
+                        <i class="fa-solid fa-lock credit-lock" title="Managed by BookShelf"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <a asp-controller="Account" asp-action="Logout" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </div>
 
     </div>
+
 </div>
+
+<script>
+    document.getElementById("profileInput").addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+                document.getElementById("profilePreview").src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
