@@ -1,63 +1,264 @@
 ﻿@{
-    // ViewData["Title"] = "Notifications";
     Layout = null;
 }
-<title>BookShelf</title>
+<title>BookShelf – Notifications</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@600;700&display=swap">
 <link rel="stylesheet" href="~/css/notification.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <div class="notification-page">
 
+    <!-- Back Button -->
+    <a asp-controller="Home" asp-action="Index" class="back-btn" title="Go back">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+
     <!-- Header -->
     <div class="notification-header">
-        <a asp-controller="Home" asp-action="Index" class="back-btn">
-            <img src="~/images/back_arrow_icon.png" alt="Back" />
-        </a>
         <h1>Notifications</h1>
+        <span class="notif-count" id="unreadCount">8 unread</span>
     </div>
 
-    <!-- Main Box -->
-    <div class="notification-container">
+    <!-- Toolbar -->
+    <div class="notif-toolbar">
+        <div class="notif-tabs">
+            <button class="tab-btn active" onclick="filterNotifs('all', this)">All</button>
+            <button class="tab-btn" onclick="filterNotifs('order', this)">Orders</button>
+            <button class="tab-btn" onclick="filterNotifs('offer', this)">Offers</button>
+            <button class="tab-btn" onclick="filterNotifs('system', this)">System</button>
+        </div>
+        <button class="mark-all-btn" onclick="markAllRead()">
+            <i class="fa-solid fa-check-double"></i> Mark all read
+        </button>
+    </div>
 
-        <div class="notification-item">
-            <img src="~/images/notification_icon.png" alt="icon" />
-            <div class="notification-text">Your book order has been successfully placed</div>
+    <!-- Notification List -->
+    <div class="notification-container" id="notifList">
+
+        <!-- ORDER -->
+        <div class="notif-card unread" data-type="order">
+            <div class="notif-icon-wrap order">
+                <i class="fa-solid fa-box"></i>
+            </div>
+            <div class="notif-body">
+                <div class="notif-title">Order Placed Successfully</div>
+                <div class="notif-desc">Your book order <strong>#BK2041</strong> has been confirmed and is being processed.</div>
+                <div class="notif-meta">
+                    <span class="notif-time"><i class="fa-regular fa-clock"></i> 2 mins ago</span>
+                    <span class="notif-tag order">Order</span>
+                </div>
+            </div>
+            <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
-        <div class="notification-item">
-            <img src="~/images/notification_icon.png" alt="icon" />
-            <div class="notification-text">Order cancelled successfully</div>
+        <div class="notif-card unread" data-type="order">
+            <div class="notif-icon-wrap order">
+                <i class="fa-solid fa-truck"></i>
+            </div>
+            <div class="notif-body">
+                <div class="notif-title">Out for Delivery</div>
+                <div class="notif-desc">Your order <strong>#BK2038</strong> is out for delivery. Expected by today evening.</div>
+                <div class="notif-meta">
+                    <span class="notif-time"><i class="fa-regular fa-clock"></i> 1 hour ago</span>
+                    <span class="notif-tag order">Order</span>
+                </div>
+            </div>
+            <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
-        <div class="notification-item">
-            <img src="~/images/notification_icon.png" alt="icon" />
-            <div class="notification-text">Price drop alert on books in your wishlist</div>
+        <div class="notif-card unread" data-type="order">
+            <div class="notif-icon-wrap success">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="notif-body">
+                <div class="notif-title">Book Delivered</div>
+                <div class="notif-desc">Your book <strong>"Atomic Habits"</strong> has been delivered. Enjoy reading!</div>
+                <div class="notif-meta">
+                    <span class="notif-time"><i class="fa-regular fa-clock"></i> 3 hours ago</span>
+                    <span class="notif-tag order">Order</span>
+                </div>
+            </div>
+            <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
-        <div class="notification-item">
-            <img src="~/images/notification_icon.png" alt="icon" />
-            <div class="notification-text">Flat 20% OFF on selected books – Limited time!</div>
+        <div class="notif-card unread" data-type="order">
+            <div class="notif-icon-wrap cancel">
+                <i class="fa-solid fa-ban"></i>
+            </div>
+            <div class="notif-body">
+                <div class="notif-title">Order Cancelled</div>
+                <div class="notif-desc">Your order <strong>#BK2030</strong> was cancelled. Refund will be processed in 3–5 days.</div>
+                <div class="notif-meta">
+                    <span class="notif-time"><i class="fa-regular fa-clock"></i> Yesterday</span>
+                    <span class="notif-tag order">Order</span>
+                </div>
+            </div>
+            <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
-        <div class="notification-item">
-            <img src="~/images/notification_icon.png" alt="icon" />
-            <div class="notification-text">New books matching your interest are available</div>
+        <!-- OFFER -->
+        <div class="notif-card unread" data-type="offer">
+            <div class="notif-icon-wrap offer">
+                <i class="fa-solid fa-tag"></i>
+            </div>
+            <div class="notif-body">
+                <div class="notif-title">Flat 20% Off – Limited Time!</div>
+                <div class="notif-desc">Exclusive discount on 500+ selected books. Use code <strong>READ20</strong> at checkout.</div>
+                <div class="notif-meta">
+                    <span class="notif-time"><i class="fa-regular fa-clock"></i> 5 hours ago</span>
+                    <span class="notif-tag offer">Offer</span>
+                </div>
+            </div>
+            <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
-        <div class="notification-item">
-            <img src="~/images/notification_icon.png" alt="icon" />
-            <div class="notification-text">Your book has been delivered</div>
+        <div class="notif-card unread" data-type="offer">
+            <div class="notif-icon-wrap offer">
+                <i class="fa-solid fa-arrow-trend-down"></i>
+            </div>
+            <div class="notif-body">
+                <div class="notif-title">Price Drop Alert</div>
+                <div class="notif-desc">A book in your wishlist <strong>"Deep Work"</strong> just dropped in price. Grab it now!</div>
+                <div class="notif-meta">
+                    <span class="notif-time"><i class="fa-regular fa-clock"></i> 1 day ago</span>
+                    <span class="notif-tag offer">Offer</span>
+                </div>
+            </div>
+            <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
-        <div class="notification-item">
-            <img src="~/images/notification_icon.png" alt="icon" />
-            <div class="notification-text">Your book listing has been posted successfully</div>
+        <!-- SYSTEM -->
+        <div class="notif-card unread" data-type="system">
+            <div class="notif-icon-wrap system">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <div class="notif-body">
+                <div class="notif-title">New Books Available</div>
+                <div class="notif-desc">12 new books matching your interests have been listed. Check them out!</div>
+                <div class="notif-meta">
+                    <span class="notif-time"><i class="fa-regular fa-clock"></i> 2 days ago</span>
+                    <span class="notif-tag system">System</span>
+                </div>
+            </div>
+            <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
-        <div class="notification-item">
-            <img src="~/images/notification_icon.png" alt="icon" />
-            <div class="notification-text">Pickup scheduled for your book</div>
+        <div class="notif-card unread" data-type="system">
+            <div class="notif-icon-wrap system">
+                <i class="fa-solid fa-store"></i>
+            </div>
+            <div class="notif-body">
+                <div class="notif-title">Listing Posted Successfully</div>
+                <div class="notif-desc">Your book listing <strong>"The Alchemist"</strong> is now live. Buyers can see it.</div>
+                <div class="notif-meta">
+                    <span class="notif-time"><i class="fa-regular fa-clock"></i> 3 days ago</span>
+                    <span class="notif-tag system">System</span>
+                </div>
+            </div>
+            <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
+    </div>
+
+    <!-- Empty state -->
+    <div class="notif-empty" id="notifEmpty" style="display:none;">
+        <i class="fa-regular fa-bell-slash"></i>
+        <p>No notifications here</p>
     </div>
 
 </div>
+
+<script>
+    // Stagger card animations on load
+    document.querySelectorAll('.notif-card').forEach(function (card, i) {
+        card.style.animationDelay = (i * 0.06) + 's';
+    });
+
+    // Mark single as read on click
+    document.querySelectorAll('.notif-card').forEach(function (card) {
+        card.addEventListener('click', function (e) {
+            if (e.target.closest('.notif-dismiss')) return;
+            card.classList.remove('unread');
+            updateUnreadCount();
+        });
+    });
+
+    // Dismiss
+    function dismissNotif(btn) {
+        var card = btn.closest('.notif-card');
+        card.style.transition = 'opacity 0.25s ease, transform 0.25s ease, max-height 0.35s ease, margin 0.35s ease, padding 0.35s ease';
+        card.style.opacity = '0';
+        card.style.transform = 'translateX(24px)';
+        card.style.maxHeight = card.offsetHeight + 'px';
+        requestAnimationFrame(function () {
+            card.style.maxHeight = '0';
+            card.style.marginBottom = '0';
+            card.style.padding = '0';
+            card.style.overflow = 'hidden';
+        });
+        setTimeout(function () {
+            card.remove();
+            updateUnreadCount();
+            checkEmpty();
+        }, 360);
+    }
+
+    // Mark all read
+    function markAllRead() {
+        document.querySelectorAll('.notif-card.unread').forEach(function (c) {
+            c.classList.remove('unread');
+        });
+        updateUnreadCount();
+    }
+
+    // Filter
+    function filterNotifs(type, btn) {
+        document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        document.querySelectorAll('.notif-card').forEach(function (card) {
+            card.style.display = (type === 'all' || card.dataset.type === type) ? 'flex' : 'none';
+        });
+        checkEmpty();
+    }
+
+    // Update count badge
+    function updateUnreadCount() {
+        var count = document.querySelectorAll('.notif-card.unread').length;
+        var el = document.getElementById('unreadCount');
+        if (count > 0) {
+            el.textContent = count + ' unread';
+            el.style.background = '';
+            el.style.color = '';
+        } else {
+            el.textContent = 'All read';
+            el.style.background = 'rgba(34,197,94,0.10)';
+            el.style.color = '#166534';
+        }
+    }
+
+    // Empty state
+    function checkEmpty() {
+        var visible = Array.from(document.querySelectorAll('.notif-card'))
+            .filter(function (c) { return c.style.display !== 'none'; });
+        document.getElementById('notifEmpty').style.display = visible.length === 0 ? 'flex' : 'none';
+        document.getElementById('notifList').style.display  = visible.length === 0 ? 'none'  : 'flex';
+    }
+</script>
