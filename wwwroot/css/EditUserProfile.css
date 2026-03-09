@@ -1,200 +1,101 @@
-﻿body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #f4f4f4;
-}
+﻿/*
+ * EditUserProfile.css
+ * Only EDIT-SPECIFIC overrides on top of userprofile.css
+ * userprofile.css is loaded first — all base styles come from there
+ */
 
-/* =========================
-   Page Layout
-========================= */
-.edit-profile-wrapper {
-    min-height: 100vh;
-    padding: 30px 15px;
-    text-align: center;
-    position: relative;
-}
-
-/* =========================
-   Heading
-========================= */
-.page-title {
-    font-size: 30px;
-    font-weight: 700;
-    color: #264075;
-    margin-bottom: 25px;
-}
-
-/* =========================
-   Card (Same as UserProfile)
-========================= */
-.profile-card {
+/* ── INPUT inherits field-box look exactly ─────────────────────── */
+.ep-input {
     width: 100%;
-    max-width: 360px; /* SAME SIZE */
-    margin: auto;
-    background: rgba(129, 56, 56, 0.18); /* SAME COLOR */
-    border-radius: 15px;
-    padding: 30px 25px;
-    position: relative;
-}
-
-/* =========================
-   Profile Image
-========================= */
-.profile-image-section {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.profile-image {
-    width: 110px;
-    height: 110px;
-    margin: auto;
-    border-radius: 50%;
-    background: rgba(129, 56, 56, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-    .profile-image img {
-        width: 110px;
-        height: 110px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-/* =========================
-   Change Photo Button
-========================= */
-.change-photo-btn {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 6px 18px;
-    border: 1px solid #823838;
-    border-radius: 10px;
-    color: #823838;
-    font-weight: 600;
+    border: 1px solid #e8d0ce;
+    background: #fdf6f5;
+    border-radius: 9px;
+    padding: 8px 40px 8px 13px; /* right space for pen icon */
+    color: #2c2c2c;
     font-size: 14px;
-    cursor: pointer;
-    background: rgba(234, 212, 212, 0.20);
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    /* remove browser default input styling */
+    -webkit-appearance: none;
+    appearance: none;
 }
 
-/* =========================
-   Form Fields
-========================= */
-.form-group {
-    text-align: left;
-    margin-bottom: 15px;
-}
-
-    .form-group label {
-        font-size: 14px;
-        font-weight: 600;
-        color: #823838;
+    /* readonly state — looks identical to field-box */
+    .ep-input[readonly] {
+        cursor: default;
+        color: #2c2c2c;
     }
 
+        .ep-input[readonly]:hover {
+            background: #fdecea;
+            border-color: #c28880;
+        }
+
+    /* active/editable state — maroon focus ring like auth inputs */
+    .ep-input.ep-input--active,
+    .ep-input:not([readonly]) {
+        background: #fff;
+        border-color: #803434;
+        box-shadow: 0 0 0 3px rgba(128, 52, 52, 0.13);
+        cursor: text;
+    }
+
+/* ── INPUT WRAPPER — position pen icon inside ──────────────────── */
 .input-wrapper {
     position: relative;
-    margin-top: 5px;
 }
 
-.form-input {
-    width: 100%;
-    padding: 8px 35px 8px 12px;
-    border-radius: 10px;
-    border: none;
-    background: rgba(129, 56, 56, 0.5);
-    color: white;
-    font-size: 14px;
-}
-
-    .form-input::placeholder {
-        color: rgba(255,255,255,0.6);
-    }
-
-/* Edit Icon */
-.edit-icon {
+/* ── PEN ICON BUTTON ───────────────────────────────────────────── */
+.ep-edit-btn {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-
-/* =========================
-   Buttons
-========================= */
-.button-group {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.save-btn {
-    background: #823838;
-    color: white;
-    padding: 8px 22px;
-    border-radius: 6px;
+    background: transparent;
     border: none;
-    font-weight: 600;
-    font-size: 14px;
+    padding: 0;
     cursor: pointer;
-    transition: 0.2s ease;
+    color: #803434;
+    font-size: 11px;
+    opacity: 0.55;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
 }
 
-    .save-btn:hover {
-        background: #6d2f2f;
+    .ep-edit-btn:hover {
+        opacity: 1;
+        color: #5f2222;
     }
 
-.cancel-btn {
-    padding: 8px 22px;
-    border-radius: 6px;
-    border: 1px solid #823838;
-    color: #823838;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    transition: 0.2s ease;
+/* ── CANCEL BUTTON — top-right outlined pill (where Save was) ─── */
+.ep-cancel-btn {
+    background: transparent !important;
+    color: #803434 !important;
+    border-color: #e8d0ce !important;
 }
 
-    .cancel-btn:hover {
-        background: rgba(129, 56, 56, 0.1);
+    .ep-cancel-btn:hover {
+        background: #803434 !important;
+        color: #ffffff !important;
+        border-color: #803434 !important;
+        box-shadow: 0 4px 14px rgba(128, 52, 52, 0.25) !important;
     }
 
-/* =========================
-   Responsive
-========================= */
-@media (max-width: 480px) {
-
-    .page-title {
-        font-size: 22px;
-    }
-
-    .profile-card {
-        padding: 20px;
-    }
-
-    .profile-image {
-        width: 90px;
-        height: 90px;
-    }
-
-        .profile-image img {
-            width: 90px;
-            height: 90px;
-        }
-
-    .form-input {
-        font-size: 13px;
-    }
-
-    .save-btn,
-    .cancel-btn {
-        font-size: 13px;
-        padding: 7px 18px;
-    }
+/* ── SAVE BUTTON — bottom filled (where Cancel was) ───────────── */
+.ep-save-btn {
+    background: #823838 !important;
+    color: #ffffff !important;
+    border: none !important;
+    cursor: pointer;
 }
+
+    .ep-save-btn:hover {
+        background: #6d2f2f !important;
+        box-shadow: 0 6px 16px rgba(128, 52, 52, 0.28) !important;
+    }
