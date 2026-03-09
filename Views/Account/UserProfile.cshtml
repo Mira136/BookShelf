@@ -8,35 +8,27 @@
 
 <div class="profile-page">
 
-    <!-- Back Arrow — exact adminbooks -->
     <a asp-controller="Home" asp-action="Index" class="back-arrow" title="Go back">
         <i class="fa fa-arrow-left"></i>
     </a>
 
-    <!-- Header — exact adminbooks -->
     <div class="page-header">
         <h2 class="profile-heading">Profile</h2>
     </div>
 
-    <!-- Card -->
     <div class="profile-card">
 
-        <!-- LEFT — avatar only -->
+        <!-- LEFT — avatar -->
         <div class="card-left">
-            <div class="avatar-wrapper" onclick="document.getElementById('profileInput').click()" title="Change photo">
-                <img src="~/images/reg_profile.png" id="profilePreview" class="avatar-img" alt="Profile Photo" />
-                <input type="file" id="profileInput" accept="image/*" style="display:none;" />
-                <button type="button" class="camera-btn" tabindex="-1" aria-hidden="true">
-                    <i class="fa-solid fa-camera"></i>
-                    <span>Change Photo</span>
-                </button>
+            <div class="avatar-wrapper" title="Photo">
+                <img src="~/images/@(Model.ProfileImage ?? "reg_profile.png")"
+                     id="profilePreview" class="avatar-img" alt="Profile Photo" />
             </div>
         </div>
 
         <!-- RIGHT — fields + actions -->
         <div class="card-right">
 
-            <!-- Edit Profile button -->
             <div class="panel-top-row">
                 <a asp-controller="Account" asp-action="EditUserProfile" class="edit-link">
                     <i class="fa-solid fa-pen"></i>
@@ -46,19 +38,16 @@
 
             <div class="fields-group">
 
-                <!-- Name — same style as Username/Number, editable via Edit Profile -->
                 <div class="field">
                     <label>Name</label>
                     <div class="field-box">@Model.Name</div>
                 </div>
 
-                <!-- Username -->
                 <div class="field">
                     <label>Username</label>
                     <div class="field-box">@Model.Username</div>
                 </div>
 
-                <!-- Number -->
                 <div class="field">
                     <label>Number</label>
                     <div class="field-box">@Model.Number</div>
@@ -66,11 +55,10 @@
 
                 <div class="card-divider"></div>
 
-                <!-- Credit — read-only -->
+                <!-- Credit — no ₹ symbol -->
                 <div class="field">
                     <label>Credit</label>
                     <div class="field-box credit-box">
-                        <span class="credit-prefix">₹</span>
                         @Model.Credit
                         <i class="fa-solid fa-lock credit-lock" title="Managed by BookShelf"></i>
                     </div>
@@ -84,20 +72,5 @@
             </a>
 
         </div>
-
     </div>
-
 </div>
-
-<script>
-    document.getElementById("profileInput").addEventListener("change", function (e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (ev) {
-                document.getElementById("profilePreview").src = ev.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-</script>

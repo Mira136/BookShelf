@@ -1,92 +1,124 @@
 ﻿@model BookShelf.Models.ViewModels.EditUserProfileViewModel
 @{
-    // ViewData["Title"] = "Edit Profile";
     Layout = null;
 }
-<title>BookShelf</title>
+<title>BookShelf – Edit Profile</title>
+<link rel="stylesheet" href="~/css/userprofile.css" />
 <link rel="stylesheet" href="~/css/EditUserProfile.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-<div class="edit-profile-wrapper">
+<div class="profile-page">
 
-    <h2 class="page-title">Edit Profile</h2>
+    <a asp-controller="Account" asp-action="UserProfile" class="back-arrow" title="Go back">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+
+    <div class="page-header">
+        <h2 class="profile-heading">Edit Profile</h2>
+    </div>
 
     <div class="profile-card">
 
-        <form asp-action="EditUserProfile" method="post" enctype="multipart/form-data">
+        <form asp-action="EditUserProfile" method="post" enctype="multipart/form-data" style="display:contents;">
+            @Html.AntiForgeryToken()
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="ExistingPhotoPath" />
+            <input type="hidden" asp-for="Credit" />
 
-            <!-- PROFILE IMAGE -->
-            <div class="profile-image-section">
-                <div class="profile-image">
-                    <img id="previewImage"
-                         src="~/images/@(Model.ExistingPhotoPath ?? "reg_profile.png")" />
-                </div>
-
-                <label class="change-photo-btn">
-                    Change Photo
-                    <input type="file" asp-for="Photo" hidden onchange="previewPhoto(event)" />
-                </label>
-            </div>
-
-            <!-- NAME -->
-            <div class="form-group">
-                <label>Name</label>
-                <div class="input-wrapper">
-                    <input asp-for="Name" class="form-input" id="nameField" readonly/>
-                    <img src="~/images/edit.png"
-                         class="edit-icon"
-                         onclick="enableField('nameField')" />
+            <!-- LEFT — avatar -->
+            <div class="card-left">
+                <div class="avatar-wrapper" onclick="document.getElementById('profileInput').click()" title="Change photo">
+                    <img src="~/images/@(Model.ExistingPhotoPath ?? "reg_profile.png")"
+                         id="profilePreview" class="avatar-img" alt="Profile Photo" />
+                    <input type="file" id="profileInput" name="Photo" accept="image/*"
+                           style="display:none;" onchange="previewPhoto(this)" />
+                    <button type="button" class="camera-btn" tabindex="-1" aria-hidden="true">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Change Photo</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- NUMBER -->
-            <div class="form-group">
-                <label>Number</label>
-                <div class="input-wrapper">
-                    <input asp-for="Number" class="form-input" id="numberField" readonly/>
-                    <img src="~/images/edit.png"
-                         class="edit-icon"
-                         onclick="enableField('numberField')" />
+            <!-- RIGHT — fields -->
+            <div class="card-right">
+
+                <div class="panel-top-row">
+                    <!-- Cancel button top-right -->
+                    <a asp-controller="Account" asp-action="UserProfile" class="edit-link ep-cancel-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                        <span>Cancel</span>
+                    </a>
                 </div>
-            </div>
 
-            <!-- CREDIT -->
-            <div class="form-group">
-                <label>Credit</label>
-                <div class="input-wrapper">
-                    <input asp-for="Credit" class="form-input" id="creditField" readonly />
-                    <img src="~/images/edit.png"
-                         class="edit-icon"
-                         onclick="enableField('creditField')" />
+                <div class="fields-group">
+
+                    <div class="field">
+                        <label>Name</label>
+                        <div class="input-wrapper">
+                            <input asp-for="Name" class="field-box ep-input" id="nameField" readonly />
+                            <button type="button" class="ep-edit-btn" onclick="enableField('nameField')" title="Edit">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Number</label>
+                        <div class="input-wrapper">
+                            <input asp-for="Number" class="field-box ep-input" id="numberField" readonly
+                                   inputmode="numeric" maxlength="10"
+                                   oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)" />
+                            <button type="button" class="ep-edit-btn" onclick="enableField('numberField')" title="Edit">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    <!-- Credit — no ₹ symbol -->
+                    <div class="field">
+                        <label>Credit</label>
+                        <div class="field-box credit-box">
+                            @Model.Credit
+                            <i class="fa-solid fa-lock credit-lock" title="Managed by BookShelf"></i>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
 
-            <!-- BUTTONS -->
-            <div class="button-group">
-                <button type="submit" class="save-btn">Save Changes</button>
+                <!-- Save Changes button bottom -->
+                <button type="submit" class="logout-btn ep-save-btn">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save Changes
+                </button>
 
-                <a asp-action="Index"
-                   asp-controller="Home"
-                   class="cancel-btn">Cancel</a>
             </div>
 
         </form>
-
     </div>
+
 </div>
 
 <script>
     function enableField(id) {
-        document.getElementById(id).removeAttribute("readonly");
-        document.getElementById(id).focus();
+        var el = document.getElementById(id);
+        el.removeAttribute('readonly');
+        el.classList.add('ep-input--active');
+        el.focus();
+        var val = el.value;
+        el.value = '';
+        el.value = val;
     }
 
-    function previewPhoto(event) {
-        const reader = new FileReader();
-        reader.onload = function () {
-            document.getElementById('previewImage').src = reader.result;
+    function previewPhoto(input) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+                document.getElementById('profilePreview').src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
         }
-        reader.readAsDataURL(event.target.files[0]);
     }
 </script>

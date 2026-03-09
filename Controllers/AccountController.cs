@@ -29,9 +29,7 @@ namespace BookShelf.Controllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
             // ===== ADMIN LOGIN =====
             if (model.Email == "admin@gmail.com" && model.Password == "1234")
@@ -41,58 +39,37 @@ namespace BookShelf.Controllers
                     new Claim(ClaimTypes.Name, "Admin"),
                     new Claim(ClaimTypes.Role, "Admin")
                 };
-
-                var identity = new ClaimsIdentity(
-                    claims,
-                    CookieAuthenticationDefaults.AuthenticationScheme);
-
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
-
                 var authProperties = new AuthenticationProperties
                 {
                     IsPersistent = model.RememberMe,
                     ExpiresUtc = model.RememberMe
-         ? DateTimeOffset.UtcNow.AddDays(30)
-         : DateTimeOffset.UtcNow.AddHours(1)
+                        ? DateTimeOffset.UtcNow.AddDays(30)
+                        : DateTimeOffset.UtcNow.AddHours(1)
                 };
-
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    principal,
-                    authProperties);
-
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
                 return RedirectToAction("Dashboard", "Admin");
             }
 
-            // ===== NORMAL USER LOGIN (Temporary logic) =====
-            if (!string.IsNullOrEmpty(model.Email) &&
-                !string.IsNullOrEmpty(model.Password))
+            // ===== NORMAL USER LOGIN =====
+            if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
             {
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, model.Email),
                     new Claim(ClaimTypes.Role, "User")
                 };
-
-                var identity = new ClaimsIdentity(
-                    claims,
-                    CookieAuthenticationDefaults.AuthenticationScheme);
-
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
-
                 var authProperties = new AuthenticationProperties
                 {
                     IsPersistent = model.RememberMe,
                     ExpiresUtc = model.RememberMe
-         ? DateTimeOffset.UtcNow.AddDays(30)
-         : DateTimeOffset.UtcNow.AddHours(1)
+                        ? DateTimeOffset.UtcNow.AddDays(30)
+                        : DateTimeOffset.UtcNow.AddHours(1)
                 };
-
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    principal,
-                    authProperties);
-
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -104,13 +81,8 @@ namespace BookShelf.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            // remove authentication cookie
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            // clear any stored profile data
             TempData.Clear();
-
-            // redirect to guest home
             return RedirectToAction("Index", "Home");
         }
 
@@ -126,11 +98,7 @@ namespace BookShelf.Controllers
         public IActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
-            {
-                // TODO: Save to database later
                 return RedirectToAction("Login");
-            }
-
             return View(model);
         }
 
@@ -145,10 +113,7 @@ namespace BookShelf.Controllers
         public IActionResult ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
-            {
                 ViewBag.Message = "Reset link sent to your email!";
-            }
-
             return View(model);
         }
 
@@ -160,13 +125,18 @@ namespace BookShelf.Controllers
             var user = new UserProfileViewModel
             {
                 Name = TempData["Name"]?.ToString() ?? "Riya Patel",
-                Username = User.Identity?.Name,
+                Username = User.Identity?.Name ?? string.Empty,
                 Number = TempData["Number"]?.ToString() ?? "9946457894",
-                Credit = TempData["Credit"] != null ? Convert.ToInt32(TempData["Credit"]) : 2,
+                Credit = TempData["Credit"] != null
+                                   ? Convert.ToInt32(TempData["Credit"]) : 2,
                 ProfileImage = TempData["Photo"]?.ToString() ?? "reg_profile.png"
             };
 
-            TempData.Keep();
+            // Re-store so values survive next navigation
+            TempData["Name"] = user.Name;
+            TempData["Number"] = user.Number;
+            TempData["Credit"] = user.Credit;
+            TempData["Photo"] = user.ProfileImage;
 
             return View(user);
         }
@@ -182,20 +152,13 @@ namespace BookShelf.Controllers
                 Username = "admin@gmail.com",
                 Number = "9946457894"
             };
-
             return View(admin);
         }
 
         // ================= NOTIFICATIONS =================
 
-        public IActionResult Notifications()
-        {
-            return View();
-        }
-        public IActionResult AdminAboutUs()
-        {
-            return View();
-        }
+        public IActionResult Notifications() => View();
+        public IActionResult AdminAboutUs() => View();
 
         // ================= ABOUT US =================
 
@@ -205,13 +168,9 @@ namespace BookShelf.Controllers
             {
                 Title = "About Our BookShelf",
                 Subtitle = "Your Trusted Place to Discover and buy books online.",
-
                 StoryDescription = "Our bookstore was created for people who want to buy and sell books at affordable prices. We built this platform to help users easily find new and second-hand books. Anyone can sell their books at a nominal price, making books more accessible and budget-friendly for everyone.",
-
                 Mission = "To provide quality books at affordable prices and deliver them quickly to readers.",
-
                 Vision = "To become a trusted online bookstore for readers everywhere.",
-
                 WhyChooseUsPoints = new List<string>
                 {
                     "Trusted Online Bookstore",
@@ -219,22 +178,19 @@ namespace BookShelf.Controllers
                     "Simple Shopping Experience",
                     "Great Customer Support"
                 },
-
                 TeamMembers = new List<TeamMember>
                 {
-                    new TeamMember { Name = "Tanvi", Email = "tanvi123@gmail.com" },
+                    new TeamMember { Name = "Tanvi",  Email = "tanvi123@gmail.com"  },
                     new TeamMember { Name = "Ayushi", Email = "ayushi123@gmail.com" },
-                    new TeamMember { Name = "Mirali", Email = "mira123@gmail.com" }
+                    new TeamMember { Name = "Mirali", Email = "mira123@gmail.com"   }
                 },
-
                 OfferItems = new List<OfferItem>
                 {
-                    new OfferItem { Title = "Wide Selection", ImageUrl = "/images/books1.jpg" },
+                    new OfferItem { Title = "Wide Selection",       ImageUrl = "/images/books1.jpg" },
                     new OfferItem { Title = "Easy Online Ordering", ImageUrl = "/images/books2.jpg" },
-                    new OfferItem { Title = "Nominal Price", ImageUrl = "/images/books3.jpg" }
+                    new OfferItem { Title = "Nominal Price",        ImageUrl = "/images/books3.jpg" }
                 }
             };
-
             return View(model);
         }
 
@@ -246,11 +202,18 @@ namespace BookShelf.Controllers
             var model = new EditUserProfileViewModel
             {
                 Id = 1,
-                Name = "Riya Patel",
-                Number = "9946457894",
-                Credit = 2,
+                Name = TempData["Name"]?.ToString() ?? "Riya Patel",
+                Number = TempData["Number"]?.ToString() ?? "9946457894",
+                Credit = TempData["Credit"] != null
+                                        ? Convert.ToInt32(TempData["Credit"]) : 2,
                 ExistingPhotoPath = TempData["Photo"]?.ToString() ?? "reg_profile.png"
             };
+
+            // Re-store so TempData survives this read
+            TempData["Name"] = model.Name;
+            TempData["Number"] = model.Number;
+            TempData["Credit"] = model.Credit;
+            TempData["Photo"] = model.ExistingPhotoPath;
 
             return View(model);
         }
@@ -261,7 +224,7 @@ namespace BookShelf.Controllers
         {
             if (ModelState.IsValid)
             {
-                string photoName = model.ExistingPhotoPath;
+                string? photoName = model.ExistingPhotoPath;
 
                 if (model.Photo != null)
                 {
@@ -273,17 +236,20 @@ namespace BookShelf.Controllers
                     {
                         model.Photo.CopyTo(fileStream);
                     }
-
                     photoName = fileName;
                 }
 
+                // ← Fix: preserve existing credit from TempData — never overwrite from model
+                // Credit is read-only so the form never submits it, model.Credit would be 0
+                int existingCredit = TempData["Credit"] != null
+                                         ? Convert.ToInt32(TempData["Credit"]) : 2;
+
                 TempData["Name"] = model.Name;
                 TempData["Number"] = model.Number;
-                TempData["Credit"] = model.Credit;
+                TempData["Credit"] = existingCredit;   // ← keep original credit
                 TempData["Photo"] = photoName;
 
-                // Redirect to dashboard instead of profile
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("UserProfile");
             }
 
             return View(model);
