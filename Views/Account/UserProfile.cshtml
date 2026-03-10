@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-<title>BookShelf – Profile</title>
+<title>BookShelf</title>
 <link rel="stylesheet" href="~/css/userprofile.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -66,10 +66,19 @@
 
             </div>
 
-            <a asp-controller="Account" asp-action="Logout" class="logout-btn">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Logout
-            </a>
+            <div class="profile-actions">
+
+                <a asp-controller="Books" asp-action="UploadedItems" class="logout-btn">
+                    <i class="fa-solid fa-upload"></i>
+                    Uploaded Items
+                </a>
+
+                <a asp-controller="Account" asp-action="Logout" class="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+
+            </div>
 
         </div>
     </div>

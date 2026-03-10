@@ -395,7 +395,12 @@ body {
     .field-box {
         font-size: 13px;
     }
-
+    /* ===== PROFILE ACTION BUTTONS ===== */
+    .profile-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+    }
     .logout-btn {
         font-size: 13px;
         padding: 8px 16px;

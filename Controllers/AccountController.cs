@@ -81,6 +81,7 @@ namespace BookShelf.Controllers
 
         public async Task<IActionResult> Logout()
         {
+            // remove authentication cookie
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             TempData.Clear();
             return RedirectToAction("Index", "Home");
