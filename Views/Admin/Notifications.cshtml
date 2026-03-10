@@ -1,0 +1,157 @@
+﻿@model BookShelf.Models.ViewModels.AdminNotificationsViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<title>BookShelf – Manage Notifications</title>
+
+@section Styles {
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="~/css/admin-notifications.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+}
+
+<div class="admin-notif-page">
+
+    <!-- Back Button -->
+    <a asp-controller="Admin" asp-action="Dashboard" class="back-btn" title="Go back">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+
+    <!-- Header -->
+    <div class="admin-notif-header">
+        <h1>Manage Notifications</h1>
+        <p>Add notifications here — they will appear on the user-facing notifications page</p>
+    </div>
+
+    @if (TempData["NotifSaved"] != null)
+    {
+        <div class="success-banner">
+            <i class="fa-solid fa-circle-check"></i> Notification added successfully!
+        </div>
+    }
+
+    <!-- ADD NOTIFICATION FORM -->
+    <div class="add-notif-card">
+        <div class="add-notif-header">
+            <div class="add-notif-icon"><i class="fa-solid fa-bell"></i></div>
+            <div>
+                <div class="add-notif-title">Add New Notification</div>
+                <div class="add-notif-hint">Fill in the details and click Add — it will appear for all users</div>
+            </div>
+        </div>
+
+        <form asp-controller="Admin" asp-action="AddNotification" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-grid">
+                <!-- Title -->
+                <div class="form-field">
+                    <label class="form-label">Title</label>
+                    <input class="form-input"
+                           name="NewNotification.Title"
+                           type="text"
+                           placeholder="e.g. Flat 20% Off Today!"
+                           maxlength="100"
+                           required />
+                </div>
+
+                <!-- Type -->
+                <div class="form-field">
+                    <label class="form-label">Type</label>
+                    <select class="form-select" name="NewNotification.Type">
+                        <option value="order">📦 Order</option>
+                        <option value="offer" selected>🏷️ Offer</option>
+                        <option value="system">⚙️ System</option>
+                    </select>
+                </div>
+
+                <!-- Time -->
+                <div class="form-field">
+                    <label class="form-label">Time Label</label>
+                    <input class="form-input"
+                           name="NewNotification.TimeAgo"
+                           type="text"
+                           placeholder="e.g. Just now"
+                           maxlength="30"
+                           value="Just now" />
+                </div>
+
+                <!-- Description -->
+                <div class="form-field" style="grid-column: 1 / -1;">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea"
+                              name="NewNotification.Description"
+                              placeholder="Write the notification message here..."
+                              maxlength="300"
+                              required></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-add">
+                <i class="fa-solid fa-plus"></i> Add Notification
+            </button>
+        </form>
+    </div>
+
+    <!-- NOTIFICATIONS LIST -->
+    <div class="notif-list-card">
+        <div class="list-header">
+            <div class="list-title">
+                <i class="fa-solid fa-list"></i>
+                All Notifications
+                <span class="notif-count-badge">@Model.Notifications.Count total</span>
+            </div>
+        </div>
+
+        @if (Model.Notifications.Count == 0)
+        {
+            <div class="empty-state">
+                <i class="fa-regular fa-bell-slash"></i>
+                No notifications yet. Add one above!
+            </div>
+        }
+        else
+        {
+            foreach (var notif in Model.Notifications)
+            {
+                <div class="admin-notif-row">
+                    <div class="row-icon @notif.Type">
+                        @if (notif.Type == "order")
+                        {
+                            <i class="fa-solid fa-box"></i>
+                        }
+                        else if (notif.Type == "offer")
+                        {
+                            <i class="fa-solid fa-tag"></i>
+                        }
+                        else
+                        {
+                            <i class="fa-solid fa-bell"></i>
+                        }
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">@notif.Title</div>
+                        <div class="row-desc">@notif.Description</div>
+                        <div class="row-meta">
+                            <span class="row-time">
+                                <i class="fa-regular fa-clock"></i> @notif.TimeAgo
+                            </span>
+                            <span class="row-tag @notif.Type">@notif.Type</span>
+                        </div>
+                    </div>
+                    <a asp-controller="Admin"
+                       asp-action="DeleteNotification"
+                       asp-route-id="@notif.Id"
+                       class="btn-delete"
+                       title="Delete"
+                       onclick="return confirm('Delete this notification?')">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+
+</div>

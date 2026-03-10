@@ -1,0 +1,444 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;600;700&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* ── PAGE ─────────────────────────────────────────────────────── */
+.admin-notif-page {
+    padding: 32px 40px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* ── BACK BUTTON — exact same as all pages ────────────────────── */
+.back-btn {
+    position: absolute;
+    left: 0;
+    top: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 2px solid #803434;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #803434;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
+    z-index: 10;
+}
+
+    .back-btn:hover {
+        background: #803434;
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(128,52,52,0.28);
+        transform: translateY(-2px);
+    }
+
+    .back-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(128,52,52,0.2);
+    }
+
+/* ── HEADER ───────────────────────────────────────────────────── */
+.admin-notif-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+    .admin-notif-header h1 {
+        font-family: 'Inter', sans-serif;
+        font-size: clamp(26px, 4vw, 40px);
+        font-weight: 700;
+        color: #264075;
+        letter-spacing: 0.5px;
+        line-height: 1;
+        margin-bottom: 6px;
+    }
+
+    .admin-notif-header p {
+        font-size: 13px;
+        color: #999;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+/* ── SUCCESS BANNER ───────────────────────────────────────────── */
+.success-banner {
+    background: #edf7ed;
+    border: 1.5px solid #2d6a2d;
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin-bottom: 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #2d6a2d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ── ADD FORM CARD ────────────────────────────────────────────── */
+.add-notif-card {
+    background: #fff;
+    border: 1.5px solid #e8d0cc;
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.add-notif-header {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 18px;
+    padding-bottom: 13px;
+    border-bottom: 1.5px solid #f0e0de;
+}
+
+.add-notif-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(128,52,52,0.10);
+    color: #803434;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.add-notif-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #264075;
+}
+
+.add-notif-hint {
+    font-size: 11.5px;
+    color: #aaa;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 1px;
+}
+
+/* ── FORM GRID ────────────────────────────────────────────────── */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 160px;
+    gap: 14px;
+    align-items: end;
+    margin-bottom: 14px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #803434;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    padding: 10px 13px;
+    border: 1.5px solid #e0d0ce;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #2c2c2c;
+    background: #fdfafa;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: none;
+}
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        border-color: #803434;
+        box-shadow: 0 0 0 3px rgba(128,52,52,0.09);
+        background: #fff;
+    }
+
+.form-textarea {
+    min-height: 70px;
+    line-height: 1.6;
+    grid-column: 1 / -1;
+}
+
+.btn-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 20px;
+    background: #803434;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    height: 42px;
+    transition: background 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+}
+
+    .btn-add:hover {
+        background: #5e2424;
+        box-shadow: 0 4px 14px rgba(128,52,52,0.25);
+    }
+
+/* ── TYPE SELECT COLORS ───────────────────────────────────────── */
+.type-order {
+    color: #264075;
+}
+
+.type-offer {
+    color: #92400e;
+}
+
+.type-system {
+    color: #803434;
+}
+
+/* ── LIST SECTION ─────────────────────────────────────────────── */
+.notif-list-card {
+    background: #fff;
+    border: 1.5px solid #e8d0cc;
+    border-radius: 14px;
+    padding: 22px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 13px;
+    border-bottom: 1.5px solid #f0e0de;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.list-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #264075;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notif-count-badge {
+    background: rgba(128,52,52,0.10);
+    color: #803434;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* ── NOTIFICATION ROW ─────────────────────────────────────────── */
+.admin-notif-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 1.5px solid #f0e0de;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: #fdfafa;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+    .admin-notif-row:hover {
+        box-shadow: 0 4px 14px rgba(128,52,52,0.09);
+        transform: translateY(-1px);
+    }
+
+    .admin-notif-row:last-child {
+        margin-bottom: 0;
+    }
+
+.row-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+    .row-icon.order {
+        background: rgba(38,64,117,0.10);
+        color: #264075;
+    }
+
+    .row-icon.offer {
+        background: rgba(234,179,8,0.12);
+        color: #92400e;
+    }
+
+    .row-icon.system {
+        background: rgba(128,52,52,0.10);
+        color: #803434;
+    }
+
+.row-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.row-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 3px;
+}
+
+.row-desc {
+    font-size: 13px;
+    color: #666;
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.5;
+    margin-bottom: 6px;
+}
+
+.row-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.row-time {
+    font-size: 11px;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.row-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+    .row-tag.order {
+        background: rgba(38,64,117,0.10);
+        color: #264075;
+    }
+
+    .row-tag.offer {
+        background: rgba(234,179,8,0.12);
+        color: #92400e;
+    }
+
+    .row-tag.system {
+        background: rgba(128,52,52,0.10);
+        color: #803434;
+    }
+
+.btn-delete {
+    background: transparent;
+    border: 1.5px solid #f0e0de;
+    border-radius: 7px;
+    color: #c28880;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    text-decoration: none;
+}
+
+    .btn-delete:hover {
+        background: #803434;
+        color: #fff;
+        border-color: #803434;
+    }
+
+/* ── EMPTY STATE ──────────────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #ccc;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+}
+
+    .empty-state i {
+        font-size: 44px;
+        display: block;
+        margin-bottom: 12px;
+        color: #e0d0ce;
+    }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .admin-notif-page {
+        padding: 24px 32px 48px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .btn-add {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-notif-page {
+        padding: 20px 16px 40px;
+    }
+
+    .back-btn {
+        left: 0;
+        top: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
