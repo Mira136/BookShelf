@@ -158,7 +158,32 @@ namespace BookShelf.Controllers
         // ================= NOTIFICATIONS =================
 
         public IActionResult Notifications() => View();
-        public IActionResult AdminAboutUs() => View();
+        public IActionResult AdminAboutUs()
+        {
+            var model = new AboutUsViewModel
+            {
+                OurStory = "Our bookstore was created for people who want to buy and sell books at affordable prices. We built this platform to help users easily find new and second-hand books from home. Anyone can sell their books at a nominal price, making books more accessible and budget-friendly for everyone. We believe books should be shared, reused, and available at low cost.",
+                OurMission = "To provide quality books at affordable prices and deliver them quickly to readers.",
+                OurVision = "To become a trusted online bookstore for readers everywhere.",
+                WhyChooseUs = "Trusted Online Bookstore | Affordable Prices | Simple Shopping Experience | Great Customer Support"
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AdminAboutUs(AboutUsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                TempData["AboutStory"] = model.OurStory;
+                TempData["AboutMission"] = model.OurMission;
+                TempData["AboutVision"] = model.OurVision;
+                TempData["AboutChoose"] = model.WhyChooseUs;
+                TempData["AboutSaved"] = "true";
+            }
+            return View(model);
+        }
 
         // ================= ABOUT US =================
 

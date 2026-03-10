@@ -1,144 +1,227 @@
 ﻿@model BookShelf.Models.ViewModels.AboutUsViewModel
 @{
-    // ViewData["Title"] = "Admin About Us";
     Layout = null;
 }
-<title>BookShelf</title>
-
+<title>BookShelf – Edit About Us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="~/css/admin-aboutus.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <div class="admin-about-wrapper">
 
+    <a asp-controller="Admin" asp-action="Dashboard" class="back-btn" title="Go back">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+
     <div class="about-header">
-        <a asp-controller="Admin" asp-action="Dashboard" class="back-btn">
-            <img src="~/images/Back_Arrow_icon.png" />
-        </a>
-        <h1>About Us</h1>
+        <h1>Edit About Us</h1>
+        <p>Changes saved here will reflect live on the user-facing About Us page</p>
     </div>
 
-    <form asp-action="AdminAboutUs" method="post">
+    @if (TempData["AboutSaved"] != null)
+    {
+        <div style="background:#edf7ed; border:1.5px solid #2d6a2d; border-radius:10px; padding:12px 18px; margin-bottom:18px; font-family:'DM Sans',sans-serif; font-size:13px; color:#2d6a2d; display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-circle-check"></i> Changes saved successfully!
+        </div>
+    }
+
+    <form asp-action="AdminAboutUs" method="post" id="aboutForm">
         @Html.AntiForgeryToken()
+
+        <!-- SAVE BAR -->
+        <div class="save-bar">
+            <span class="save-bar-label">
+                <i class="fa-solid fa-pen-to-square"></i> About Us Editor
+            </span>
+            <div class="save-bar-actions">
+                <a asp-controller="Account" asp-action="About" class="btn-cancel" target="_blank" style="text-decoration:none;">
+                    <i class="fa-solid fa-eye"></i> Preview
+                </a>
+                <a asp-action="AdminAboutUs" class="btn-cancel">
+                    <i class="fa-solid fa-xmark"></i> Cancel
+                </a>
+                <button type="submit" class="btn-save">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
+            </div>
+        </div>
 
         <!-- OUR STORY -->
         <div class="about-section">
-            <label>Our Story</label>
+            <div class="section-header">
+                <div class="section-icon"><i class="fa-solid fa-book-open"></i></div>
+                <div class="section-meta">
+                    <div class="section-label">Our Story</div>
+                    <div class="section-hint">Main paragraph shown in the story section</div>
+                </div>
+            </div>
             <div class="editor-box">
                 <div class="editable-area"
                      contenteditable="true"
-                     data-placeholder="Edit Our Story"></div>
-
-                <input type="hidden" asp-for="OurStory" />
-
+                     id="editor-story"
+                     data-placeholder="Write your story here...">
+                    @Html.Raw(Model?.OurStory)
+                </div>
+                <input type="hidden" asp-for="OurStory" id="hidden-story" />
                 <div class="editor-toolbar">
-                    <img src="~/images/Bold.png" onclick="formatText(this,'bold')" />
-                    <img src="~/images/Italic.png" onclick="formatText(this,'italic')" />
-                    <img src="~/images/Vector.png" onclick="formatText(this,'insertUnorderedList')" />
-                    <img src="~/images/Vector2.png" onclick="formatText(this,'insertOrderedList')" />
-                    <img src="~/images/ellipsis.png" />
-                    <span class="char-count">0/500</span>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-story','bold')" title="Bold"><b>B</b></button>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-story','italic')" title="Italic"><i>I</i></button>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-story','underline')" title="Underline"><u>U</u></button>
+                    <div class="toolbar-divider"></div>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-story','insertUnorderedList')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-story','insertOrderedList')" title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+                    <span class="char-count" id="count-story">0/500</span>
                 </div>
             </div>
         </div>
 
-        <!-- OUR MISSION -->
+        <!-- OUR MISSION & VISION -->
         <div class="about-section">
-            <label>Our Mission</label>
-            <div class="editor-box">
-                <div class="editable-area"
-                     contenteditable="true"
-                     data-placeholder="Edit Our Mission"></div>
-
-                <input type="hidden" asp-for="OurMission" />
-
-                <div class="editor-toolbar">
-                    <img src="~/images/Bold.png" onclick="formatText(this,'bold')" />
-                    <img src="~/images/Italic.png" onclick="formatText(this,'italic')" />
-                    <img src="~/images/Vector.png" onclick="formatText(this,'insertUnorderedList')" />
-                    <img src="~/images/Vector2.png" onclick="formatText(this,'insertOrderedList')" />
-                    <img src="~/images/ellipsis.png" />
-                    <span class="char-count">0/500</span>
+            <div class="section-header">
+                <div class="section-icon"><i class="fa-solid fa-bullseye"></i></div>
+                <div class="section-meta">
+                    <div class="section-label">Mission & Vision</div>
+                    <div class="section-hint">Text shown inside the two side-by-side cards</div>
                 </div>
             </div>
-        </div>
-
-        <!-- OUR VISION -->
-        <div class="about-section">
-            <label>Our Vision</label>
-            <div class="editor-box">
-                <div class="editable-area"
-                     contenteditable="true"
-                     data-placeholder="Edit Our Vision"></div>
-
-                <input type="hidden" asp-for="OurVision" />
-
-                <div class="editor-toolbar">
-                    <img src="~/images/Bold.png" onclick="formatText(this,'bold')" />
-                    <img src="~/images/Italic.png" onclick="formatText(this,'italic')" />
-                    <img src="~/images/Vector.png" onclick="formatText(this,'insertUnorderedList')" />
-                    <img src="~/images/Vector2.png" onclick="formatText(this,'insertOrderedList')" />
-                    <img src="~/images/ellipsis.png" />
-                    <span class="char-count">0/500</span>
+            <div class="two-col">
+                <div>
+                    <div class="section-hint" style="margin-bottom:8px; font-weight:600; color:#803434;">Our Mission</div>
+                    <div class="editor-box">
+                        <div class="editable-area"
+                             contenteditable="true"
+                             id="editor-mission"
+                             data-placeholder="Write your mission...">
+                            @Html.Raw(Model?.OurMission)
+                        </div>
+                        <input type="hidden" asp-for="OurMission" id="hidden-mission" />
+                        <div class="editor-toolbar">
+                            <button type="button" class="toolbar-btn" onclick="fmt('editor-mission','bold')"><b>B</b></button>
+                            <button type="button" class="toolbar-btn" onclick="fmt('editor-mission','italic')"><i>I</i></button>
+                            <button type="button" class="toolbar-btn" onclick="fmt('editor-mission','underline')"><u>U</u></button>
+                            <span class="char-count" id="count-mission">0/500</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="section-hint" style="margin-bottom:8px; font-weight:600; color:#803434;">Our Vision</div>
+                    <div class="editor-box">
+                        <div class="editable-area"
+                             contenteditable="true"
+                             id="editor-vision"
+                             data-placeholder="Write your vision...">
+                            @Html.Raw(Model?.OurVision)
+                        </div>
+                        <input type="hidden" asp-for="OurVision" id="hidden-vision" />
+                        <div class="editor-toolbar">
+                            <button type="button" class="toolbar-btn" onclick="fmt('editor-vision','bold')"><b>B</b></button>
+                            <button type="button" class="toolbar-btn" onclick="fmt('editor-vision','italic')"><i>I</i></button>
+                            <button type="button" class="toolbar-btn" onclick="fmt('editor-vision','underline')"><u>U</u></button>
+                            <span class="char-count" id="count-vision">0/500</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- WHY CHOOSE US -->
         <div class="about-section">
-            <label>Why Choose Us?</label>
+            <div class="section-header">
+                <div class="section-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="section-meta">
+                    <div class="section-label">Why Choose Us</div>
+                    <div class="section-hint">Content shown in the Why Choose Us section</div>
+                </div>
+            </div>
             <div class="editor-box">
                 <div class="editable-area"
                      contenteditable="true"
-                     data-placeholder="Edit Why Choose Us"></div>
-
-                <input type="hidden" asp-for="WhyChooseUs" />
-
+                     id="editor-choose"
+                     data-placeholder="Write Why Choose Us content...">
+                    @Html.Raw(Model?.WhyChooseUs)
+                </div>
+                <input type="hidden" asp-for="WhyChooseUs" id="hidden-choose" />
                 <div class="editor-toolbar">
-                    <img src="~/images/Bold.png" onclick="formatText(this,'bold')" />
-                    <img src="~/images/Italic.png" onclick="formatText(this,'italic')" />
-                    <img src="~/images/Vector.png" onclick="formatText(this,'insertUnorderedList')" />
-                    <img src="~/images/Vector2.png" onclick="formatText(this,'insertOrderedList')" />
-                    <img src="~/images/ellipsis.png" />
-                    <span class="char-count">0/500</span>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-choose','bold')"><b>B</b></button>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-choose','italic')"><i>I</i></button>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-choose','underline')"><u>U</u></button>
+                    <div class="toolbar-divider"></div>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-choose','insertUnorderedList')"><i class="fa-solid fa-list-ul"></i></button>
+                    <button type="button" class="toolbar-btn" onclick="fmt('editor-choose','insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
+                    <span class="char-count" id="count-choose">0/500</span>
                 </div>
             </div>
-
-            <div class="why-large-box">
-                <textarea placeholder="Add detailed content here..."></textarea>
-            </div>
-        </div>
-
-        <div class="btn-group">
-            <button type="submit" class="btn-save">Save Changes</button>
-            <a asp-action="AdminAboutUs" class="btn-cancel">Cancel</a>
         </div>
 
     </form>
 </div>
 
+<div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i> Changes saved successfully!
+</div>
+
 <script>
-function formatText(element, command) {
-    const editor = element.closest(".editor-box").querySelector(".editable-area");
-    editor.focus();
-    document.execCommand(command, false, null);
-}
+    // format command
+    function fmt(editorId, command) {
+        var editor = document.getElementById(editorId);
+        editor.focus();
+        // noinspection JSDeprecatedSymbols
+        document.execCommand(command, false, null);
+    }
 
-document.querySelector("form").addEventListener("submit", function () {
-    document.querySelectorAll(".editor-box").forEach(box => {
-        const editable = box.querySelector(".editable-area");
-        const hidden = box.querySelector("input[type='hidden']");
-        hidden.value = editable.innerHTML;
+    // sync hidden inputs before submit
+    document.getElementById('aboutForm').addEventListener('submit', function () {
+        syncHidden('editor-story',   'hidden-story');
+        syncHidden('editor-mission', 'hidden-mission');
+        syncHidden('editor-vision',  'hidden-vision');
+        syncHidden('editor-choose',  'hidden-choose');
     });
-});
 
-document.querySelectorAll(".editable-area").forEach(editor => {
-    const counter = editor.closest(".editor-box").querySelector(".char-count");
-    editor.addEventListener("input", () => {
-        let text = editor.innerText.trim();
-        if (text.length > 500) {
-            editor.innerText = text.substring(0, 500);
-            text = editor.innerText;
+    function syncHidden(editorId, hiddenId) {
+        var editor = document.getElementById(editorId);
+        var hidden = document.getElementById(hiddenId);
+        if (editor && hidden) hidden.value = editor.innerHTML;
+    }
+
+    // char counters
+    var editorCounterMap = {
+        'editor-story':   'count-story',
+        'editor-mission': 'count-mission',
+        'editor-vision':  'count-vision',
+        'editor-choose':  'count-choose'
+    };
+
+    Object.keys(editorCounterMap).forEach(function(editorId) {
+        var editor  = document.getElementById(editorId);
+        var counter = document.getElementById(editorCounterMap[editorId]);
+        if (!editor || !counter) return;
+
+        function update() {
+            var len = editor.innerText.trim().length;
+            if (len > 500) {
+                editor.innerText = editor.innerText.substring(0, 500);
+                var range = document.createRange();
+                range.selectNodeContents(editor);
+                range.collapse(false);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+            len = Math.min(len, 500);
+            counter.textContent = len + '/500';
+            counter.classList.toggle('warn', len >= 450);
         }
-        counter.textContent = text.length + "/500";
+
+        editor.addEventListener('input', update);
+        update();
     });
-});
+
+    // toast
+    function showToast() {
+        var t = document.getElementById('toast');
+        t.classList.add('show');
+        setTimeout(function () { t.classList.remove('show'); }, 3000);
+    }
 </script>
