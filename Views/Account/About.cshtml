@@ -1,147 +1,181 @@
-﻿@model BookShelf.Models.ViewModels.AboutViewModel
-@{
-    // ViewData["Title"] = "About Us";
+﻿@{
     Layout = null;
 }
-<title>BookShelf</title>
-
+<title>BookShelf – About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@600;700&display=swap">
 <link rel="stylesheet" href="~/css/aboutus.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <div class="about-page">
 
-    <!-- HERO -->
+    <!-- Hero -->
     <div class="about-hero">
-        <a asp-controller="Home" asp-action="Index" class="back-arrow">
-            <img src="~/images/Back_Arrow_icon.png" />
+        <a asp-controller="Home" asp-action="Index" class="back-btn" title="Go back">
+            <i class="fa fa-arrow-left"></i>
         </a>
-
         <h1>About Our BookShelf</h1>
         <p>Your Trusted Place to Discover and buy books online.</p>
-
-        <a asp-controller="Books" asp-action="Index" class="browse-btn">
-            Browse Books
-        </a>
+        <a asp-controller="Home" asp-action="Index" class="browse-btn">Browse Books</a>
     </div>
 
-    <!-- OUR STORY -->
-    <section class="section">
-        <h2 class="story-heading">Our Story</h2>
+    <!-- Main Content -->
+    <div class="about-content">
 
-        <p class="story-text">
-            Our bookstore was created for people who want to
-            <strong>buy and sell books at affordable prices</strong>.
-            We built this platform to help users easily find new and second-hand books from home.
-            Anyone can sell their books at a <strong>nominal price</strong>,
-            making books more <strong>accessible</strong> and
-            <strong>budget-friendly</strong> for everyone.
-        </p>
-    </section>
-
-    <!-- MISSION & VISION -->
-    <div class="mission-vision">
-        <div class="mv-card">
-            <h3>Our Mission</h3>
-            <div class="card-line"></div>
-            <p>
-    “To <strong>provide</strong> quality books at 
-    <strong>affordable</strong> prices and deliver them 
-    <strong>quickly</strong> to readers.”
-</p>
-        </div>
-
-        <div class="mv-card">
-            <h3>Our Vision</h3>
-            <div class="card-line"></div>
-            <p>
-                “To become a trusted online bookstore for readers everywhere.”
+        <!-- Our Story -->
+        <section class="story-section">
+            <h2 class="section-title left">Our Story</h2>
+            <p class="story-text">
+                Our bookstore was created for people who want to <strong>
+                    buy and sell books at affordable
+                    prices
+                </strong>. We built this platform to help users easily find new and second-hand books
+                from home. Anyone can sell their books at a <strong>nominal price</strong>, making books more
+                <strong>accessible</strong> and <strong>budget-friendly</strong> for everyone. We believe books
+                should be shared, reused, and available at low cost.
             </p>
-        </div>
+            <div class="mv-grid">
+                <div class="mv-card-mission">
+                    <h3>Our Mission</h3>
+                    <p>"To <strong>provide</strong> quality books at <strong>affordable</strong> prices and deliver them <strong>quickly</strong> to readers."</p>
+                </div>
+                <div class="mv-card-vision">
+                    <h3>Our Vision</h3>
+                    <p>"To become a trusted online bookstore for readers everywhere."</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider" />
+
+        <!-- What We Offer -->
+        <section class="offer-section">
+            <h2 class="section-title">What We Offer</h2>
+            <div class="offer-grid">
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&q=80" alt="Wide Selection" />
+                    <div class="offer-card-label">Wide Selection</div>
+                </div>
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&q=80" alt="Easy Online Ordering" />
+                    <div class="offer-card-label">Easy Online Ordering</div>
+                </div>
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&q=80" alt="Nominal Price" />
+                    <div class="offer-card-label">Nominal Price</div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider" />
+
+        <!-- Why Choose Us — 2x2 accent tiles -->
+        <section class="choose-section">
+            <h2 class="section-title">Why Choose Us ?</h2>
+            <div class="choose-grid-2x2">
+                <div class="choose-tile">
+                    <div class="choose-tile-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="choose-tile-body">
+                        <div class="choose-tile-title">Trusted Online Bookstore</div>
+                        <div class="choose-tile-sub">Verified sellers and secure transactions every time you shop</div>
+                    </div>
+                </div>
+                <div class="choose-tile">
+                    <div class="choose-tile-icon"><i class="fa-solid fa-tag"></i></div>
+                    <div class="choose-tile-body">
+                        <div class="choose-tile-title">Affordable Prices</div>
+                        <div class="choose-tile-sub">New and second-hand books at the lowest prices anywhere</div>
+                    </div>
+                </div>
+                <div class="choose-tile">
+                    <div class="choose-tile-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                    <div class="choose-tile-body">
+                        <div class="choose-tile-title">Simple Shopping Experience</div>
+                        <div class="choose-tile-sub">Browse, order and receive your books in just a few clicks</div>
+                    </div>
+                </div>
+                <div class="choose-tile">
+                    <div class="choose-tile-icon"><i class="fa-solid fa-headset"></i></div>
+                    <div class="choose-tile-body">
+                        <div class="choose-tile-title">Great Customer Support</div>
+                        <div class="choose-tile-sub">Our team is here to help you at every step of the way</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider" />
+
+        <!-- The Team — flip cards -->
+        <section class="team-section">
+            <h2 class="section-title">The Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+                            <div class="team-name">Tanvi</div>
+                        </div>
+                        <div class="team-card-back">
+                            <div class="team-back-icon"><i class="fa-solid fa-user"></i></div>
+                            <div class="team-back-name">Tanvi</div>
+                            <div class="team-back-email">tanvi123@@gmail.com</div>
+                            <div class="team-back-tag">Team Member</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+                            <div class="team-name">Ayushi</div>
+                        </div>
+                        <div class="team-card-back">
+                            <div class="team-back-icon"><i class="fa-solid fa-user"></i></div>
+                            <div class="team-back-name">Ayushi</div>
+                            <div class="team-back-email">ayushi123@@gmail.com</div>
+                            <div class="team-back-tag">Team Member</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-inner">
+                        <div class="team-card-front">
+                            <div class="team-avatar"><i class="fa-solid fa-user"></i></div>
+                            <div class="team-name">Mirali</div>
+                        </div>
+                        <div class="team-card-back">
+                            <div class="team-back-icon"><i class="fa-solid fa-user"></i></div>
+                            <div class="team-back-name">Mirali</div>
+                            <div class="team-back-email">mirali3@@gmail.com</div>
+                            <div class="team-back-tag">Team Member</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="email-btn-wrap">
+                <a href="https://mail.google.com/mail/?view=cm&to=bookshelf@gmail.com&su=Query from BookShelf Website"
+                   target="_blank" rel="noopener noreferrer" class="email-btn">
+                    Email Us If You Have Any Queries
+                </a>
+            </div>
+        </section>
+
     </div>
 
-    <!-- WHAT WE OFFER -->
-    <section class="section center">
-
-        <div class="section-title">
-            <span>What We Offer</span>
-        </div>
-
-        <div class="offer-grid">
-            <div class="offer-card">
-                <img src="~/images/about1.png" />
-                <h4>Wide Selection</h4>
-            </div>
-
-            <div class="offer-card">
-                <img src="~/images/about2.png" />
-                <h4>Easy Online Ordering</h4>
-            </div>
-
-            <div class="offer-card">
-                <img src="~/images/about3.png" />
-                <h4>Nominal Price</h4>
-            </div>
-        </div>
-    </section>
-
-    <!-- WHY CHOOSE US -->
-    <section class="section">
-
-        <div class="section-title">
-            <span>Why Choose Us ?</span>
-        </div>
-
-        <ul class="why-list">
-            <li>Trusted Online Bookstore</li>
-            <li>Affordable Prices</li>
-            <li>Simple Shopping Experience</li>
-            <li>Great Customer Support</li>
-        </ul>
-    </section>
-
-    <!-- TEAM -->
-    <section class="section center">
-
-        <div class="section-title">
-            <span>The Team</span>
-        </div>
-
-        <div class="team-grid">
-            <div class="team-card">
-                <img src="~/images/aboutprofile.png" class="profile-img" />
-                <h4>Tanvi</h4>
-                <p>tanvi123@gmail.com</p>
-            </div>
-
-            <div class="team-card">
-                <img src="~/images/aboutprofile.png" class="profile-img" />
-                <h4>Ayushi</h4>
-                <p>ayushi123@gmail.com</p>
-            </div>
-
-            <div class="team-card">
-                <img src="~/images/aboutprofile.png" class="profile-img" />
-                <h4>Mirali</h4>
-                <p>mira123@gmail.com</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- EMAIL BUTTON -->
-    <div class="email-btn">
-        Email Us If You Have Any Queries
-    </div>
-
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer class="about-footer">
-        <div class="footer-left">
-            © 2026 BookShelf. All rights reserved.
-        </div>
-
+        <span class="footer-copy">© 2026 BookShelf. All rights reserved.</span>
         <div class="footer-icons">
-            <img src="~/images/instagram.png" />
-            <img src="~/images/facebook.png" />
-            <img src="~/images/twitter.png" />
-            <img src="~/images/Subtract.png" />
+            <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://mail.google.com/mail/?view=cm&to=bookshelf@gmail.com&su=Query from BookShelf Website"
+               target="_blank" rel="noopener noreferrer" title="Email">
+                <i class="fa-regular fa-envelope"></i>
+            </a>
         </div>
     </footer>
 
