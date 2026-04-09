@@ -33,7 +33,10 @@
     </div>
 
     <!-- ── MAIN LAYOUT ── -->
+        <form asp-controller="Books" asp-action="UploadBook" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
     <div class="upload-layout">
+        
 
         <!-- ── LEFT: PHOTO PANEL ── -->
         <div class="photo-panel">
@@ -41,7 +44,7 @@
                  class="book-preview-img"
                  src="https://placehold.co/200x300/e8d5c4/7a3030?text=Book+Cover"
                  alt="Book Cover" />
-            <input type="file" id="photoInput" accept="image/*" />
+                <input name="photoInput" type="file" id="photoInput" accept="image/*" />
             <button class="btn-upload-photo" type="button"
                     onclick="document.getElementById('photoInput').click()">
                 <i class="fa fa-upload"></i> Upload Photo
@@ -58,7 +61,7 @@
             <div class="form-row">
                 <div class="field-group">
                     <label class="field-label" for="bookTitle">Book Title <span class="req">*</span></label>
-                    <input class="field-input" id="bookTitle" type="text"
+                            <input name="bookTitle" class="field-input" id="bookTitle" type="text"
                            placeholder="e.g. Mathematics Part I" />
                     <span class="error-msg" id="err-bookTitle">Book title is required.</span>
                 </div>
@@ -66,7 +69,7 @@
                     <label class="field-label" for="sellingPrice">Selling Price (&#8377;) <span class="req">*</span></label>
                     <div class="input-wrapper">
                         <span class="input-prefix">&#8377;</span>
-                        <input class="field-input" id="sellingPrice" type="number"
+                                <input name="sellingPrice" class="field-input" id="sellingPrice" type="number"
                                min="0" placeholder="e.g. 140" />
                     </div>
                     <span class="error-msg" id="err-sellingPrice">Enter a valid selling price.</span>
@@ -77,7 +80,7 @@
             <div class="form-row">
                 <div class="field-group">
                     <label class="field-label" for="author">Author <span class="req">*</span></label>
-                    <input class="field-input" id="author" type="text"
+                            <input name="author" class="field-input" id="author" type="text"
                            placeholder="e.g. NCERT" />
                     <span class="error-msg" id="err-author">Author name is required.</span>
                 </div>
@@ -88,7 +91,7 @@
                     </label>
                     <div class="input-wrapper">
                         <span class="input-prefix">&#8377;</span>
-                        <input class="field-input" id="actualPrice" type="number"
+                                <input name="actualPrice" class="field-input" id="actualPrice" type="number"
                                min="0" placeholder="e.g. 240" />
                     </div>
                     <span class="error-msg" id="err-actualPrice">Enter a valid price.</span>
@@ -100,7 +103,7 @@
                 <div class="field-group">
                     <label class="field-label" for="category">Category <span class="req">*</span></label>
                     <div class="select-wrapper">
-                        <select class="field-select" id="category" onchange="handleCategoryChange()">
+                                <select name="category" class="field-select" id="category" onchange="handleCategoryChange()">
                             <option value="" disabled selected>Select category</option>
                             <option value="academic">Academic / Education</option>
                                 <option value="kids">Kids</option>
@@ -116,7 +119,7 @@
                 <div class="field-group">
                     <label class="field-label" for="condition">Book Condition <span class="req">*</span></label>
                     <div class="select-wrapper">
-                        <select class="field-select" id="condition">
+                                <select name="condition" class="field-select" id="condition">
                             <option value="" disabled selected>Select condition</option>
                             <option value="new">New</option>
                             <option value="used">Used</option>
@@ -131,7 +134,7 @@
                 <div class="field-group">
                     <label class="field-label" for="language">Language <span class="req">*</span></label>
                     <div class="select-wrapper">
-                        <select class="field-select" id="language">
+                                <select name="language" class="field-select" id="language">
                             <option value="" disabled selected>Select language</option>
                             <option value="english">English</option>
                             <option value="hindi">Hindi</option>
@@ -154,7 +157,7 @@
                         <span id="eduNote" style="font-weight:400;color:#999;font-size:11px;margin-left:3px;">(Academic only)</span>
                     </label>
                     <div class="select-wrapper">
-                        <select class="field-select" id="educationLevel" disabled
+                                <select name="educationLevel" class="field-select" id="educationLevel" disabled
                                 style="opacity:0.45; cursor:not-allowed;">
                             <option value="" disabled selected>Select category first</option>
                             <option value="primary">Primary (1-5)</option>
@@ -175,63 +178,64 @@
             <div class="form-row">
                 <div class="field-group" style="grid-column: 1 / -1;">
                     <label class="field-label" for="description">Description <span class="req">*</span></label>
-                    <textarea class="field-textarea" id="description"
+                            <textarea name="description" class="field-textarea" id="description"
                               placeholder="Short description of the book..."></textarea>
                     <span class="error-msg" id="err-description">Description must be at least 10 characters.</span>
                 </div>
             </div>
 
-            <!-- SELLER INFO -->
-            <div class="section-title" style="margin-top:6px;">Seller Information</div>
+                    <!-- SELLER INFO -->
+                    <div class="section-title" style="margin-top:6px;">Seller Information</div>
 
-            <!-- Row 6: Username | Email -->
-            <div class="form-row">
-                <div class="field-group">
-                    <label class="field-label" for="username">Username <span class="req">*</span></label>
-                    <input class="field-input" id="username" type="text"
-                           placeholder="Enter your username" />
-                    <span class="error-msg" id="err-username">Username is required.</span>
-                </div>
-                <div class="field-group">
-                    <label class="field-label" for="email">Email <span class="req">*</span></label>
-                    <input class="field-input" id="email" type="email"
-                           placeholder="e.g. name@gmail.com" />
-                    <span class="error-msg" id="err-email">Enter a valid email address.</span>
-                </div>
-            </div>
+                    <!-- Row 1: Username | Email -->
+                    <div class="form-row">
+                        <div class="field-group">
+                            <label class="field-label" for="username">Username <span class="req">*</span></label>
+                            <input name="username" class="field-input" id="username" type="text"
+                                   placeholder="Enter your username" />
+                            <span class="error-msg" id="err-username">Username is required.</span>
+                        </div>
 
-            <!-- Row 7: Contact | Location -->
-            <div class="form-row">
-                <div class="field-group">
-                    <label class="field-label" for="contactNo">Contact No. <span class="req">*</span></label>
-                    <div class="phone-wrapper">
-                        <span class="phone-prefix">+91</span>
-                        <input class="field-input" id="contactNo" type="tel"
-                               maxlength="10" placeholder="10-digit number" />
+                        <div class="field-group">
+                            <label class="field-label" for="email">Email <span class="req">*</span></label>
+                            <input name="email" class="field-input" id="email" type="email"
+                                   placeholder="e.g. name@gmail.com" />
+                            <span class="error-msg" id="err-email">Enter a valid email address.</span>
+                        </div>
                     </div>
-                    <span class="error-msg" id="err-contactNo">Enter a valid 10-digit mobile number.</span>
-                </div>
-                <div class="field-group">
-                    <label class="field-label" for="location">Location / City <span class="req">*</span></label>
-                    <input class="field-input" id="location" type="text"
-                           placeholder="e.g. Rajkot, Gujarat" />
-                    <span class="error-msg" id="err-location">Location is required.</span>
-                </div>
-            </div>
+
+                    <!-- Row 2: Contact | Location -->
+                    <div class="form-row">
+                        <div class="field-group">
+                            <label class="field-label" for="contactNo">Contact No. <span class="req">*</span></label>
+                            <div class="phone-wrapper">
+                                <span class="phone-prefix">+91</span>
+                                <input name="contactNo" class="field-input" id="contactNo" type="tel"
+                                       maxlength="10" placeholder="10-digit number" />
+                            </div>
+                            <span class="error-msg" id="err-contactNo">Enter a valid 10-digit mobile number.</span>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label" for="location">Location <span class="req">*</span></label>
+                            <input name="location" class="field-input" id="location" type="text"
+                                   placeholder="e.g. Rajkot, Gujarat" />
+                            <span class="error-msg" id="err-location">Location is required.</span>
+                        </div>
+                    </div>
 
             <!-- SUBMIT -->
             <div class="submit-area">
-                <button class="btn-submit" id="submitBtn" type="button" onclick="handleSubmit()">
-                    <i class="fa fa-paper-plane" style="margin-right:7px;"></i>Submit
-                </button>
+                        <button class="btn-submit" id="submitBtn" type="submit">
+                            <i class="fa fa-paper-plane" style="margin-right:7px;"></i>Submit
+                        </button>
                 <div class="success-msg" id="successMsg">
-                    <i class="fa fa-circle-check" style="margin-right:6px;"></i>
                     Submitted Successfully!! Redirecting...
                 </div>
             </div>
-
         </div>
     </div>
+    </form>
 </div>
 
 <script>

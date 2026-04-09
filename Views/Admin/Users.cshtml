@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<BookShelf.Models.ApplicationUser>
+
+@{
     // ViewData["Title"] = "Users";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -42,118 +44,50 @@
                 <div>DateTime</div>
             </div>
 
-            <!-- ROW 1 -->
-            <div class="table-row">
-                <div>1</div>
-                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                <div>James Carter</div>
-                <div>james_c</div>
-                <div>9876543210</div>
-                <div><span class="status active">Active</span></div>
-                <div class="datetime-cell">
-                    <span class="datetime-date">2026-01-03</span>
-                    <span class="datetime-time">09:15:42</span>
-                </div>
-            </div>
+            @{
+                int count = 1;
+            }
 
-            <!-- ROW 2 -->
-            <div class="table-row">
-                <div>2</div>
-                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                <div>Priya Sharma</div>
-                <div>priya_sh</div>
-                <div>9123456780</div>
-                <div><span class="status active">Active</span></div>
-                <div class="datetime-cell">
-                    <span class="datetime-date">2026-01-10</span>
-                    <span class="datetime-time">11:22:05</span>
-                </div>
-            </div>
+            @foreach (var user in Model)
+            {
+                <div class="table-row">
+                    <div>@count</div>
 
-            <!-- ROW 3 -->
-            <div class="table-row">
-                <div>3</div>
-                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                <div>Ethan Brooks</div>
-                <div>ethan_b</div>
-                <div>9012345678</div>
-                <div><span class="status inactive">Inactive</span></div>
-                <div class="datetime-cell">
-                    <span class="datetime-date">2026-01-14</span>
-                    <span class="datetime-time">08:47:33</span>
-                </div>
-            </div>
+                    <!-- Picture -->
+                    <div>
+                        <span class="avatar-icon">
+                            <i class="fa fa-circle-user"></i>
+                        </span>
+                    </div>
 
-            <!-- ROW 4 -->
-            <div class="table-row">
-                <div>4</div>
-                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                <div>Sofia Mendes</div>
-                <div>sofia_m</div>
-                <div>9823401567</div>
-                <div><span class="status active">Active</span></div>
-                <div class="datetime-cell">
-                    <span class="datetime-date">2026-01-19</span>
-                    <span class="datetime-time">14:05:18</span>
-                </div>
-            </div>
+                    <!-- Name -->
+                    <div>@(user.UserName ?? "N/A")</div>
 
-            <!-- ROW 5 -->
-            <div class="table-row">
-                <div>5</div>
-                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                <div>Liam O'Brien</div>
-                <div>liam_ob</div>
-                <div>9745632180</div>
-                <div><span class="status active">Active</span></div>
-                <div class="datetime-cell">
-                    <span class="datetime-date">2026-01-25</span>
-                    <span class="datetime-time">16:38:50</span>
-                </div>
-            </div>
+                    <!-- Username -->
+                    <div>@user.Email</div>
 
-            <!-- ROW 6 -->
-            <div class="table-row">
-                <div>6</div>
-                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                <div>Aisha Malik</div>
-                <div>aisha_mk</div>
-                <div>9634512870</div>
-                <div><span class="status inactive">Inactive</span></div>
-                <div class="datetime-cell">
-                    <span class="datetime-date">2026-02-01</span>
-                    <span class="datetime-time">10:12:27</span>
-                </div>
-            </div>
+                    <!-- Number -->
+                    <div>@(user.PhoneNumber ?? "N/A")</div>
 
-            <!-- ROW 7 -->
-            <div class="table-row">
-                <div>7</div>
-                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                <div>Noah Patel</div>
-                <div>noah_pt</div>
-                <div>9512348906</div>
-                <div><span class="status active">Active</span></div>
-                <div class="datetime-cell">
-                    <span class="datetime-date">2026-02-07</span>
-                    <span class="datetime-time">13:55:09</span>
-                </div>
-            </div>
+                    <!-- Status -->
+                    <div>
+                        <span class="status active">Active</span>
+                    </div>
 
-            <!-- ROW 8 -->
-            <div class="table-row">
-                <div>8</div>
-                <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                <div>Isabella Wong</div>
-                <div>bella_w</div>
-                <div>9401237856</div>
-                <div><span class="status active">Active</span></div>
-                <div class="datetime-cell">
-                    <span class="datetime-date">2026-02-14</span>
-                    <span class="datetime-time">17:30:44</span>
+                    <!-- DateTime -->
+                    <div class="datetime-cell">
+                        <span class="datetime-date">
+                            @user.CreatedAt.ToString("yyyy-MM-dd")
+                        </span>
+                        <span class="datetime-time">
+                            @user.CreatedAt.ToString("HH:mm:ss")
+                        </span>
+                    </div>
                 </div>
-            </div>
 
+                count++;
+            }
+            
         </div>
         <!-- end users-table -->
 

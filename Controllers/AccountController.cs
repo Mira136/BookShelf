@@ -24,8 +24,26 @@ namespace BookShelf.Controllers
 
         // ================= LOGIN =================
 
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
+            // If already logged in
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                if (user != null)
+                {
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return RedirectToAction("Dashboard", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+
             return View();
         }
 

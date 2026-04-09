@@ -1,40 +1,22 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model List<BookShelf.Models.Category>
+
 <link rel="stylesheet" href="~/css/category.css" />
 
 <div class="category-container">
     <div class="category-grid">
 
-        <a href="/Home/CategoryBooks?category=Education" class="category-card">
-            <img src="~/images/education_categoryy.png" alt="Education" />
-            <p>EDUCATION</p>
-        </a>
+        @foreach (var cat in Model.Take(6))
+        {
+            <a href="@Url.Action("CategoryBooks", "Home", new { id = cat.Id })"
+               class="category-card">
 
-        <a href="/Home/CategoryBooks?category=Kids" class="category-card">
-            <img src="~/images/kids_category.png" alt="Kids" />
-            <p>KIDS</p>
-        </a>
+                <img src="~/images/categories/@cat.ImagePath"
+                     alt="@cat.Name" />
 
-        <a href="/Home/CategoryBooks?category=Poetry" class="category-card">
-            <img src="~/images/poetry_category.png" alt="Poetry" />
-            <p>POETRY</p>
-        </a>
+                <p>@cat.Name.ToUpper()</p>
 
-        <a href="/Home/CategoryBooks?category=Fiction" class="category-card">
-            <img src="~/images/fiction_category.png" alt="Fiction" />
-            <p>FICTION</p>
-        </a>
-
-        <a href="/Home/CategoryBooks?category=Religion" class="category-card">
-            <img src="~/images/religion_category.png" alt="Religion" />
-            <p>RELIGION</p>
-        </a>
-
-        <a href="/Home/CategoryBooks?category=Motivation" class="category-card">
-            <img src="~/images/motivation_category.png" alt="Motivation" />
-            <p>MOTIVATION</p>
-        </a>
+            </a>
+        }
 
     </div>
 </div>

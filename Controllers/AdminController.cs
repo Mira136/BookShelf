@@ -1,12 +1,24 @@
-﻿using BookShelf.Models.ViewModels;
+﻿using Microsoft.AspNetCore.Identity;
+using BookShelf.Models;
+using BookShelf.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using BookShelf.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookShelf.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+        private readonly ApplicationDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public AdminController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        {
+            _db = db;
+            _userManager = userManager;
+        }
         public IActionResult Index()
         {
             return View();
@@ -15,17 +27,34 @@ namespace BookShelf.Controllers
         {
             return View();
         }
-        public IActionResult Users()
+        public async Task<IActionResult> Users()
         {
-            return View();
+            var allUsers = _userManager.Users.ToList();
+            var users = new List<ApplicationUser>();
+
+            foreach (var user in allUsers)
+            {
+                if (!await _userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    users.Add(user);
+                }
+            }
+
+            return View(users.OrderByDescending(u => u.CreatedAt).ToList());
         }
         public IActionResult Scoreboard()
         {
             return View();
         }
-        public IActionResult Books()
+        public async Task<IActionResult> Books()
         {
-            return View();
+            var books = await _db.Books
+                .Include(b => b.Category)
+                .Include(b => b.Uploader)
+                .OrderByDescending(b => b.CreatedAt)
+                .ToListAsync();
+
+            return View(books);
         }
         public IActionResult Ebooks()
         {

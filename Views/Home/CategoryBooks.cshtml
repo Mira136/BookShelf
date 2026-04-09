@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<BookShelf.Models.Book>
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var category = ViewBag.Category as string ?? "Books";
 }
@@ -13,304 +15,35 @@
         </a>
     </div>
 
-    <!-- Books Grid -->
     <div class="book-grid">
 
-        @* ── EDUCATION books ── *@
-        @if (category == "Education")
+        @foreach (var book in Model)
         {
             <div class="book-card">
-                <img src="~/images/book1.png" alt="Maths Textbook XII"
-                     onerror="this.src='https://placehold.co/300x260/c9a5a5/fff?text=Maths+XII'" />
-                <h3>Maths Textbook - XII</h3>
-                <p>Education</p>
-                <div class="price">
-                    <span class="old">&#8377;240</span>
-                    <span class="new">&#8377;140</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="window.location.href='/Home/BookDetails?id=1'">View</button>
-                    <i class="fa-solid fa-heart wishlist-icon active"></i>
-                </div>
-            </div>
 
-            <div class="book-card">
-                <img src="~/images/book2.png" alt="Artificial Intelligence"
-                     onerror="this.src='https://placehold.co/300x260/2d4a2d/fff?text=AI+Book'" />
-                <h3>Artificial Intelligence</h3>
-                <p>Computer Science / AI</p>
-                <div class="price">
-                    <span class="old">&#8377;240</span>
-                    <span class="new">&#8377;550</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
+                <img src="~/images/@book.ImagePath" alt="@book.Title" />
 
-            <div class="book-card">
-                <img src="~/images/book4.png" alt="Gujarati Textbook X"
-                     onerror="this.src='https://placehold.co/300x260/4a3a1a/fff?text=Gujarati'" />
-                <h3>Gujrati Textbook - X</h3>
-                <p>Education</p>
-                <div class="price">
-                    <span class="old">&#8377;180</span>
-                    <span class="new">&#8377;80</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
+                <h3>@book.Title</h3>
 
-            <div class="book-card">
-                <img src="~/images/book8.png" alt="Oxford Dictionary"
-                     onerror="this.src='https://placehold.co/300x260/1a2a4a/fff?text=Oxford'" />
-                <h3>Oxford English Dictionary Reference</h3>
-                <p>Education</p>
-                <div class="price">
-                    <span class="old">&#8377;300</span>
-                    <span class="new">&#8377;200</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-solid fa-heart wishlist-icon active"></i>
-                </div>
-            </div>
-        }
+                <p>@book.Category?.Name</p>
 
-        @* ── KIDS books ── *@
-        @if (category == "Kids")
-        {
-            <div class="book-card">
-                <img src="~/images/book5.png" alt="7 Habits Happy Kids" />
-                <h3>The 7 Habits Happy Kids</h3>
-                <p>Kids book</p>
                 <div class="price">
-                    <span class="old">&#8377;300</span>
-                    <span class="new">&#8377;245</span>
+                    @if (book.ActualPrice != null)
+                    {
+                        <span class="old">&#8377;@book.ActualPrice</span>
+                    }
+                    <span class="new">&#8377;@book.SellingPrice</span>
                 </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
 
-            <div class="book-card">
-                <img src="~/images/book9.png" alt="Journey to the Stars" />
-                <h3>Journey to the Stars</h3>
-                <p>Kids book</p>
-                <div class="price">
-                    <span class="old">&#8377;300</span>
-                    <span class="new">&#8377;245</span>
-                </div>
                 <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
+                    <button onclick="window.location.href='/Home/BookDetails?id=@book.Id'">
+                        View
+                    </button>
                 </div>
-            </div>
 
-            <div class="book-card">
-                <img src="~/images/book10.png" alt="Drawing Books for Kids" />
-                <h3>Drawing Books for Kids</h3>
-                <p>Kids book</p>
-                <div class="price">
-                    <span class="old">&#8377;500</span>
-                    <span class="new">&#8377;300</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-        }
-
-        @* ── POETRY books ── *@
-        @if (category == "Poetry")
-        {
-            <div class="book-card">
-                <img src="~/images/book11.png" alt="Warmth" />
-                <h3>Warmth</h3>
-                <p>Poetry</p>
-                <div class="price">
-                    <span class="old">&#8377;200</span>
-                    <span class="new">&#8377;150</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <img src="~/images/book12.png" alt="Dyingful" />
-                <h3>Dyingful</h3>
-                <p>Poetry</p>
-                <div class="price">
-                    <span class="old">&#8377;950</span>
-                    <span class="new">&#8377;320</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <img src="~/images/book13.png" alt="In the Silence You Left Behind" />
-                <h3>In the Silence You Left Behind</h3>
-                <p>Poetry</p>
-                <div class="price">
-                    <span class="old">&#8377;950</span>
-                    <span class="new">&#8377;300</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-        }
-
-        @* ── FICTION books ── *@
-        @if (category == "Fiction")
-        {
-            <div class="book-card">
-                <img src="~/images/book3.png" alt="Twisted Series" />
-                <h3>Twisted Series</h3>
-                <p>Fiction</p>
-                <div class="price">
-                    <span class="old">&#8377;1000</span>
-                    <span class="new">&#8377;899</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <img src="~/images/book14.png" alt="Verity" />
-                <h3>Verity</h3>
-                <p>Fiction</p>
-                <div class="price">
-                    <span class="old">&#8377;400</span>
-                    <span class="new">&#8377;399</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <img src="~/images/book15.png" alt="The Time Machine" />
-                <h3>The Time Machine</h3>
-                <p>Fiction</p>
-                <div class="price">
-                    <span class="old">&#8377;140</span>
-                    <span class="new">&#8377;129</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-        }
-
-        @* ── RELIGION books ── *@
-        @if (category == "Religion")
-        {
-            <div class="book-card">
-                <img src="~/images/book6.png" alt="Bhagavad Gita" />
-                <h3>Bhagavad Geeta</h3>
-                <p>Religious</p>
-                <div class="price">
-                    <span class="old">&#8377;601</span>
-                    <span class="new">&#8377;485</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-solid fa-heart wishlist-icon active"></i>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <img src="~/images/book16.png" alt="Mahabharat" />
-                <h3>Mahabharat</h3>
-                <p>Religious</p>
-                <div class="price">
-                    <span class="old">&#8377;650</span>
-                    <span class="new">&#8377;500</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <img src="~/images/book17.png" alt="Quran" />
-                <h3>Quran</h3>
-                <p>Religious</p>
-                <div class="price">
-                    <span class="old">&#8377;450</span>
-                    <span class="new">&#8377;400</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-        }
-
-        @* ── MOTIVATION books ── *@
-        @if (category == "Motivation")
-        {
-            <div class="book-card">
-                <img src="~/images/book7.png" alt="Chanakya Neeti" />
-                <h3>Chanakya Neeti</h3>
-                <p>Self Growth</p>
-                <div class="price">
-                    <span class="old">&#8377;150</span>
-                    <span class="new">&#8377;80</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <img src="~/images/book18.png" alt="Atomic Habits" />
-                <h3>Atomic Habits</h3>
-                <p>Self Growth</p>
-                <div class="price">
-                    <span class="old">&#8377;150</span>
-                    <span class="new">&#8377;80</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <img src="~/images/book19.png" alt="You Can Win" />
-                <h3>You Can Win</h3>
-                <p>Self Growth</p>
-                <div class="price">
-                    <span class="old">&#8377;450</span>
-                    <span class="new">&#8377;350</span>
-                </div>
-                <div class="card-buttons">
-                    <button onclick="">View</button>
-                    <i class="fa-regular fa-heart wishlist-icon"></i>
-                </div>
             </div>
         }
 
     </div>
-    @* end book-grid *@
 
 </div>

@@ -1,14 +1,18 @@
-﻿@{
-    // ViewData["Title"] = "Books";
+﻿@model List<BookShelf.Models.Book>
+
+@{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <title>BookShelf</title>
+
 @section Styles {
     <link rel="stylesheet" href="~/css/admin-books.css" />
 }
 
 <div class="adminbooks-page">
-    <!-- BACK BUTTON + TITLE -->
+
+    <!-- HEADER -->
     <div class="page-header">
         <a href="/Admin/Dashboard" class="back-btn">
             <i class="fa fa-arrow-left"></i>
@@ -16,10 +20,9 @@
         <h2 class="page-title">Books</h2>
     </div>
 
-    <!-- BOOKS CARD -->
     <div class="adminbooks-card">
 
-        <!-- SEARCH BAR -->
+        <!-- SEARCH -->
         <div class="search-bar-wrapper">
             <div class="search-bar">
                 <input type="text" placeholder="Search here" id="bookSearch" />
@@ -27,11 +30,11 @@
             </div>
         </div>
 
-        <!-- TABLE WRAPPER -->
+        <!-- TABLE -->
         <div class="adminbooks-table-wrapper">
             <div class="adminbooks-table">
 
-                <!-- HEADER — 12 columns -->
+                <!-- HEADER -->
                 <div class="table-row table-header">
                     <div>Sr No.</div>
                     <div>Book</div>
@@ -42,274 +45,68 @@
                     <div>M.R.P</div>
                     <div>S.P</div>
                     <div>Username</div>
-                    <div>Email & Mobile</div>
+                    <div>Email</div>
                     <div>Desc.</div>
                     <div>DateTime</div>
                 </div>
 
-                <!-- ROW 1 -->
-                <div class="table-row">
-                    <div>1</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>Maths XII</div>
-                    <div>R.D. Sharma</div>
-                    <div>Education</div>
-                    <div>English</div>
-                    <div><span class="price-mrp">&#8377;450</span></div>
-                    <div><span class="price-sp">&#8377;320</span></div>
-                    <div>kaira_21</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">kaira@gmail.com</span>
-                        <span class="contact-mobile">9876543210</span>
-                    </div>
-                    <div class="desc-cell">Textbook for class 12</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-03</span>
-                        <span class="datetime-time">09:15:42</span>
-                    </div>
-                </div>
+                @{
+                    int sr = 1;
+                }
 
-                <!-- ROW 2 -->
-                <div class="table-row">
-                    <div>2</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>Atomic Habits</div>
-                    <div>James Clear</div>
-                    <div>Motivation</div>
-                    <div>English</div>
-                    <div><span class="price-mrp">&#8377;550</span></div>
-                    <div><span class="price-sp">&#8377;499</span></div>
-                    <div>james_c</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">james@gmail.com</span>
-                        <span class="contact-mobile">9123456780</span>
-                    </div>
-                    <div class="desc-cell">Self growth guide</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-07</span>
-                        <span class="datetime-time">11:22:05</span>
-                    </div>
-                </div>
+                @foreach (var book in Model)
+                {
+                    <div class="table-row">
+                        <div>@sr</div>
 
-                <!-- ROW 3 -->
-                <div class="table-row">
-                    <div>3</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>Bhagavad Geeta</div>
-                    <div>Veda Vyasa</div>
-                    <div>Religion</div>
-                    <div>Hindi</div>
-                    <div><span class="price-mrp">&#8377;601</span></div>
-                    <div><span class="price-sp">&#8377;485</span></div>
-                    <div>vedant_v</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">vedant@gmail.com</span>
-                        <span class="contact-mobile">9012345678</span>
-                    </div>
-                    <div class="desc-cell">Sacred Hindu text</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-10</span>
-                        <span class="datetime-time">08:47:33</span>
-                    </div>
-                </div>
+                        <div>
+                            @if (!string.IsNullOrEmpty(book.ImagePath))
+                            {
+                                <img src="~/images/@book.ImagePath" width="40" />
+                            }
+                            else
+                            {
+                                <span class="avatar-icon">
+                                    <i class="fa fa-circle-user"></i>
+                                </span>
+                            }
+                        </div>
 
-                <!-- ROW 4 -->
-                <div class="table-row">
-                    <div>4</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>Twisted Series</div>
-                    <div>Ana Huang</div>
-                    <div>Fiction</div>
-                    <div>English</div>
-                    <div><span class="price-mrp">&#8377;1000</span></div>
-                    <div><span class="price-sp">&#8377;899</span></div>
-                    <div>sofia_m</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">sofia@gmail.com</span>
-                        <span class="contact-mobile">9823401567</span>
-                    </div>
-                    <div class="desc-cell">Romantic fiction series</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-14</span>
-                        <span class="datetime-time">14:05:18</span>
-                    </div>
-                </div>
+                        <div>@book.Title</div>
+                        <div>@book.Author</div>
+                        <div>@book.Category?.Name</div>
+                        <div>@book.Language</div>
 
-                <!-- ROW 5 -->
-                <div class="table-row">
-                    <div>5</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>7 Habits Kids</div>
-                    <div>Sean Covey</div>
-                    <div>Kids</div>
-                    <div>English</div>
-                    <div><span class="price-mrp">&#8377;300</span></div>
-                    <div><span class="price-sp">&#8377;245</span></div>
-                    <div>liam_ob</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">liam@gmail.com</span>
-                        <span class="contact-mobile">9745632180</span>
-                    </div>
-                    <div class="desc-cell">Habits for happy kids</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-19</span>
-                        <span class="datetime-time">16:38:50</span>
-                    </div>
-                </div>
+                        <div>
+                            <span class="price-sp">₹@book.SellingPrice</span>
+                        </div>
 
-                <!-- ROW 6 -->
-                <div class="table-row">
-                    <div>6</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>Warmth</div>
-                    <div>Rupi Kaur</div>
-                    <div>Poetry</div>
-                    <div>English</div>
-                    <div><span class="price-mrp">&#8377;200</span></div>
-                    <div><span class="price-sp">&#8377;150</span></div>
-                    <div>aisha_mk</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">aisha@gmail.com</span>
-                        <span class="contact-mobile">9634512870</span>
-                    </div>
-                    <div class="desc-cell">Modern poetry book</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-25</span>
-                        <span class="datetime-time">10:12:27</span>
-                    </div>
-                </div>
+                        <div>
+                            <span class="price-mrp">₹@book.ActualPrice</span>
+                        </div>
 
-                <!-- ROW 7 -->
-                <div class="table-row">
-                    <div>7</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>Gujarati Text X</div>
-                    <div>GSEB Board</div>
-                    <div>Education</div>
-                    <div>Gujarati</div>
-                    <div><span class="price-mrp">&#8377;180</span></div>
-                    <div><span class="price-sp">&#8377;80</span></div>
-                    <div>noah_pt</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">noah@gmail.com</span>
-                        <span class="contact-mobile">9512348906</span>
-                    </div>
-                    <div class="desc-cell">Class 10 Gujarati</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-01</span>
-                        <span class="datetime-time">13:55:09</span>
-                    </div>
-                </div>
+                        <div>@book.Uploader?.UserName</div>
 
-                <!-- ROW 8 -->
-                <div class="table-row">
-                    <div>8</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>Chanakya Neeti</div>
-                    <div>Chanakya</div>
-                    <div>Motivation</div>
-                    <div>Hindi</div>
-                    <div><span class="price-mrp">&#8377;150</span></div>
-                    <div><span class="price-sp">&#8377;80</span></div>
-                    <div>bella_w</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">bella@gmail.com</span>
-                        <span class="contact-mobile">9401237856</span>
-                    </div>
-                    <div class="desc-cell">Ancient wisdom book</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-07</span>
-                        <span class="datetime-time">17:30:44</span>
-                    </div>
-                </div>
+                        <div>
+                            @book.Uploader?.Email
+                        </div>
 
-                <!-- ROW 9 -->
-                <div class="table-row">
-                    <div>9</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>The Time Machine</div>
-                    <div>H.G. Wells</div>
-                    <div>Fiction</div>
-                    <div>English</div>
-                    <div><span class="price-mrp">&#8377;140</span></div>
-                    <div><span class="price-sp">&#8377;129</span></div>
-                    <div>ethan_b</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">ethan@gmail.com</span>
-                        <span class="contact-mobile">9312456780</span>
-                    </div>
-                    <div class="desc-cell">Classic sci-fi novel</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-10</span>
-                        <span class="datetime-time">09:05:31</span>
-                    </div>
-                </div>
+                        <div class="desc-cell">
+                            @book.Description
+                        </div>
 
-                <!-- ROW 10 -->
-                <div class="table-row">
-                    <div>10</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>Oxford Dictionary</div>
-                    <div>Oxford Press</div>
-                    <div>Education</div>
-                    <div>English</div>
-                    <div><span class="price-mrp">&#8377;300</span></div>
-                    <div><span class="price-sp">&#8377;200</span></div>
-                    <div>priya_sh</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">priya@gmail.com</span>
-                        <span class="contact-mobile">9223456781</span>
+                        <div class="datetime-cell">
+                            <span class="datetime-date">
+                                @book.CreatedAt.ToString("yyyy-MM-dd")
+                            </span>
+                            <span class="datetime-time">
+                                @book.CreatedAt.ToString("HH:mm:ss")
+                            </span>
+                        </div>
                     </div>
-                    <div class="desc-cell">English reference book</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-14</span>
-                        <span class="datetime-time">11:48:22</span>
-                    </div>
-                </div>
 
-                <!-- ROW 11 -->
-                <div class="table-row">
-                    <div>11</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>You Can Win</div>
-                    <div>Shiv Khera</div>
-                    <div>Motivation</div>
-                    <div>English</div>
-                    <div><span class="price-mrp">&#8377;450</span></div>
-                    <div><span class="price-sp">&#8377;350</span></div>
-                    <div>shiv_kh</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">shiv@gmail.com</span>
-                        <span class="contact-mobile">9134567892</span>
-                    </div>
-                    <div class="desc-cell">Motivational bestseller</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-18</span>
-                        <span class="datetime-time">15:20:10</span>
-                    </div>
-                </div>
-
-                <!-- ROW 12 -->
-                <div class="table-row">
-                    <div>12</div>
-                    <div><span class="avatar-icon"><i class="fa fa-circle-user"></i></span></div>
-                    <div>Mahabharat</div>
-                    <div>C. Rajagopalachari</div>
-                    <div>Religion</div>
-                    <div>Hindi</div>
-                    <div><span class="price-mrp">&#8377;650</span></div>
-                    <div><span class="price-sp">&#8377;500</span></div>
-                    <div>raj_cr</div>
-                    <div class="contact-cell">
-                        <span class="contact-email">raj@gmail.com</span>
-                        <span class="contact-mobile">9045678123</span>
-                    </div>
-                    <div class="desc-cell">Epic Hindu scripture</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-22</span>
-                        <span class="datetime-time">18:45:59</span>
-                    </div>
-                </div>
+                    sr++;
+                }
 
             </div>
         </div>

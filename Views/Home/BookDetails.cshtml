@@ -1,15 +1,18 @@
-﻿@{
+﻿@model BookShelf.Models.Book
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    // ViewData["Title"] = "Book Details";
 }
 <title>BookShelf</title>
+
 @section Styles {
     <link rel="stylesheet" href="~/css/book-details.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/uploader-info.css" />
 }
 
 <div class="book-details-container">
 
-    <!-- BLUE AREA — back arrow only -->
+    <!-- TOP BAR -->
     <div class="top-bar">
         <button class="btn-back"
                 onclick="location.href='@Url.Action("Index", "Home")'">
@@ -17,12 +20,21 @@
         </button>
     </div>
 
-    <!-- PINK AREA — main card -->
+    <!-- MAIN -->
     <div class="book-details">
 
-        <!-- LEFT — IMAGE + ACTIONS -->
+        <!-- LEFT -->
         <div class="book-image">
-            <img class="main-img" src="/images/book1.png" />
+
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <img class="main-img" src="~/images/@Model.ImagePath" />
+            }
+            else
+            {
+                <img class="main-img" src="~/images/book1.png" />
+            }
+
             <div class="btn-row">
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -38,6 +50,7 @@
                         Add to cart
                     </button>
                 }
+
                 @if (User.Identity.IsAuthenticated)
                 {
                     <button class="btn-main" onclick="window.location.href='/Order/Checkout'">
@@ -53,9 +66,11 @@
                     </button>
                 }
             </div>
+
             @if (User.Identity.IsAuthenticated)
             {
-                <button class="uploader-btn" onclick="window.location.href='/Home/UploaderInfo'">
+                <button class="uploader-btn"
+                        onclick="location.href='@Url.Action("UploaderInfo", "Home", new { id = Model.Id })'">
                     <i class="fa fa-circle-user"></i>
                     Uploader Info
                 </button>
@@ -67,60 +82,86 @@
                     Uploader Info
                 </button>
             }
+
         </div>
 
-        <!-- RIGHT — DETAILS -->
+        <!-- RIGHT -->
         <div class="book-info">
+
             <div class="book-title">
-                Mathematics: Textbook for Class XII, Part I
+                @Model.Title
             </div>
+
+            <!-- PRICE -->
             <div class="price-section">
                 <div>
                     <span class="actual-label">Actual Price</span>
                     <div style="display:flex; align-items:baseline; gap:12px;">
-                        <span class="price-main">₹140</span>
-                        <span class="price-old">₹240</span>
+                        <span class="price-main">₹@Model.SellingPrice</span>
+                        <span class="price-old">₹@Model.ActualPrice</span>
                     </div>
                 </div>
-                <span class="price-save">🎉 Save ₹100</span>
+
+                @{
+                    var save = (Model.ActualPrice ?? 0) - Model.SellingPrice;
+                }
+                <span class="price-save">🎉 Save ₹@save</span>
             </div>
+
+            <!-- INFO -->
             <div class="info-rows-wrapper">
+
                 <div class="info-row">
                     <span class="label">Availability :</span>
-                    <span class="stock">In stock</span>
+                    <span class="stock">
+                        @(Model.IsAvailable ? "In stock" : "Out of stock")
+                    </span>
                 </div>
+
                 <div class="info-row">
                     <span class="label">Condition :</span>
-                    <span>Second-Hand</span>
+                    <span>@Model.Condition</span>
                 </div>
+
                 <div class="info-row">
                     <span class="label">Author :</span>
-                    <span>NCERT</span>
+                    <span>@Model.Author</span>
                 </div>
+
                 <div class="info-row">
                     <span class="label">Category :</span>
-                    <span>Academic / Education</span>
+                    <span>@Model.Category?.Name</span>
                 </div>
+
                 <div class="info-row">
                     <span class="label">Language :</span>
-                    <span>English</span>
+                    <span>@Model.Language</span>
                 </div>
+
                 <div class="info-row">
                     <span class="label">Education Level :</span>
-                    <span>Senior Secondary</span>
+                    <span>@Model.EducationLevel</span>
                 </div>
+
                 <div class="info-row">
                     <span class="label">Description :</span>
-                    <span>A textbook for the Class 12 NCERT first part.</span>
+                    <span>@Model.Description</span>
                 </div>
+
+                <!-- RATING -->
                 <div class="rating">
                     <span class="label">Rating :</span>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
+
+                    @{
+                        int fullStars = (int)Math.Round(Model.Rating);
+                    }
+
+                    @for (int i = 0; i < fullStars; i++)
+                    {
+                        <i class="fa fa-star"></i>
+                    }
                 </div>
+
             </div>
         </div>
     </div>
@@ -128,33 +169,29 @@
     <!-- DIVIDER -->
     <div class="section-divider"></div>
 
-    <!-- REVIEWS -->
+    <!-- REVIEWS (Optional dynamic later) -->
     <div class="review-section">
         <div class="review-header">
             <div class="review-title">Customer Reviews</div>
-            <span class="review-count">3 reviews</span>
+            <span class="review-count">@Model.Reviews.Count reviews</span>
         </div>
-        <div class="review-item">
-            <img src="/images/profile_image.png" class="profile-img">
-            <div class="review-text">
-                <span class="reviewer-name">Tanvi</span>
-                <span class="reviewer-comment">The book I bought from him is exactly as shown in the image.</span>
+
+        @foreach (var review in Model.Reviews)
+        {
+            <div class="review-item">
+                <img src="/images/profile_image.png" class="profile-img">
+                <div class="review-text">
+                    <span class="reviewer-name">@(review.User?.UserName ?? "Anonymous")</span>
+                    <span class="reviewer-comment">@review.Comment</span>
+                </div>
             </div>
-        </div>
-        <div class="review-item">
-            <img src="/images/profile_image.png" class="profile-img">
-            <div class="review-text">
-                <span class="reviewer-name">Ayushi</span>
-                <span class="reviewer-comment">Not a waste of money at all, great value!</span>
-            </div>
-        </div>
-        <div class="review-item">
-            <img src="/images/profile_image.png" class="profile-img">
-            <div class="review-text">
-                <span class="reviewer-name">Mira</span>
-                <span class="reviewer-comment">Condition of the book is great, very happy with the purchase.</span>
-            </div>
-        </div>
+        }
+
     </div>
 
+    @if (Model == null)
+    {
+        <div>Book not found.</div>
+          return;
+      }
 </div>
