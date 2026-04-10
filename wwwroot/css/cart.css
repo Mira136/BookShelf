@@ -13,7 +13,44 @@
     justify-content: flex-start;
     padding: 10px 20px 20px 10px !important;
 }
+.empty-cart {
+    text-align: center;
+    padding: 80px 20px;
+}
 
+.empty-icon {
+    font-size: 60px;
+    color: #823838;
+    margin-bottom: 20px;
+}
+
+.empty-cart h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.empty-cart p {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+/* Button style */
+.btn-browse {
+    background: #823838;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+    .btn-browse:hover {
+        background: #6b2d2d;
+    }
 /* Book title & subtitle inside card */
 .book-title-text {
     font-size: 14px;
@@ -38,8 +75,25 @@
 /* Left-align buttons in cart */
 .book-card .card-buttons {
     justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #823838;
+    transition: transform 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
+    .delete-btn:hover {
+        transform: scale(1.2);
+        color: #a94442; /* slightly lighter red */
+    }}
 /* =========================
    PRICE DETAIL SECTION
 ========================= */

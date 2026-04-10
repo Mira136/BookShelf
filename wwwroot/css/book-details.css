@@ -89,6 +89,7 @@ button.back-btn {
     padding: 13px 8px;
     border-radius: 10px;
     cursor: pointer;
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -401,7 +402,119 @@ button.back-btn {
     line-height: 1.5;
     font-family: 'Poppins', sans-serif;
 }
+/* ===== REVIEW FORM (PREMIUM STYLE) ===== */
+.review-form-box {
+    background: #faf7f7;
+    border: 1px solid #ede8e8;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+}
 
+/* TEXTAREA */
+.review-form textarea {
+    width: 100%;
+    height: 90px;
+    border-radius: 10px;
+    border: 1px solid #d8c2c2;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    resize: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+    .review-form textarea:focus {
+        outline: none;
+        border-color: #823838;
+        box-shadow: 0 0 0 2px rgba(130,56,56,0.1);
+    }
+
+/* BUTTON */
+.review-form button {
+    margin-top: 12px;
+    background: #823838;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.2s;
+}
+
+    .review-form button:hover {
+        background: #6a2c2c;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(130,56,56,0.25);
+    }
+
+/* ===== STAR RATING ===== */
+.star-rating {
+    direction: rtl;
+    display: inline-flex;
+    margin-bottom: 6px;
+}
+
+    .star-rating input {
+        display: none;
+    }
+
+    .star-rating label {
+        font-size: 22px;
+        color: #d4bcbc;
+        cursor: pointer;
+        transition: transform 0.15s, color 0.2s;
+    }
+
+        .star-rating label:hover {
+            transform: scale(1.2);
+        }
+
+            .star-rating input:checked ~ label,
+            .star-rating label:hover,
+            .star-rating label:hover ~ label {
+                color: #823838;
+            }
+
+/* ===== LOGIN MESSAGE (PREMIUM LOOK) ===== */
+.login-msg {
+    margin-top: 10px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: #fff5f5;
+    border: 1px solid #e4caca;
+    color: #823838;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+    /* Icon */
+    .login-msg i {
+        color: #823838;
+        font-size: 14px;
+    }
+
+    /* Link */
+    .login-msg a {
+        color: #823838;
+        font-weight: 700;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: 0.2s;
+    }
+
+        /* Hover effect */
+        .login-msg a:hover {
+            border-bottom: 1px solid #823838;
+        }
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
     .book-details-container {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookShelf.Models
 {
@@ -52,5 +53,8 @@ namespace BookShelf.Models
 
         // Customer reviews
         public List<Review> Reviews { get; set; } = new();
+
+        [NotMapped]
+        public bool IsInWishlist { get; set; }
     }
 }

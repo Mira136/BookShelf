@@ -38,10 +38,10 @@
             <div class="btn-row">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <button class="btn-main" onclick="window.location.href='/Order/Cart'">
+                    <a class="btn-main" href="/Order/AddToCart/@Model.Id">
                         <i class="fa fa-shopping-cart"></i>
                         Add to cart
-                    </button>
+                    </a>
                 }
                 else
                 {
@@ -53,10 +53,10 @@
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <button class="btn-main" onclick="window.location.href='/Order/Checkout'">
-                        <i class="fa-solid fa-sack-dollar"></i>
-                        Buy now
-                    </button>
+                    <a class="btn-main" href="/Order/AddToCart/@Model.Id?buyNow=true">
+    <i class="fa-solid fa-sack-dollar"></i>
+    Buy now
+</a>
                 }
                 else
                 {
@@ -97,13 +97,13 @@
                 <div>
                     <span class="actual-label">Actual Price</span>
                     <div style="display:flex; align-items:baseline; gap:12px;">
-                        <span class="price-main">₹@Model.SellingPrice</span>
-                        <span class="price-old">₹@Model.ActualPrice</span>
+                        <span class="price-main">₹@Model.ActualPrice</span>
+                        <span class="price-old">₹@Model.SellingPrice</span>
+                        
                     </div>
                 </div>
-
                 @{
-                    var save = (Model.ActualPrice ?? 0) - Model.SellingPrice;
+                    var save = Model.SellingPrice - (Model.ActualPrice ?? 0) ;
                 }
                 <span class="price-save">🎉 Save ₹@save</span>
             </div>
@@ -175,7 +175,36 @@
             <div class="review-title">Customer Reviews</div>
             <span class="review-count">@Model.Reviews.Count reviews</span>
         </div>
+        <div class="review-form-box">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form method="post" action="/Home/AddReview" class="review-form">
 
+                    <input type="hidden" name="BookId" value="@Model.Id" />
+
+                    <!-- Stars -->
+                    <div class="star-rating">
+                        <input type="radio" name="Rating" value="5" id="star5"><label for="star5">★</label>
+                        <input type="radio" name="Rating" value="4" id="star4"><label for="star4">★</label>
+                        <input type="radio" name="Rating" value="3" id="star3"><label for="star3">★</label>
+                        <input type="radio" name="Rating" value="2" id="star2"><label for="star2">★</label>
+                        <input type="radio" name="Rating" value="1" id="star1"><label for="star1">★</label>
+                    </div>
+
+                    <textarea name="Comment" placeholder="Share your thoughts about this book..." required></textarea>
+
+                    <button type="submit">Submit Review</button>
+
+                </form>
+            }
+            else
+            {
+                <p class="login-msg">
+                    <i class="fa fa-lock"></i>
+                    Please <a href="/Account/Login">login</a> to write a review
+                </p>
+            }
+        </div>
         @foreach (var review in Model.Reviews)
         {
             <div class="review-item">

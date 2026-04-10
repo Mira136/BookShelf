@@ -1,52 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Order Success";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var orderNumber = ViewBag.OrderNumber ?? "BK00000";
+    var totalAmount = ViewBag.TotalAmount ?? "0";
 }
-
 @section Styles {
     <link rel="stylesheet" href="~/css/ordersuccess.css" asp-append-version="true" />
 }
 
 <div class="order-success-wrapper">
-
-    <!-- Success Image -->
     <div class="success-img">
         <img src="~/images/successfull.png" alt="Order Success" />
     </div>
 
-    <!-- Title -->
     <h2 class="success-title">Order Placed Successfully.</h2>
 
-    <!-- Order Card -->
     <div class="order-card">
-        <p><span>Order ID:</span> <strong>#BK10234</strong></p>
+        <p><span>Order ID:</span> <strong>#@orderNumber</strong></p>
         <p><span>Payment Method:</span> Cash on Delivery</p>
-        <p><span>Amount to Pay:</span> <strong>₹890</strong></p>
+        <p><span>Amount to Pay:</span> <strong>₹@totalAmount</strong></p>
     </div>
 
-    <!-- Continue Shopping -->
     <div class="continue-btn">
         <a asp-controller="Home" asp-action="Index" class="btn-primary">
             Continue Shopping
         </a>
     </div>
 
-    <!-- Message -->
     <div class="order-message">
         <p><strong>Thank you!</strong> Your order has been placed successfully.</p>
-        <p>You’ll receive a confirmation call or SMS shortly.</p>
-        <p>Please have <strong>₹890</strong> ready to pay at the time of delivery.</p>
+        <p>You'll receive a confirmation call or SMS shortly.</p>
+        <p>Please have <strong>₹@totalAmount</strong> ready at the time of delivery.</p>
     </div>
 
-    <!-- Bottom Buttons -->
     <div class="bottom-actions">
         <a asp-controller="Home" asp-action="Index" class="btn-outline">
             Back to Home
         </a>
-
-        <a asp-controller="Order" asp-action="Checkout" class="btn-solid">
-            View Order Details
+        <a asp-controller="Order" asp-action="Orders" class="btn-solid">
+            View My Orders
         </a>
     </div>
-
 </div>

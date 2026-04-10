@@ -243,11 +243,59 @@ button,
             box-shadow: 0 3px 8px rgba(128, 52, 52, 0.2);
         }
 /* WISHLIST ICON */
-.wishlist-icon {
+/* ===== WISHLIST BUTTON (ICON STYLE) ===== */
+/*.wishlist-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #823838;
+    background: white;
     color: #823838;
-    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 16px;
+}*/
+
+    /* Hover effect */
+    /*.wishlist-btn:hover {
+        background: #823838;
+        color: #fff;
+        box-shadow: 0 6px 16px rgba(130,56,56,0.3);
+        transform: scale(1.1);
+    }*/
+
+    /* Active (already in wishlist) */
+    /*.wishlist-btn.active {
+        background: #823838;
+        color: #fff;
+    }*/
+
+    /* Optional: remove default button look */
+    /*.wishlist-btn:focus {
+        outline: none;
+    }*/
+
+.wishlist-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    color: #823838;
+    transition: transform 0.2s ease;
 }
+
+    .wishlist-btn:hover {
+        transform: scale(1.2);
+    }
+
+    /* Filled heart (later use) */
+    .wishlist-btn.active i {
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+    }
+
 /* RESPONSIVE */
 @media(max-width:1200px) {
     .book-grid {

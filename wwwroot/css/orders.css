@@ -331,6 +331,31 @@
     }
 }
 
+.order-card {
+    position: relative;
+}
+
+.btn-cancel-top {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #823838; /* same as View */
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    transition: background 0.2s ease;
+}
+
+    /* Hover effect */
+    .btn-cancel-top:hover {
+        background: #6b2d2d; /* slightly darker */
+    }
+
 @media (max-width: 480px) {
     .orders-container {
         padding: 16px 12px 32px;

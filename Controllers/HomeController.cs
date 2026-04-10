@@ -19,16 +19,25 @@ namespace BookShelf.Controllers
 
         public IActionResult Index()
         {
-            if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Dashboard", "Admin");
-            }
-
             var books = _db.Books
                 .Include(b => b.Category)
-                .Where(b => b.IsAvailable)
-                .OrderByDescending(b => b.CreatedAt)
+                .OrderByDescending(b => b.Id)
                 .ToList();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                var wishlistBookIds = _db.WishlistItems
+                    .Where(w => w.UserId == userId)
+                    .Select(w => w.BookId)
+                    .ToList();
+
+                foreach (var book in books)
+                {
+                    book.IsInWishlist = wishlistBookIds.Contains(book.Id);
+                }
+            }
 
             return View(books);
         }
@@ -43,6 +52,7 @@ namespace BookShelf.Controllers
                 .Include(b => b.Category)
                 .Include(b => b.Uploader)
                 .Include(b => b.Reviews)
+                    .ThenInclude(r => r.User)
                 .FirstOrDefault(b => b.Id == id);
 
             if (book == null) return NotFound();
@@ -59,14 +69,26 @@ namespace BookShelf.Controllers
         }
         public IActionResult CategoryBooks(int id)
         {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
             var books = _db.Books
                 .Include(b => b.Category)
-                .Where(b => b.CategoryId == id && b.IsAvailable)
+                .Where(b => b.CategoryId == id)
+                .OrderByDescending(b => b.Id) // latest first
                 .ToList();
 
-            var category = _db.Categories.FirstOrDefault(c => c.Id == id);
+            if (User.Identity.IsAuthenticated)
+            {
+                var wishlistBookIds = _db.WishlistItems
+                    .Where(w => w.UserId == userId)
+                    .Select(w => w.BookId)
+                    .ToList();
 
-            ViewBag.CategoryName = category?.Name;
+                foreach (var book in books)
+                {
+                    book.IsInWishlist = wishlistBookIds.Contains(book.Id);
+                }
+            }
 
             return View(books);
         }
@@ -87,6 +109,38 @@ namespace BookShelf.Controllers
                 .FirstOrDefaultAsync(b => b.Id == id);
 
             return View(book);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddReview(int BookId, string Comment, int Rating)
+        {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            var review = new Review
+            {
+                BookId = BookId,
+                Comment = Comment,
+                Rating = Rating,
+                UserId = userId
+            };
+
+            _db.Reviews.Add(review);
+            await _db.SaveChangesAsync();
+
+            // 🔥 Update average rating
+            var book = await _db.Books
+                .Include(b => b.Reviews)
+                .FirstOrDefaultAsync(b => b.Id == BookId);
+
+            if (book != null && book.Reviews.Any())
+            {
+                book.Rating = book.Reviews.Average(r => r.Rating);
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToAction("BookDetails", new { id = BookId });
         }
     }
 }

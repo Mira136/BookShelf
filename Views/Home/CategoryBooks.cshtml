@@ -36,9 +36,31 @@
                 </div>
 
                 <div class="card-buttons">
-                    <button onclick="window.location.href='/Home/BookDetails?id=@book.Id'">
+
+                    <!-- VIEW -->
+                    <a href="/Home/BookDetails?id=@book.Id" class="view-btn">
                         View
-                    </button>
+                    </a>
+
+                    <!-- WISHLIST -->
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" action="/Order/ToggleWishlist">
+                            <input type="hidden" name="bookId" value="@book.Id" />
+
+                            <button type="submit" class="wishlist-btn">
+                                <i class="fa @(book.IsInWishlist ? "fa-solid" : "fa-regular") fa-heart"></i>
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <button class="wishlist-btn"
+                                onclick="window.location.href='/Account/Login'">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                    }
+
                 </div>
 
             </div>

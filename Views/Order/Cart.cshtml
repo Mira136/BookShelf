@@ -1,91 +1,70 @@
-﻿@{
-    // ViewData["Title"] = "Cart";
+﻿@model List<BookShelf.Models.CartItem>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal total = ViewBag.Total ?? 0;
 }
 <title>BookShelf</title>
 @section Styles {
     <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
 }
 
-<!-- ===== BOOK CARDS ===== -->
-<div class="book-grid">
+@if (Model == null || !Model.Any())
+{
+    <div class="empty-cart">
+        <i class="fa fa-cart-shopping empty-icon"></i>
 
-    <!-- Book 1 -->
-    <div class="book-card">
-        <img src="~/images/book1.png" alt="Maths Textbook" />
-        <p class="book-title-text">Maths Textbook -XII</p>
-        <p class="book-sub">Education</p>
-        <div class="price">
-            <span class="old">₹240</span>
-            <span class="new">₹140</span>
-        </div>
-        <div class="card-buttons">
-            <a asp-controller="Home"
-               asp-action="BookDetails"
-               class="view-btn">
-                View
-            </a>
-            <i class="fa-solid fa-heart wishlist-icon active"></i>
-        </div>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven’t added any books yet.</p>
+
+        <a href="/Home/Index" class="btn-browse">
+            Browse Books
+        </a>
+    </div>
+}
+else
+{
+    <div class="book-grid">
+        @foreach (var item in Model)
+        {
+            <div class="book-card">
+                <img src="~/images/@(item.Book?.ImagePath ?? "book1.png")"
+                     alt="@item.Book?.Title"
+                     onerror="this.src='/images/book1.png'" />
+                <p class="book-title-text">@item.Book?.Title</p>
+                <p class="book-sub">@item.Book?.Category?.Name</p>
+                <div class="price">
+                    <span class="old">₹@item.Book?.ActualPrice</span>
+                    <span class="new">₹@item.Book?.SellingPrice</span>
+                </div>
+                <div class="card-buttons">
+                    <a href="/Home/BookDetails/@item.Book?.Id" class="view-btn">View</a>
+                    <a href="/Order/RemoveFromCart/@item.Id"
+                       onclick="return confirm('Remove from cart?')"
+                       class="delete-btn">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </a>
+                </div>
+            </div>
+        }
     </div>
 
-    <!-- Book 2 -->
-    <div class="book-card">
-        <img src="~/images/book8.png" alt="Oxford Dictionary" />
-        <p class="book-title-text">Oxford English Dictionary</p>
-        <p class="book-sub">Reference</p>
-        <div class="price">
-            <span class="old">₹250</span>
-            <span class="new">₹200</span>
+    <div class="price-detail-card">
+        <h3 class="price-detail-title">Price Detail</h3>
+        <table class="price-table">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Book?.Title</td>
+                    <td>₹@item.Book?.SellingPrice</td>
+                </tr>
+            }
+        </table>
+        <div class="order-total-row">
+            <span class="order-label">Order total</span>
+            <span class="order-amount">₹@total</span>
         </div>
-        <div class="card-buttons">
-            <button>View</button>
-            <i class="fa-solid fa-heart wishlist-icon active"></i>
-        </div>
-    </div>
-
-    <!-- Book 3 -->
-    <div class="book-card">
-        <img src="~/images/book2.png" alt="Artificial Intelligence" />
-        <p class="book-title-text">Artificial Intelligence</p>
-        <p class="book-sub">Computer Science / AI</p>
-        <div class="price">
-            <span class="old">₹740</span>
-            <span class="new">₹550</span>
-        </div>
-        <div class="card-buttons">
-            <button>View</button>
-            <i class="fa-regular fa-heart wishlist-icon"></i>
+        <div class="continue-row">
+            <a class="btn-continue" href="/Order/Checkout">Continue</a>
         </div>
     </div>
-
-</div>
-
-<!-- ===== PRICE DETAIL ===== -->
-<div class="price-detail-card">
-    <h3 class="price-detail-title">Price Detail</h3>
-
-    <table class="price-table">
-        <tr>
-            <td>Maths Textbook -XII</td>
-            <td>₹140</td>
-        </tr>
-        <tr>
-            <td>Oxford english Dictionay</td>
-            <td>₹200</td>
-        </tr>
-        <tr>
-            <td>Artificial Intelligence</td>
-            <td>₹550</td>
-        </tr>
-    </table>
-
-    <div class="order-total-row">
-        <span class="order-label">Order total</span>
-        <span class="order-amount">₹890</span>
-    </div>
-
-    <div class="continue-row">
-        <a class="btn-continue" href="/Order/Checkout">Continue</a>
-    </div>
-</div>
+}

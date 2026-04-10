@@ -1,6 +1,8 @@
-﻿@{
-    // ViewData["Title"] = "Checkout";
+﻿@model List<BookShelf.Models.CartItem>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal total = ViewBag.Total ?? 0;
+    var user = ViewBag.User as BookShelf.Models.ApplicationUser;
 }
 <title>BookShelf</title>
 @section Styles {
@@ -14,69 +16,48 @@
         </a>
     </div>
 
-    <!-- ===== CHECKOUT HEADER ===== -->
     <h2 class="checkout-title">Checkout Confirmation</h2>
 
-    <!-- ===== DELIVERY ADDRESS ===== -->
+    <!-- DELIVERY ADDRESS -->
     <div class="card delivery-card">
         <div class="card-header">
             <h3>Delivery Address</h3>
-            <a href="#" class="change-link">Change address</a>
         </div>
         <hr />
-        <p class="address-name">Jack Williams</p>
+        <p class="address-name">@user?.FullName</p>
         <p class="address-text">
-            221B Street, Delhi<br />
-            123456789
+            @user?.Address <br />
+            @user?.PhoneNumber
         </p>
     </div>
 
-    <!-- ===== ORDER SUMMARY ===== -->
+    <!-- ORDER SUMMARY -->
     <h2 class="section-title">Order Summary</h2>
-
     <div class="card order-card">
-
-        <div class="order-item">
-            <img src="~/images/book1.png" />
-            <div class="item-info">
-                <p class="item-title">Mathematics textbook - XII</p>
-                <span class="item-qty">1 book</span>
+        @foreach (var item in Model)
+        {
+            <div class="order-item">
+                <img src="~/images/@(item.Book?.ImagePath ?? "book1.png")"
+                     onerror="this.src='/images/book1.png'" />
+                <div class="item-info">
+                    <p class="item-title">@item.Book?.Title</p>
+                    <span class="item-qty">@item.Quantity book</span>
+                </div>
+                <span class="item-price">₹@item.Book?.SellingPrice</span>
             </div>
-            <span class="item-price">₹140</span>
-        </div>
-
-        <div class="order-item">
-            <img src="~/images/book8.png" />
-            <div class="item-info">
-                <p class="item-title">Oxford English Mini Dictionary</p>
-                <span class="item-qty">1 book</span>
-            </div>
-            <span class="item-price">₹200</span>
-        </div>
-
-        <div class="order-item">
-            <img src="~/images/book2.png" />
-            <div class="item-info">
-                <p class="item-title">Artificial Intelligence</p>
-                <span class="item-qty">1 book</span>
-            </div>
-            <span class="item-price">₹550</span>
-        </div>
-
+        }
         <div class="order-total">
             <span>Total</span>
-            <strong>₹890</strong>
+            <strong>₹@total</strong>
         </div>
-
     </div>
 
-    <!-- ===== PAYMENT METHOD ===== -->
+    <!-- PAYMENT METHOD -->
     <h2 class="section-title">Payment Method</h2>
-
     <div class="card payment-card">
         <p><strong>Payment Method:</strong> Cash on Delivery</p>
         <p class="payment-note">
-            Keep <strong>₹890</strong> at the time of delivery
+            Keep <strong>₹@total</strong> at the time of delivery
         </p>
     </div>
 
@@ -85,9 +66,11 @@
         <span>COD order is confirmed on next step</span>
     </div>
 
-    <!-- ===== NEXT BUTTON ===== -->
+    <!-- PLACE ORDER BUTTON -->
     <div class="checkout-action">
-        <a asp-controller="Order" asp-action="OrderSuccess" class="btn-next">Next</a>
+        <form method="post" action="/Order/PlaceOrder">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn-next">Place Order</button>
+        </form>
     </div>
-
 </div>

@@ -1,5 +1,5 @@
-﻿@{
-    // ViewData["Title"] = "My Orders";
+﻿@model List<BookShelf.Models.Order>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <title>BookShelf</title>
@@ -8,100 +8,75 @@
 }
 
 <div class="orders-container">
-
-    <!-- HEADER -->
     <div class="orders-back">
         <a asp-controller="Home" asp-action="Index" class="back-icon-btn">
             <i class="fa fa-arrow-left"></i>
         </a>
         <span class="orders-page-title">My Orders</span>
     </div>
-    <div class="orders-page-sub">3 orders placed</div>
 
-    <!-- LIST -->
+    <div class="orders-page-sub">@Model.Count orders placed</div>
+
     <div class="orders-list">
+        @if (!Model.Any())
+        {
+            <p style="text-align:center; padding:40px; color:#999;">
+                No orders yet!
+            </p>
+        }
 
-        <!-- CARD 1 -->
-        <div class="order-card">
-            <div class="order-img-wrap">
-                <img src="~/images/book1.png" class="order-img" alt="Maths Book" />
-            </div>
-            <div class="order-details">
-                <h3>Mathematics Textbook - XII</h3>
-                <div class="order-meta">
-                    <p class="muted">
-                        <i class="fa fa-hashtag"></i>
-                        Order ID : <b>#BK10234</b>
-                    </p>
-                    <p class="muted">
-                        <i class="fa fa-calendar"></i>
-                        12 Feb 2026
-                    </p>
+        @foreach (var order in Model)
+        {
+            @foreach (var item in order.OrderItems)
+            {
+                <div class="order-card">
+                    @if (item == order.OrderItems.First()
+                                && order.Status != "Delivered"
+                                && order.Status != "Cancelled")
+                    {
+                        <a href="/Order/CancelOrder/@order.Id"
+                           onclick="return confirm('Cancel this order?')"
+                           class="btn-cancel-top">
+                            Cancel
+                        </a>
+                    }
+                    <div class="order-img-wrap">
+                        <img src="~/images/@(item.Book?.ImagePath ?? "book1.png")"
+                             class="order-img"
+                             onerror="this.src='/images/book1.png'" />
+                    </div>
+                    <div class="order-details">
+                        <h3>@item.Book?.Title</h3>
+                        <div class="order-meta">
+                            <p class="muted">
+                                <i class="fa fa-hashtag"></i>
+                                Order ID : <b>#@order.OrderNumber</b>
+                            </p>
+                            <p class="muted">
+                                <i class="fa fa-calendar"></i>
+                                @order.OrderDate.ToString("dd MMM yyyy")
+                            </p>
+                        </div>
+                        <div class="order-divider"></div>
+                        <div class="order-footer">
+                            <p class="total">
+                                Total : <span>₹@item.Price</span>
+                            </p>
+                            <span class="order-status @order.Status.ToLower()">
+                                @if (order.Status == "Delivered")
+                                {
+                                    <i class="fa fa-circle-check"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-clock"></i>
+                                }
+                                @order.Status
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="order-divider"></div>
-                <div class="order-footer">
-                    <p class="total">Total : <span>₹140</span></p>
-                    <span class="order-status delivered">
-                        <i class="fa fa-circle-check"></i> Delivered
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD 2 -->
-        <div class="order-card">
-            <div class="order-img-wrap">
-                <img src="~/images/book8.png" class="order-img" alt="Oxford Dictionary" />
-            </div>
-            <div class="order-details">
-                <h3>Oxford English Mini Dictionary</h3>
-                <div class="order-meta">
-                    <p class="muted">
-                        <i class="fa fa-hashtag"></i>
-                        Order ID : <b>#BK10189</b>
-                    </p>
-                    <p class="muted">
-                        <i class="fa fa-calendar"></i>
-                        05 Jan 2026
-                    </p>
-                </div>
-                <div class="order-divider"></div>
-                <div class="order-footer">
-                    <p class="total">Total : <span>₹200</span></p>
-                    <span class="order-status delivered">
-                        <i class="fa fa-circle-check"></i> Delivered
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD 3 -->
-        <div class="order-card">
-            <div class="order-img-wrap">
-                <img src="~/images/book2.png" class="order-img" alt="AI Book" />
-            </div>
-            <div class="order-details">
-                <h3>Artificial Intelligence</h3>
-                <div class="order-meta">
-                    <p class="muted">
-                        <i class="fa fa-hashtag"></i>
-                        Order ID : <b>#BK10074</b>
-                    </p>
-                    <p class="muted">
-                        <i class="fa fa-calendar"></i>
-                        20 Dec 2025
-                    </p>
-                </div>
-                <div class="order-divider"></div>
-                <div class="order-footer">
-                    <p class="total">Total : <span>₹550</span></p>
-                    <span class="order-status processing">
-                        <i class="fa fa-clock"></i> Processing
-                    </span>
-                </div>
-            </div>
-        </div>
-
+            }
+        }
     </div>
-
 </div>
