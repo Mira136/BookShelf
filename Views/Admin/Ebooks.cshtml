@@ -1,15 +1,18 @@
-﻿@{
-    // ViewData["Title"] = "Ebooks";
+﻿@model List<BookShelf.Models.Ebook>
+
+@{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <title>BookShelf</title>
+
 @section Styles {
     <link rel="stylesheet" href="~/css/admin-ebooks.css" />
 }
 
 <div class="adminebooks-page">
 
-    <!-- BACK BUTTON + TITLE -->
+    <!-- HEADER -->
     <div class="page-header">
         <a href="/Admin/Dashboard" class="back-btn">
             <i class="fa fa-arrow-left"></i>
@@ -17,10 +20,9 @@
         <h2 class="page-title">Ebooks</h2>
     </div>
 
-    <!-- EBOOKS CARD -->
     <div class="adminebooks-card">
 
-        <!-- SEARCH BAR -->
+        <!-- SEARCH -->
         <div class="search-bar-wrapper">
             <div class="search-bar">
                 <input type="text" placeholder="Search here" id="ebookSearch" />
@@ -28,7 +30,7 @@
             </div>
         </div>
 
-        <!-- TABLE WRAPPER -->
+        <!-- TABLE -->
         <div class="adminebooks-table-wrapper">
             <div class="adminebooks-table">
 
@@ -44,193 +46,55 @@
                     <div>DateTime</div>
                 </div>
 
-                <!-- ROW 1 -->
-                <div class="table-row">
-                    <div>1</div>
-                    <div>Maths XII</div>
-                    <div>R.D. Sharma</div>
-                    <div>Education</div>
-                    <div>English</div>
-                    <div>kaira_21</div>
-                    <div class="email-cell">kaira@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-03</span>
-                        <span class="datetime-time">09:15:42</span>
-                    </div>
-                </div>
+                <!-- DATA ROWS -->
+                @{
+                    int i = 1;
+                }
 
-                <!-- ROW 2 -->
-                <div class="table-row">
-                    <div>2</div>
-                    <div>Atomic Habits</div>
-                    <div>James Clear</div>
-                    <div>Motivation</div>
-                    <div>English</div>
-                    <div>james_c</div>
-                    <div class="email-cell">james@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-07</span>
-                        <span class="datetime-time">11:22:05</span>
-                    </div>
-                </div>
+                @foreach (var item in Model)
+                {
+                    <div class="table-row">
 
-                <!-- ROW 3 -->
-                <div class="table-row">
-                    <div>3</div>
-                    <div>Bhagavad Geeta</div>
-                    <div>Veda Vyasa</div>
-                    <div>Religion</div>
-                    <div>Hindi</div>
-                    <div>vedant_v</div>
-                    <div class="email-cell">vedant@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-10</span>
-                        <span class="datetime-time">08:47:33</span>
-                    </div>
-                </div>
+                        <div>@i</div>
 
-                <!-- ROW 4 -->
-                <div class="table-row">
-                    <div>4</div>
-                    <div>Twisted Series</div>
-                    <div>Ana Huang</div>
-                    <div>Fiction</div>
-                    <div>English</div>
-                    <div>sofia_m</div>
-                    <div class="email-cell">sofia@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-14</span>
-                        <span class="datetime-time">14:05:18</span>
-                    </div>
-                </div>
+                        <div>@item.Title</div>
 
-                <!-- ROW 5 -->
-                <div class="table-row">
-                    <div>5</div>
-                    <div>7 Habits Kids</div>
-                    <div>Sean Covey</div>
-                    <div>Kids</div>
-                    <div>English</div>
-                    <div>liam_ob</div>
-                    <div class="email-cell">liam@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-19</span>
-                        <span class="datetime-time">16:38:50</span>
-                    </div>
-                </div>
+                        <div>@item.Author</div>
 
-                <!-- ROW 6 -->
-                <div class="table-row">
-                    <div>6</div>
-                    <div>Warmth</div>
-                    <div>Rupi Kaur</div>
-                    <div>Poetry</div>
-                    <div>English</div>
-                    <div>aisha_mk</div>
-                    <div class="email-cell">aisha@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-01-25</span>
-                        <span class="datetime-time">10:12:27</span>
-                    </div>
-                </div>
+                        <div>
+                            @item.Category?.Name
+                        </div>
 
-                <!-- ROW 7 -->
-                <div class="table-row">
-                    <div>7</div>
-                    <div>Gujarati Text X</div>
-                    <div>GSEB Board</div>
-                    <div>Education</div>
-                    <div>Gujarati</div>
-                    <div>noah_pt</div>
-                    <div class="email-cell">noah@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-01</span>
-                        <span class="datetime-time">13:55:09</span>
-                    </div>
-                </div>
+                        <div>
+                            @item.Language
+                        </div>
 
-                <!-- ROW 8 -->
-                <div class="table-row">
-                    <div>8</div>
-                    <div>Chanakya Neeti</div>
-                    <div>Chanakya</div>
-                    <div>Motivation</div>
-                    <div>Hindi</div>
-                    <div>bella_w</div>
-                    <div class="email-cell">bella@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-07</span>
-                        <span class="datetime-time">17:30:44</span>
-                    </div>
-                </div>
+                        <div>
+                            @item.Uploader?.UserName
+                        </div>
 
-                <!-- ROW 9 -->
-                <div class="table-row">
-                    <div>9</div>
-                    <div>The Time Machine</div>
-                    <div>H.G. Wells</div>
-                    <div>Fiction</div>
-                    <div>English</div>
-                    <div>ethan_b</div>
-                    <div class="email-cell">ethan@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-10</span>
-                        <span class="datetime-time">09:05:31</span>
-                    </div>
-                </div>
+                        <div class="email-cell">
+                            @item.Email
+                        </div>
 
-                <!-- ROW 10 -->
-                <div class="table-row">
-                    <div>10</div>
-                    <div>Oxford Dictionary</div>
-                    <div>Oxford Press</div>
-                    <div>Education</div>
-                    <div>English</div>
-                    <div>priya_sh</div>
-                    <div class="email-cell">priya@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-14</span>
-                        <span class="datetime-time">11:48:22</span>
-                    </div>
-                </div>
+                        <div class="datetime-cell">
+                            <span class="datetime-date">
+                                @item.CreatedAt.ToString("yyyy-MM-dd")
+                            </span>
+                            <span class="datetime-time">
+                                @item.CreatedAt.ToString("HH:mm:ss")
+                            </span>
+                        </div>
 
-                <!-- ROW 11 -->
-                <div class="table-row">
-                    <div>11</div>
-                    <div>You Can Win</div>
-                    <div>Shiv Khera</div>
-                    <div>Motivation</div>
-                    <div>English</div>
-                    <div>shiv_kh</div>
-                    <div class="email-cell">shiv@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-18</span>
-                        <span class="datetime-time">15:20:10</span>
                     </div>
-                </div>
 
-                <!-- ROW 12 -->
-                <div class="table-row">
-                    <div>12</div>
-                    <div>Mahabharat</div>
-                    <div>C. Rajagopalachari</div>
-                    <div>Religion</div>
-                    <div>Hindi</div>
-                    <div>raj_cr</div>
-                    <div class="email-cell">raj@gmail.com</div>
-                    <div class="datetime-cell">
-                        <span class="datetime-date">2026-02-22</span>
-                        <span class="datetime-time">18:45:59</span>
-                    </div>
-                </div>
+                    i++;
+                }
 
             </div>
         </div>
-        <!-- end adminebooks-table-wrapper -->
 
     </div>
-    <!-- end adminebooks-card -->
-
 </div>
 
 @section Scripts {

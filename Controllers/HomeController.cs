@@ -1,8 +1,9 @@
-﻿using System.Diagnostics;
+﻿using BookShelf.Data;
 using BookShelf.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using BookShelf.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace BookShelf.Controllers
 {
@@ -10,36 +11,42 @@ namespace BookShelf.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _db = db;
+            _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var books = _db.Books
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                if (user != null && await _userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+                }
+
+                // normal user
+                var books = _db.Books
+                    .Include(b => b.Category)
+                    .OrderByDescending(b => b.Id)
+                    .ToList();
+
+                return View("Index", books); // or same view if you want
+            }
+
+            // guest view
+            var guestBooks = _db.Books
                 .Include(b => b.Category)
                 .OrderByDescending(b => b.Id)
                 .ToList();
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-
-                var wishlistBookIds = _db.WishlistItems
-                    .Where(w => w.UserId == userId)
-                    .Select(w => w.BookId)
-                    .ToList();
-
-                foreach (var book in books)
-                {
-                    book.IsInWishlist = wishlistBookIds.Contains(book.Id);
-                }
-            }
-
-            return View(books);
+            return View(guestBooks);
         }
         public IActionResult Category()
         {

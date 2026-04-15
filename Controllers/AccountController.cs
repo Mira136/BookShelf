@@ -80,14 +80,17 @@ namespace BookShelf.Controllers
             }
 
             // ===== NORMAL USER LOGIN =====
-            var result = await _signInManager.PasswordSignInAsync(
-                model.Email,
-                model.Password,
-                model.RememberMe,
-                lockoutOnFailure: false);
+            var user = await _userManager.FindByEmailAsync(model.Email);
 
-            if (result.Succeeded)
+            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                await _signInManager.SignInAsync(user, model.RememberMe);
+
+                if (await _userManager.IsInRoleAsync(user, "Admin"))
+                    return RedirectToAction("Dashboard", "Admin");
+
                 return RedirectToAction("Index", "Home");
+            }
 
             ModelState.AddModelError("", "Invalid email or password");
             return View(model);

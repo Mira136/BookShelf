@@ -1,11 +1,7 @@
-﻿@* ============================================================
-   Views/EBooks/UploadPdf.cshtml
-   Static page — ASP.NET Core MVC
-   ============================================================ *@
+﻿@model BookShelf.Models.Ebook
 
 @{
     Layout = null;
-    // string pageTitle = "Upload PDF";
 }
 
 <!DOCTYPE html>
@@ -14,6 +10,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookShelf</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/upload-pdf.css" />
@@ -24,13 +21,15 @@
 
     <!-- HEADER -->
     <div class="page-header">
-        <a href="/Home/Index" class="btn-back" title="Go Back">
+        <a href="/Home/Index" class="btn-back">
             <i class="fa fa-arrow-left"></i>
         </a>
         <h1 class="page-title">Upload PDF</h1>
     </div>
 
-    <!-- CARD -->
+    <!-- ✅ FORM -->
+    <form asp-action="UploadPdf" method="post" enctype="multipart/form-data">
+
     <div class="upload-card">
 
         <!-- DROPZONE -->
@@ -38,23 +37,26 @@
             <div class="dropzone-icon">
                 <i class="fa-solid fa-cloud-arrow-up"></i>
             </div>
-            <div class="dropzone-title">Choose a file or drag &amp; drop it here</div>
+            <div class="dropzone-title">Choose a file or drag & drop it here</div>
             <div class="dropzone-subtitle">File must be in PDF format</div>
+
             <button class="btn-browse" type="button" id="browseBtn">
-                <i class="fa fa-folder-open" style="margin-right:6px;"></i>Browse File
+                <i class="fa fa-folder-open"></i> Browse File
             </button>
-            <input type="file" id="pdfInput" accept=".pdf,application/pdf" />
+
+            <!-- IMPORTANT -->
+            <input type="file" id="pdfInput" name="pdfFile" accept=".pdf,application/pdf" />
         </div>
 
         <!-- BOOK INFO -->
         <div class="book-info-panel">
             <div class="book-info-grid">
 
-                <!-- Book Title -->
+                <!-- Title -->
                 <div class="field-group-wrap">
                     <div class="field-row">
-                        <label class="field-row-label" for="bookTitle">Book Title</label>
-                        <input class="field-row-input" id="bookTitle" type="text" placeholder="e.g. Let Them" />
+                        <label class="field-row-label">Book Title</label>
+                        <input id="bookTitle" name="Title" class="field-row-input" type="text" />
                     </div>
                     <div class="field-error" id="err-bookTitle">Book title is required.</div>
                 </div>
@@ -62,9 +64,9 @@
                 <!-- Language -->
                 <div class="field-group-wrap">
                     <div class="field-row">
-                        <label class="field-row-label" for="language">Language</label>
+                        <label class="field-row-label">Language</label>
                         <div class="select-wrap">
-                            <select class="field-row-select" id="language">
+                            <select id="language" name="Language" class="field-row-select">
                                 <option value="" disabled selected>Select</option>
                                 <option value="english">English</option>
                                 <option value="hindi">Hindi</option>
@@ -82,8 +84,8 @@
                 <!-- Author -->
                 <div class="field-group-wrap">
                     <div class="field-row">
-                        <label class="field-row-label" for="author">Author</label>
-                        <input class="field-row-input" id="author" type="text" placeholder="e.g. Mel Robbins" />
+                        <label class="field-row-label">Author</label>
+                        <input id="author" name="Author" class="field-row-input" type="text" />
                     </div>
                     <div class="field-error" id="err-author">Author name is required.</div>
                 </div>
@@ -91,8 +93,8 @@
                 <!-- Name -->
                 <div class="field-group-wrap">
                     <div class="field-row">
-                        <label class="field-row-label" for="uploaderName">Your Name</label>
-                        <input class="field-row-input" id="uploaderName" type="text" placeholder="Your full name" />
+                        <label class="field-row-label">Your Name</label>
+                        <input id="uploaderName" name="UploaderName" class="field-row-input" type="text" />
                     </div>
                     <div class="field-error" id="err-uploaderName">Your name is required.</div>
                 </div>
@@ -100,18 +102,16 @@
                 <!-- Category -->
                 <div class="field-group-wrap">
                     <div class="field-row">
-                        <label class="field-row-label" for="category">Category</label>
+                        <label class="field-row-label">Category</label>
                         <div class="select-wrap">
-                            <select class="field-row-select" id="category">
-                                <option value="" disabled selected>Select</option>
-                                <option value="academic">Academic</option>
-                                    <option value="kids">Kids</option>
-                                    <option value="poetry">Poetry</option>
-                                    <option value="fiction">Fiction</option>
-                                    <option value="religion">Religion</option>
-                                    <option value="motivation">Motivation</option>
-                                <option value="other">Other</option>
-                            </select>
+                                    <select id="category" name="CategoryId" required class="field-row-select">
+                                        <option value="">-- Select Category --</option>
+
+                                        @foreach (var cat in (List<Category>)ViewBag.Categories)
+                                        {
+                                            <option value="@cat.Id">@cat.Name</option>
+                                        }
+                                    </select>
                         </div>
                     </div>
                     <div class="field-error" id="err-category">Please select a category.</div>
@@ -120,8 +120,8 @@
                 <!-- Email -->
                 <div class="field-group-wrap">
                     <div class="field-row">
-                        <label class="field-row-label" for="email">Email</label>
-                        <input class="field-row-input" id="email" type="email" placeholder="e.g. name@gmail.com" />
+                        <label class="field-row-label">Email</label>
+                        <input id="email" name="Email" class="field-row-input" type="email" />
                     </div>
                     <div class="field-error" id="err-email">Enter a valid email address.</div>
                 </div>
@@ -129,7 +129,7 @@
             </div>
         </div>
 
-        <!-- FILE PREVIEW BAR -->
+        <!-- FILE PREVIEW -->
         <div class="file-preview-bar" id="filePreviewBar">
             <div class="file-pdf-icon"></div>
             <div class="file-preview-info">
@@ -138,7 +138,7 @@
                     <div class="file-preview-progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="file-preview-remove" type="button" onclick="removeFile()" title="Remove file">
+            <button class="file-preview-remove" type="button" onclick="removeFile()">
                 <i class="fa fa-circle-xmark"></i>
             </button>
         </div>
@@ -146,17 +146,20 @@
         <!-- SUBMIT -->
         <div class="submit-area">
             <button class="btn-submit" id="submitBtn" type="button" onclick="handleSubmit()">
-                <i class="fa fa-paper-plane" style="margin-right:7px;"></i>Submit
+                Submit
             </button>
+
             <div class="success-msg" id="successMsg">
-                <i class="fa fa-circle-check" style="margin-right:6px;"></i>
-                Uploaded Successfully!! Redirecting...
+                Uploaded Successfully!!
             </div>
         </div>
 
     </div>
+
+    </form>
 </div>
 
+<!-- ✅ SCRIPT -->
 <script>
     var selectedFile = null;
     var dropzone = document.getElementById('dropzone');
@@ -170,30 +173,41 @@
         e.preventDefault();
         dropzone.classList.add('dragover');
     });
+
     dropzone.addEventListener('dragleave', function(e) {
-        if (!dropzone.contains(e.relatedTarget)) dropzone.classList.remove('dragover');
+        if (!dropzone.contains(e.relatedTarget)) 
+            dropzone.classList.remove('dragover');
     });
+
     dropzone.addEventListener('drop', function(e) {
         e.preventDefault();
         dropzone.classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) processFile(e.dataTransfer.files[0]);
+        if (e.dataTransfer.files.length > 0)
+            processFile(e.dataTransfer.files[0]);
     });
+
     document.getElementById('pdfInput').addEventListener('change', function() {
-        if (this.files.length > 0) processFile(this.files[0]);
+        if (this.files.length > 0)
+            processFile(this.files[0]);
     });
 
     function processFile(file) {
         var name = file.name;
-        var isPdf = (file.type === 'application/pdf') || (name.substring(name.length - 4).toLowerCase() === '.pdf');
+        var isPdf = file.type === 'application/pdf' || name.toLowerCase().endsWith('.pdf');
+
         if (!isPdf) {
             dropzone.classList.add('shake');
-            setTimeout(function() { dropzone.classList.remove('shake'); }, 400);
+            setTimeout(() => dropzone.classList.remove('shake'), 400);
             return;
         }
+
         selectedFile = file;
         document.getElementById('fileName').textContent = name;
         document.getElementById('filePreviewBar').classList.add('visible');
-        setTimeout(function() { document.getElementById('progressFill').style.width = '100%'; }, 80);
+
+        setTimeout(() => {
+            document.getElementById('progressFill').style.width = '100%';
+        }, 80);
     }
 
     function removeFile() {
@@ -205,10 +219,10 @@
 
     function isNotEmpty(v) { return v.length > 0; }
 
-    // FIX: was '@@' (Razor escape) causing JS error, and variable name mismatch (atPos vs at)
     function isValidEmail(v) {
-            var atPos = v.indexOf('@@');
+        var atPos = v.indexOf('@@');
         if (atPos < 1) return false;
+
         var domain = v.substring(atPos + 1);
         var dotPos = domain.lastIndexOf('.');
         return dotPos > 0 && dotPos < domain.length - 1;
@@ -224,55 +238,56 @@
     };
 
     function validateField(id) {
-        var rule = rules[id];
-        if (!rule) return true;
         var el  = document.getElementById(id);
         var err = document.getElementById('err-' + id);
-        if (!el) return true;
-        var val   = el.value.trim();
-        var valid = rule.fn(val);
+        var val = el.value.trim();
+        var valid = rules[id].fn(val);
+
         el.classList.toggle('error', !valid);
-        el.classList.toggle('valid', valid && val.length > 0);
-        if (err) { valid ? err.classList.remove('visible') : err.classList.add('visible'); }
+
+        if (err) {
+            valid ? err.classList.remove('visible') : err.classList.add('visible');
+        }
+
         return valid;
     }
 
     var fieldIds = ['bookTitle', 'author', 'uploaderName', 'language', 'category', 'email'];
 
-    for (var i = 0; i < fieldIds.length; i++) {
-        (function(id) {
-            var el = document.getElementById(id);
-            if (!el) return;
-            var evt = (el.tagName === 'SELECT') ? 'change' : 'blur';
-            el.addEventListener(evt, function() { validateField(id); });
-            el.addEventListener('input', function() { if (el.classList.contains('error')) validateField(id); });
-        })(fieldIds[i]);
-    }
+    fieldIds.forEach(function(id) {
+        var el = document.getElementById(id);
+        var evt = (el.tagName === 'SELECT') ? 'change' : 'blur';
+
+        el.addEventListener(evt, function() {
+            validateField(id);
+        });
+    });
 
     function handleSubmit() {
         var allValid = true;
-        for (var j = 0; j < fieldIds.length; j++) {
-            if (!validateField(fieldIds[j])) allValid = false;
-        }
+
+        fieldIds.forEach(function(id) {
+            if (!validateField(id)) allValid = false;
+        });
+
         if (!selectedFile) {
             allValid = false;
             dropzone.classList.add('shake');
-            setTimeout(function() { dropzone.classList.remove('shake'); }, 400);
-        }
-        if (!allValid) {
-            var first = document.querySelector('.field-row-input.error, .field-row-select.error');
-            if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            return;
+            setTimeout(() => dropzone.classList.remove('shake'), 400);
         }
 
-        // Disable button + show success message
+        if (!allValid) return;
+
+        const dt = new DataTransfer();
+        dt.items.add(selectedFile);
+        document.getElementById('pdfInput').files = dt.files;
+
         document.getElementById('submitBtn').disabled = true;
         document.getElementById('successMsg').classList.add('visible');
 
-        // Redirect to Home/Index after 2 seconds
-        setTimeout(function() {
-            window.location.href = '/Home/Index';
-        }, 2000);
+        setTimeout(() => {
+            document.querySelector('form').submit();
+        }, 1000);
     }
 </script>
 

@@ -25,9 +25,9 @@
             <div class="price">
                 @if (book.ActualPrice != null)
                 {
-                    <span class="old">₹@book.ActualPrice</span>
+                    <span class="old">₹@book.SellingPrice</span>
                 }
-                <span class="new">₹@book.SellingPrice</span>
+                <span class="new">₹@book.ActualPrice</span>
             </div>
 
             <!-- BUTTONS -->

@@ -1,8 +1,4 @@
-﻿@* ============================================================
-   Views/EBooks/Ebooks.cshtml
-   Static page — ASP.NET Core MVC
-   ============================================================ *@
-
+﻿@model List<BookShelf.Models.Ebook>
 @{
     // ViewData["Title"] = "E-Books";
     Layout = null;
@@ -50,104 +46,47 @@
             <!-- Ebook List -->
             <div class="ebook-list" id="ebookList">
 
-                <!-- ── Card 1 ── -->
-                <div class="ebook-card">
-                    <div class="ebook-pdf-icon">
-                        <i class="fa-regular fa-file-pdf"></i>
-                    </div>
-                    <div class="ebook-info">
-                        <div class="ebook-title">Let Them &nbsp;|&nbsp; Mel Robbins &nbsp;|&nbsp; Self-Help &nbsp;|&nbsp; English</div>
-                        <div class="ebook-meta">
-                            Uploaded by : <strong>John</strong>
-                            &nbsp;&nbsp;&nbsp;
-                            Email : <strong>xyz@gmail.com</strong>
-                        </div>
-                    </div>
-                    <div class="ebook-actions">
-                        <a asp-controller="Ebooks"
-                           asp-action="Download"
-                           asp-route-fileName="let-them.pdf"
-                           class="btn-download"
-                           title="Download">
-                            <i class="fa fa-download"></i>
-                        </a>
-                        <a asp-controller="EBooks"
-                           asp-action="EbookDetails"
-                           class="btn-read"
-                           title="Read Online">
-                            <i class="fa fa-book-open"></i>
-                        </a>
-                    </div>
-                </div>
+                @foreach (var item in Model)
+                {
+                    <div class="ebook-card">
 
-                <!-- ── Card 2 ── -->
-                <div class="ebook-card">
-                    <div class="ebook-pdf-icon">
-                        <i class="fa-regular fa-file-pdf"></i>
-                    </div>
-                    <div class="ebook-info">
-                        <div class="ebook-title">The Midnight Library &nbsp;|&nbsp; Matt Haig &nbsp;|&nbsp; Fiction &nbsp;|&nbsp; English</div>
-                        <div class="ebook-meta">
-                            Uploaded by : <strong>Diva</strong>
-                            &nbsp;&nbsp;&nbsp;
-                            Email : <strong>xyz@gmail.com</strong>
+                        <div class="ebook-pdf-icon">
+                            <i class="fa-regular fa-file-pdf"></i>
                         </div>
-                    </div>
-                    <div class="ebook-actions">
-                        <a href="#" class="btn-download" title="Download" download>
-                            <i class="fa fa-download"></i>
-                        </a>
-                        <a href="#" class="btn-read" title="Read Online">
-                            <i class="fa fa-book-open"></i>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- ── Card 3 ── -->
-                <div class="ebook-card">
-                    <div class="ebook-pdf-icon">
-                        <i class="fa-regular fa-file-pdf"></i>
-                    </div>
-                    <div class="ebook-info">
-                        <div class="ebook-title">To Kill a Mockingbird &nbsp;|&nbsp; Harper Lee &nbsp;|&nbsp; Social Injustice &nbsp;|&nbsp; English</div>
-                        <div class="ebook-meta">
-                            Uploaded by : <strong>Jeni</strong>
-                            &nbsp;&nbsp;&nbsp;
-                            Email : <strong>xyz@gmail.com</strong>
-                        </div>
-                    </div>
-                    <div class="ebook-actions">
-                        <a href="#" class="btn-download" title="Download" download>
-                            <i class="fa fa-download"></i>
-                        </a>
-                        <a href="#" class="btn-read" title="Read Online">
-                            <i class="fa fa-book-open"></i>
-                        </a>
-                    </div>
-                </div>
+                        <div class="ebook-info">
+                            <div class="ebook-title">
+                                @item.Title | @item.Author |
+                                @(item.Category != null ? item.Category.Name : "No Category") |
+                                @item.Language
+                            </div>
 
-                <!-- ── Card 4 ── -->
-                <div class="ebook-card">
-                    <div class="ebook-pdf-icon">
-                        <i class="fa-regular fa-file-pdf"></i>
-                    </div>
-                    <div class="ebook-info">
-                        <div class="ebook-title">Tuesdays with Morrie &nbsp;|&nbsp; Mitch Albom &nbsp;|&nbsp; Memoir &nbsp;|&nbsp; English</div>
-                        <div class="ebook-meta">
-                            Uploaded by : <strong>Reni</strong>
-                            &nbsp;&nbsp;&nbsp;
-                            Email : <strong>xyz@gmail.com</strong>
+                            <div class="ebook-meta">
+                                Uploaded by : <strong>@item.Uploader?.UserName</strong>
+                            </div>
+                        </div>
+
+                        <div class="ebook-actions">
+
+                            <!-- DOWNLOAD -->
+                            <a asp-controller="Ebooks"
+                               asp-action="Download"
+                               asp-route-id="@item.Id"
+                               class="btn-download">
+                                <i class="fa fa-download"></i>
+                            </a>
+
+                            <!-- READ -->
+                            <a asp-controller="Ebooks"
+                               asp-action="EbookDetails"
+                               asp-route-id="@item.Id"
+                               class="btn-read">
+                                <i class="fa fa-book-open"></i>
+                            </a>
+
                         </div>
                     </div>
-                    <div class="ebook-actions">
-                        <a href="#" class="btn-download" title="Download" download>
-                            <i class="fa fa-download"></i>
-                        </a>
-                        <a href="#" class="btn-read" title="Read Online">
-                            <i class="fa fa-book-open"></i>
-                        </a>
-                    </div>
-                </div>
+                }
 
             </div>
             @* end #ebookList *@

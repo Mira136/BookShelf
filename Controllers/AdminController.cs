@@ -58,7 +58,13 @@ namespace BookShelf.Controllers
         }
         public IActionResult Ebooks()
         {
-            return View();
+            var ebooks = _db.Ebooks
+                .Include(e => e.Category)
+                .Include(e => e.Uploader)
+                .OrderByDescending(e => e.CreatedAt)
+                .ToList();
+
+            return View(ebooks);
         }
         // ================= NOTIFICATIONS =================
 

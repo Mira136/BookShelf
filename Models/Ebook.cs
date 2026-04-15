@@ -31,5 +31,7 @@ namespace BookShelf.Models
         // Who uploaded this ebook
         public string? UploaderId { get; set; }
         public ApplicationUser? Uploader { get; set; }
+
+        public string? Email { get; set; }
     }
 }

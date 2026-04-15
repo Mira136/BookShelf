@@ -1,7 +1,4 @@
-﻿@* ============================================================
-   Views/EBooks/EbookDetails.cshtml
-   Static page — ASP.NET Core MVC
-   ============================================================ *@
+﻿@model BookShelf.Models.Ebook
 
 @{
     // ViewData["Title"] = "E-Book Details";
@@ -37,7 +34,7 @@
             <div class="action-bar">
                 <a asp-controller="Ebooks"
                    asp-action="Download"
-                   asp-route-fileName="let-them.pdf"
+                   asp-route-id="@Model.Id"
                    class="btn-download-main">
                     <i class="fa fa-download"></i> Download
                 </a>
@@ -85,10 +82,20 @@
             </div>
 
             <div class="book-meta-row">
-                <div class="book-meta-title">Let Them - Mel Robbins</div>
+                <div class="book-meta-title">
+                    @Model.Title - @Model.Author
+                </div>
+
                 <div class="book-meta-info">
-                    <span>Uploaded by : <strong>John</strong></span>
-                    <span>Email : <strong>xyz@gmail.com</strong></span>
+                    <span>
+                        Uploaded by :
+                        <strong>@Model.Uploader?.UserName</strong>
+                    </span>
+
+                    <span>
+                        Email :
+                        <strong>@Model.Uploader?.Email</strong>
+                    </span>
                 </div>
             </div>
 
@@ -120,7 +127,7 @@
 
 
     <script>
-        const url = '/uploads/let-them.pdf';
+        const url = '/uploads/@Model.PdfFilePath';
 
         pdfjsLib.GlobalWorkerOptions.workerSrc =
             "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
