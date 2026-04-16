@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-<title>BookShelf – Edit About Us</title>
+<title>BookShelf</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;600;700&display=swap">
@@ -162,6 +162,7 @@
     <i class="fa-solid fa-circle-check"></i> Changes saved successfully!
 </div>
 
+
 <script>
     // format command
     function fmt(editorId, command) {
@@ -171,18 +172,48 @@
         document.execCommand(command, false, null);
     }
 
-    // sync hidden inputs before submit
-    document.getElementById('aboutForm').addEventListener('submit', function () {
-        syncHidden('editor-story',   'hidden-story');
+        document.getElementById('aboutForm').addEventListener('submit', function (e) {
+        syncHidden('editor-story', 'hidden-story');
         syncHidden('editor-mission', 'hidden-mission');
-        syncHidden('editor-vision',  'hidden-vision');
-        syncHidden('editor-choose',  'hidden-choose');
+        syncHidden('editor-vision', 'hidden-vision');
+        syncHidden('editor-choose', 'hidden-choose');
     });
 
-    function syncHidden(editorId, hiddenId) {
+        function syncHidden(editorId, hiddenId) {
         var editor = document.getElementById(editorId);
         var hidden = document.getElementById(hiddenId);
-        if (editor && hidden) hidden.value = editor.innerHTML;
+
+        if (!editor || !hidden) return;
+
+        // 👉 Special logic ONLY for WhyChooseUs
+        if (editorId === "editor-choose") {
+
+            // Split lines
+            var lines = editor.innerText
+                .split('\n')
+                .map(x => x.trim())
+                .filter(x => x !== "");
+
+            // Convert into tiles HTML
+            var html = '<div class="choose-grid-2x2">';
+
+            lines.forEach(line => {
+                html += `
+                    <div class="choose-tile">
+                        <div class="choose-tile-body">
+                            <div class="choose-tile-title">${line}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+
+            hidden.value = html;
+        }
+        else {
+            hidden.value = editor.innerHTML;
+        }
     }
 
     // char counters

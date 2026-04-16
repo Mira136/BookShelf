@@ -13,11 +13,13 @@ namespace BookShelf.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        public AdminController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        public AdminController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _db = db;
             _userManager = userManager;
+            _context = context;
         }
         public IActionResult Index()
         {
@@ -44,7 +46,37 @@ namespace BookShelf.Controllers
         }
         public IActionResult Scoreboard()
         {
-            return View();
+            var users = _context.Users.ToList();
+
+            var scoreboard = new List<ScoreboardViewModel>();
+
+            int sr = 1;
+
+            foreach (var user in users)
+            {
+                var ebooks = _context.Ebooks
+                    .Where(e => e.UploaderId == user.Id)
+                    .OrderBy(e => e.CreatedAt)
+                    .ToList();
+
+                for (int i = 10; i <= ebooks.Count; i += 10)
+                {
+                    var ebookAtMilestone = ebooks[i - 1];
+
+                    scoreboard.Add(new ScoreboardViewModel
+                    {
+                        SrNo = sr++,
+                        Username = user.Email,
+                        Credits = $"+{i / 10}",
+                        Action = $"Completed {i} Uploads",
+
+                        Date = ebookAtMilestone.CreatedAt.ToString("yyyy-MM-dd"),
+                        Time = ebookAtMilestone.CreatedAt.ToString("HH:mm:ss")
+                    });
+                }
+            }
+
+            return View(scoreboard);
         }
         public async Task<IActionResult> Books()
         {

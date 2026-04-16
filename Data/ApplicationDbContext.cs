@@ -18,6 +18,8 @@ namespace BookShelf.Data
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<WishlistItem> WishlistItems { get; set; }
+        public DbSet<ScoreboardEntry> ScoreboardEntries { get; set; }
+        public DbSet<AboutUsContent> AboutUsContents { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -24,7 +24,7 @@
         <!-- LEFT SIDE (Profile Image) -->
         <div class="card-left">
             <div class="avatar-wrapper">
-                <img src="~/images/reg_profile.png"
+                <img src="~/images/@(Model.ProfileImage ?? "reg_profile.png")"
                      class="avatar-img"
                      alt="Profile Photo" />
             </div>
@@ -47,7 +47,7 @@
 
                 <div class="field">
                     <label>Number</label>
-                    <div class="field-box">@Model.Number</div>
+                    <div class="field-box">9999999999</div>
                 </div>
 
             </div>

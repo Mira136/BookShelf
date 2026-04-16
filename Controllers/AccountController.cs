@@ -1,4 +1,5 @@
-﻿using BookShelf.Models;
+﻿using BookShelf.Data;
+using BookShelf.Models;
 using BookShelf.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,15 +12,21 @@ namespace BookShelf.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IWebHostEnvironment _env;
+        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _db;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IWebHostEnvironment env)
+            IWebHostEnvironment env,
+            ApplicationDbContext context,
+            ApplicationDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _env = env;
+            _context = context;
+            _db = db;
         }
 
         // ================= LOGIN =================
@@ -182,12 +189,20 @@ namespace BookShelf.Controllers
             if (user == null)
                 return RedirectToAction("Login");
 
+            // ✅ COUNT uploaded ebooks
+            int ebookCount = _context.Ebooks
+                .Count(e => e.UploaderId == user.Id);
+
+            // ✅ CREDIT LOGIC
+            int credit = ebookCount / 10;
+
             var model = new UserProfileViewModel
             {
                 Name = user.FullName,
                 Username = user.Email ?? string.Empty,
                 Number = user.PhoneNumber ?? string.Empty,
-                ProfileImage = user.ProfileImagePath ?? "reg_profile.png"
+                ProfileImage = user.ProfileImagePath ?? "reg_profile.png",
+                Credit = credit
             };
 
             return View(model);
@@ -196,15 +211,22 @@ namespace BookShelf.Controllers
         // ================= ADMIN PROFILE =================
 
         [Authorize(Roles = "Admin")]
-        public IActionResult AdminProfile()
+        public async Task<IActionResult> AdminProfile()
         {
-            var admin = new AdminProfileViewModel
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+                return RedirectToAction("Login");
+
+            var model = new AdminProfileViewModel
             {
-                Name = "Admin",
-                Username = "admin@gmail.com",
-                Number = "9946457894"
+                Name = user.FullName,
+                Username = user.Email ?? "",
+                Number = user.PhoneNumber ?? "",
+                ProfileImage = user.ProfileImagePath ?? "reg_profile.png"
             };
-            return View(admin);
+
+            return View(model);
         }
 
         // ================= EDIT USER PROFILE =================
@@ -216,11 +238,19 @@ namespace BookShelf.Controllers
             if (user == null)
                 return RedirectToAction("Login");
 
+            // ✅ COUNT ebooks
+            int ebookCount = _context.Ebooks
+                .Count(e => e.UploaderId == user.Id);
+
+            // ✅ CALCULATE credit
+            int credit = ebookCount / 10;
+
             var model = new EditUserProfileViewModel
             {
                 Name = user.FullName,
                 Number = user.PhoneNumber ?? string.Empty,
-                ExistingPhotoPath = user.ProfileImagePath ?? "reg_profile.png"
+                ExistingPhotoPath = user.ProfileImagePath ?? "reg_profile.png",
+                Credit = credit   // 👈 ADD THIS
             };
 
             return View(model);
@@ -270,13 +300,18 @@ namespace BookShelf.Controllers
 
         public IActionResult AdminAboutUs()
         {
-            var model = new AboutUsViewModel
+            var data = _context.AboutUsContents.FirstOrDefault();
+
+            var model = new AboutUsViewModel();
+
+            if (data != null)
             {
-                OurStory = "Our bookstore was created for people who want to buy and sell books at affordable prices.",
-                OurMission = "To provide quality books at affordable prices and deliver them quickly to readers.",
-                OurVision = "To become a trusted online bookstore for readers everywhere.",
-                WhyChooseUs = "Trusted Online Bookstore | Affordable Prices | Simple Shopping Experience | Great Customer Support"
-            };
+                model.OurStory = data.OurStory;
+                model.OurMission = data.OurMission;
+                model.OurVision = data.OurVision;
+                model.WhyChooseUs = data.WhyChooseUs;
+            }
+
             return View(model);
         }
 
@@ -284,41 +319,38 @@ namespace BookShelf.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AdminAboutUs(AboutUsViewModel model)
         {
-            if (ModelState.IsValid)
-                TempData["AboutSaved"] = "true";
-            return View(model);
+            var existing = _db.AboutUsContents.FirstOrDefault();
+
+            if (existing == null)
+            {
+                existing = new AboutUsContent();
+                _db.AboutUsContents.Add(existing);
+            }
+
+            // ✅ Update ONLY if value is not empty
+            if (!string.IsNullOrWhiteSpace(model.OurStory))
+                existing.OurStory = model.OurStory;
+
+            if (!string.IsNullOrWhiteSpace(model.OurMission))
+                existing.OurMission = model.OurMission;
+
+            if (!string.IsNullOrWhiteSpace(model.OurVision))
+                existing.OurVision = model.OurVision;
+
+            if (!string.IsNullOrWhiteSpace(model.WhyChooseUs))
+                existing.WhyChooseUs = model.WhyChooseUs;
+
+            _db.SaveChanges();
+
+            TempData["AboutSaved"] = true;
+
+            return RedirectToAction("AdminAboutUs");
         }
 
         public IActionResult About()
         {
-            var model = new AboutViewModel
-            {
-                Title = "About Our BookShelf",
-                Subtitle = "Your Trusted Place to Discover and buy books online.",
-                StoryDescription = "Our bookstore was created for people who want to buy and sell books at affordable prices.",
-                Mission = "To provide quality books at affordable prices and deliver them quickly to readers.",
-                Vision = "To become a trusted online bookstore for readers everywhere.",
-                WhyChooseUsPoints = new List<string>
-                {
-                    "Trusted Online Bookstore",
-                    "Affordable Prices",
-                    "Simple Shopping Experience",
-                    "Great Customer Support"
-                },
-                TeamMembers = new List<TeamMember>
-                {
-                    new TeamMember { Name = "Tanvi",  Email = "tanvi123@gmail.com"  },
-                    new TeamMember { Name = "Ayushi", Email = "ayushi123@gmail.com" },
-                    new TeamMember { Name = "Mirali", Email = "mira123@gmail.com"   }
-                },
-                OfferItems = new List<OfferItem>
-                {
-                    new OfferItem { Title = "Wide Selection",       ImageUrl = "/images/books1.jpg" },
-                    new OfferItem { Title = "Easy Online Ordering", ImageUrl = "/images/books2.jpg" },
-                    new OfferItem { Title = "Nominal Price",        ImageUrl = "/images/books3.jpg" }
-                }
-            };
-            return View(model);
+            var data = _context.AboutUsContents.FirstOrDefault();
+            return View(data);
         }
     }
 }

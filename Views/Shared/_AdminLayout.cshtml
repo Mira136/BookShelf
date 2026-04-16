@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using BookShelf.Models
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
 
@@ -9,6 +13,13 @@
 
     // Check if we are on the Dashboard page
     bool isDashboardPage = currentController == "Admin" && currentAction == "Dashboard";
+
+    ApplicationUser currentUser = null;
+
+    if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        currentUser = await UserManager.GetUserAsync(User);
+    }
 }
 
 <!DOCTYPE html>
@@ -37,9 +48,13 @@
             </div>
 
             <div class="header-right">
-                <a asp-controller="Account" asp-action="AdminProfile">
-                    <i class="fa fa-user header-icon"></i>
-                </a>
+                @if (currentUser != null)
+                {
+                    <a asp-controller="Account" asp-action="AdminProfile">
+                        <img src="~/images/@(currentUser.ProfileImagePath ?? "reg_profile.png")"
+                             class="header-profile-img" />
+                    </a>
+                }
             </div>
         </div>
     }

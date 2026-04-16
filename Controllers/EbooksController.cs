@@ -77,7 +77,25 @@ public class EbooksController : Controller
             model.UploaderId = user.Id;
 
         _db.Ebooks.Add(model);
-        await _db.SaveChangesAsync();
+        await _db.SaveChangesAsync();   // ✅ Ebook saved
+
+        if (user != null)
+        {
+            int totalUploads = _db.Ebooks.Count(e => e.UploaderId == user.Id);
+
+            if (totalUploads % 10 == 0)
+            {
+                _db.ScoreboardEntries.Add(new ScoreboardEntry
+                {
+                    UserId = user.Id,
+                    Credits = 1,
+                    Action = $"Completed {totalUploads} Uploads",
+                    CreatedAt = DateTime.Now
+                });
+
+                await _db.SaveChangesAsync();
+            }
+        }
 
         return RedirectToAction("Index");
     }

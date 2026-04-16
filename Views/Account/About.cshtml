@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BookShelf.Models.AboutUsContent
+@{
     Layout = null;
 }
 <title>BookShelf – About</title>
@@ -27,22 +28,16 @@
         <section class="story-section">
             <h2 class="section-title left">Our Story</h2>
             <p class="story-text">
-                Our bookstore was created for people who want to <strong>
-                    buy and sell books at affordable
-                    prices
-                </strong>. We built this platform to help users easily find new and second-hand books
-                from home. Anyone can sell their books at a <strong>nominal price</strong>, making books more
-                <strong>accessible</strong> and <strong>budget-friendly</strong> for everyone. We believe books
-                should be shared, reused, and available at low cost.
+                @Html.Raw(Model?.OurStory)
             </p>
             <div class="mv-grid">
                 <div class="mv-card-mission">
                     <h3>Our Mission</h3>
-                    <p>"To <strong>provide</strong> quality books at <strong>affordable</strong> prices and deliver them <strong>quickly</strong> to readers."</p>
+                    <p>@Html.Raw(Model?.OurMission)</p>
                 </div>
                 <div class="mv-card-vision">
                     <h3>Our Vision</h3>
-                    <p>"To become a trusted online bookstore for readers everywhere."</p>
+                    <p>@Html.Raw(Model?.OurVision)</p>
                 </div>
             </div>
         </section>
@@ -74,33 +69,8 @@
         <section class="choose-section">
             <h2 class="section-title">Why Choose Us ?</h2>
             <div class="choose-grid-2x2">
-                <div class="choose-tile">
-                    <div class="choose-tile-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                    <div class="choose-tile-body">
-                        <div class="choose-tile-title">Trusted Online Bookstore</div>
-                        <div class="choose-tile-sub">Verified sellers and secure transactions every time you shop</div>
-                    </div>
-                </div>
-                <div class="choose-tile">
-                    <div class="choose-tile-icon"><i class="fa-solid fa-tag"></i></div>
-                    <div class="choose-tile-body">
-                        <div class="choose-tile-title">Affordable Prices</div>
-                        <div class="choose-tile-sub">New and second-hand books at the lowest prices anywhere</div>
-                    </div>
-                </div>
-                <div class="choose-tile">
-                    <div class="choose-tile-icon"><i class="fa-solid fa-cart-shopping"></i></div>
-                    <div class="choose-tile-body">
-                        <div class="choose-tile-title">Simple Shopping Experience</div>
-                        <div class="choose-tile-sub">Browse, order and receive your books in just a few clicks</div>
-                    </div>
-                </div>
-                <div class="choose-tile">
-                    <div class="choose-tile-icon"><i class="fa-solid fa-headset"></i></div>
-                    <div class="choose-tile-body">
-                        <div class="choose-tile-title">Great Customer Support</div>
-                        <div class="choose-tile-sub">Our team is here to help you at every step of the way</div>
-                    </div>
+                <div class="story-text">
+                    @Html.Raw(Model?.WhyChooseUs)
                 </div>
             </div>
         </section>

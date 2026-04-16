@@ -1,3 +1,7 @@
+@using Microsoft.AspNetCore.Identity
+@using BookShelf.Models
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     bool isLoggedIn = User.Identity != null && User.Identity.IsAuthenticated;
     bool isAdmin = User.IsInRole("Admin");
@@ -16,6 +20,13 @@
     string GuestOrUserLink(string controller, string action)
     {
         return isLoggedIn ? Url.Action(action, controller) : Url.Action("Login", "Account");
+    }
+
+    ApplicationUser currentUser = null;
+
+    if (isLoggedIn)
+    {
+        currentUser = await UserManager.GetUserAsync(User);
     }
 }
 <!DOCTYPE html>
@@ -63,15 +74,26 @@
 
                     @if (isAdmin)
                     {
-                        <a asp-controller="Account" asp-action="AdminProfile">
+                        @* <a asp-controller="Account" asp-action="AdminProfile">
                             <i class="fa fa-user header-icon"></i>
-                        </a>
+                        </a> *@
+                        @if (isAdmin)
+                        {
+                            <a asp-controller="Account" asp-action="AdminProfile">
+                                <img src="~/images/@(currentUser?.ProfileImagePath ?? "reg_profile.png")"
+                                     class="header-profile-img" />
+                            </a>
+                        }
                     }
                     else
                     {
-                        <a asp-controller="Account" asp-action="UserProfile">
-                            <i class="fa fa-user header-icon"></i>
-                        </a>
+                        @if (currentUser != null)
+                        {
+                            <a asp-controller="Account" asp-action="UserProfile">
+                                <img src="~/images/@(currentUser.ProfileImagePath ?? "reg_profile.png")"
+                                     class="header-profile-img" />
+                            </a>
+                        }
                     }
                 }
                 else
