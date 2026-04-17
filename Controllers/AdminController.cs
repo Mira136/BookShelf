@@ -27,6 +27,10 @@ namespace BookShelf.Controllers
         }
         public IActionResult Dashboard()
         {
+            ViewBag.TotalBooks = _db.Books.Count();
+            ViewBag.TotalUsers = _db.Users.Count();
+            ViewBag.TotalEbooks = _db.Ebooks.Count();
+
             return View();
         }
         public async Task<IActionResult> Users()
@@ -105,25 +109,36 @@ namespace BookShelf.Controllers
         {
             var model = new AdminNotificationsViewModel
             {
-                Notifications = GetNotificationsFromTempData()
+                Notifications = _db.Notifications
+                    .OrderByDescending(n => n.CreatedAt)
+                    .ToList()
             };
+
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public IActionResult AddNotification(AdminNotificationsViewModel model)
         {
-            var list = GetNotificationsFromTempData();
-
             if (!string.IsNullOrWhiteSpace(model.NewNotification.Title))
             {
-                model.NewNotification.Id = list.Count + 1;
-                model.NewNotification.TimeAgo = "Just now";
-                list.Insert(0, model.NewNotification);
-                SaveNotificationsToTempData(list);
-                TempData["NotifSaved"] = "true";
+                var notif = new Notification
+                {
+                    Title = model.NewNotification.Title,
+                    Description = model.NewNotification.Description,
+                    Type = model.NewNotification.Type,
+                    //TimeAgo = model.NewNotification.TimeAgo ?? "Just now",
+                    CreatedAt = DateTime.Now,
+                    IsRead = false,
+                    IsDismissed = false,
+                    UserId = null // 🔥 broadcast to ALL users
+                };
+
+                _db.Notifications.Add(notif);
+                _db.SaveChanges();
+
+                TempData["NotifSaved"] = true;
             }
 
             return RedirectToAction("Notifications");
@@ -132,9 +147,14 @@ namespace BookShelf.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteNotification(int id)
         {
-            var list = GetNotificationsFromTempData();
-            list.RemoveAll(n => n.Id == id);
-            SaveNotificationsToTempData(list);
+            var notif = _db.Notifications.Find(id);
+
+            if (notif != null)
+            {
+                _db.Notifications.Remove(notif);
+                _db.SaveChanges();
+            }
+
             return RedirectToAction("Notifications");
         }
 

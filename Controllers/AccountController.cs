@@ -4,6 +4,7 @@ using BookShelf.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using BookShelf.Services;
 
 namespace BookShelf.Controllers
 {
@@ -14,19 +15,22 @@ namespace BookShelf.Controllers
         private readonly IWebHostEnvironment _env;
         private readonly ApplicationDbContext _context;
         private readonly ApplicationDbContext _db;
+        private readonly EmailService _emailService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IWebHostEnvironment env,
             ApplicationDbContext context,
-            ApplicationDbContext db)
+            ApplicationDbContext db,
+            EmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _env = env;
             _context = context;
             _db = db;
+            _emailService = emailService;
         }
 
         // ================= LOGIN =================
@@ -166,18 +170,60 @@ namespace BookShelf.Controllers
         }
 
         // ================= FORGOT PASSWORD =================
+        private string GenerateStrongPassword()
+        {
+            const string chars = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
+            var random = new Random();
 
+            return new string(Enumerable.Repeat(chars, 10)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
         public IActionResult ForgotPassword()
         {
             return View();
         }
-
         [HttpPost]
-        public IActionResult ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
-                ViewBag.Message = "Reset link sent to your email!";
-            return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user != null)
+            {
+                // 🔥 generate new password
+                string newPassword = GenerateStrongPassword();
+
+                // 🔥 generate reset token
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                // 🔥 reset password
+                var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+
+                if (result.Succeeded)
+                {
+                    string body = $@"
+                <h3>Your New Password</h3>
+                <p><b>{newPassword}</b></p>
+                <p>Please login and change it after login.</p>
+            ";
+
+                    _emailService.SendEmail(user.Email, "BookShelf - New Password", body);
+
+                    TempData["SuccessMessage"] = "New password sent to your email!";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to reset password.";
+                }
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Email not found.";
+            }
+
+            return RedirectToAction("ForgotPassword");
         }
 
         // ================= USER PROFILE =================
@@ -194,7 +240,7 @@ namespace BookShelf.Controllers
                 .Count(e => e.UploaderId == user.Id);
 
             // ✅ CREDIT LOGIC
-            int credit = ebookCount / 10;
+            int credit = ebookCount / 5;
 
             var model = new UserProfileViewModel
             {
@@ -294,7 +340,62 @@ namespace BookShelf.Controllers
 
         // ================= NOTIFICATIONS =================
 
-        public IActionResult Notifications() => View();
+        public IActionResult Notifications()
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var list = _context.Notifications
+                .Where(n => n.UserId == null || n.UserId == userId)
+                .Where(n => !n.IsDismissed)
+                .OrderByDescending(n => n.CreatedAt)
+                .ToList();
+
+            ViewBag.UnreadCount = list.Count(n => !n.IsRead);
+
+            return View(list);
+        }
+        [HttpPost]
+        public IActionResult DismissNotification(int id)
+        {
+            var notif = _context.Notifications.Find(id);
+
+            if (notif != null)
+            {
+                notif.IsDismissed = true;
+                _context.SaveChanges();
+            }
+
+            return Ok();
+        }
+        [HttpPost]
+        public IActionResult MarkAsRead(int id)
+        {
+            var notif = _context.Notifications.Find(id);
+
+            if (notif != null)
+            {
+                notif.IsRead = true;
+                _context.SaveChanges();
+            }
+
+            return Ok();
+        }
+        [HttpPost]
+        public IActionResult MarkAllRead()
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var notifs = _context.Notifications
+                .Where(n => (n.UserId == null || n.UserId == userId) && !n.IsRead)
+                .ToList();
+
+            foreach (var n in notifs)
+                n.IsRead = true;
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
 
         // ================= ABOUT US =================
 

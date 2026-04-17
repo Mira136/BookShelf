@@ -2,6 +2,7 @@
 using BookShelf.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using BookShelf.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
+
+// ✅ Email Service
+builder.Services.AddScoped<EmailService>();
 
 // ✅ Login page redirect
 builder.Services.ConfigureApplicationCookie(options =>
@@ -63,4 +67,5 @@ using (var scope = app.Services.CreateScope())
 {
     await BookShelf.Data.DbSeeder.SeedRolesAsync(scope.ServiceProvider);
 }
+
 app.Run();

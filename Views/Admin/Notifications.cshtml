@@ -2,7 +2,27 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<title>BookShelf – Manage Notifications</title>
+@functions {
+    public string GetTimeAgo(DateTime createdAt)
+    {
+        var timeSpan = DateTime.Now - createdAt;
+
+        if (timeSpan.TotalSeconds < 60)
+            return "Just now";
+
+        if (timeSpan.TotalMinutes < 60)
+            return $"{(int)timeSpan.TotalMinutes} mins ago";
+
+        if (timeSpan.TotalHours < 24)
+            return $"{(int)timeSpan.TotalHours} hours ago";
+
+        if (timeSpan.TotalDays < 7)
+            return $"{(int)timeSpan.TotalDays} days ago";
+
+        return createdAt.ToString("dd MMM yyyy");
+    }
+}
+<title>BookShelf</title>
 
 @section Styles {
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,17 +87,6 @@
                     </select>
                 </div>
 
-                <!-- Time -->
-                <div class="form-field">
-                    <label class="form-label">Time Label</label>
-                    <input class="form-input"
-                           name="NewNotification.TimeAgo"
-                           type="text"
-                           placeholder="e.g. Just now"
-                           maxlength="30"
-                           value="Just now" />
-                </div>
-
                 <!-- Description -->
                 <div class="form-field" style="grid-column: 1 / -1;">
                     <label class="form-label">Description</label>
@@ -136,7 +145,8 @@
                         <div class="row-desc">@notif.Description</div>
                         <div class="row-meta">
                             <span class="row-time">
-                                <i class="fa-regular fa-clock"></i> @notif.TimeAgo
+                                <i class="fa-regular fa-clock"></i>
+                                @GetTimeAgo(notif.CreatedAt)
                             </span>
                             <span class="row-tag @notif.Type">@notif.Type</span>
                         </div>

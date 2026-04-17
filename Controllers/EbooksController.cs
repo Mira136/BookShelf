@@ -83,7 +83,7 @@ public class EbooksController : Controller
         {
             int totalUploads = _db.Ebooks.Count(e => e.UploaderId == user.Id);
 
-            if (totalUploads % 10 == 0)
+            if (totalUploads % 5 == 0)
             {
                 _db.ScoreboardEntries.Add(new ScoreboardEntry
                 {

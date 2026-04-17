@@ -11,7 +11,7 @@
 
     public class AdminNotificationsViewModel
     {
-        public List<NotificationItemViewModel> Notifications { get; set; } = new();
-        public NotificationItemViewModel NewNotification { get; set; } = new();
+        public List<Notification> Notifications { get; set; } = new();
+        public Notification NewNotification { get; set; } = new();
     }
 }
